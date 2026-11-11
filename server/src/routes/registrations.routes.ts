@@ -21,8 +21,8 @@ class NotFoundError extends Error {
   }
 }
 
-// POST /api/events/:id/registrations - Register for an event (PARTICIPANT only)
-registrationsRouter.post('/events/:id/registrations', requireAuth, requireRole(Role.PARTICIPANT), async (req: AuthenticatedRequest, res: Response) => {
+// POST /api/events/:id/registrations (and alias /events/:id/register) - Register for an event (PARTICIPANT only)
+const registerHandler = async (req: AuthenticatedRequest, res: Response) => {
   const { id } = req.params;
   const userId = req.user!.id;
 
@@ -97,10 +97,13 @@ registrationsRouter.post('/events/:id/registrations', requireAuth, requireRole(R
     console.error('Registration transaction error:', err);
     return res.status(500).json({ error: 'Internal server error during registration' });
   }
-});
+};
 
-// GET /api/registrations/me - List current participant's registrations
-registrationsRouter.get('/registrations/me', requireAuth, requireRole(Role.PARTICIPANT), async (req: AuthenticatedRequest, res: Response) => {
+registrationsRouter.post('/events/:id/registrations', requireAuth, requireRole(Role.PARTICIPANT), registerHandler);
+registrationsRouter.post('/events/:id/register', requireAuth, requireRole(Role.PARTICIPANT), registerHandler);
+
+// GET /api/registrations/me (and alias /my-registrations) - List current participant's registrations
+const myRegistrationsHandler = async (req: AuthenticatedRequest, res: Response) => {
   const registrations = await prisma.registration.findMany({
     where: {
       userId: req.user!.id,
@@ -138,4 +141,7 @@ registrationsRouter.get('/registrations/me', requireAuth, requireRole(Role.PARTI
       },
     })),
   });
-});
+};
+
+registrationsRouter.get('/registrations/me', requireAuth, requireRole(Role.PARTICIPANT), myRegistrationsHandler);
+registrationsRouter.get('/my-registrations', requireAuth, requireRole(Role.PARTICIPANT), myRegistrationsHandler);

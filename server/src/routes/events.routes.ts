@@ -176,7 +176,7 @@ eventsRouter.get('/:id', requireAuth, async (req: AuthenticatedRequest, res: Res
 });
 
 // POST /api/events/:id/publish - Transition DRAFT to PUBLISHED
-eventsRouter.post('/:id/publish', requireAuth, requireRole(Role.ORGANIZER), async (req: AuthenticatedRequest, res: Response) => {
+const publishHandler = async (req: AuthenticatedRequest, res: Response) => {
   const { id } = req.params;
 
   const event = await prisma.event.findUnique({ where: { id } });
@@ -209,7 +209,10 @@ eventsRouter.post('/:id/publish', requireAuth, requireRole(Role.ORGANIZER), asyn
       title: updated.title,
     },
   });
-});
+};
+
+eventsRouter.post('/:id/publish', requireAuth, requireRole(Role.ORGANIZER), publishHandler);
+eventsRouter.patch('/:id/publish', requireAuth, requireRole(Role.ORGANIZER), publishHandler);
 
 // PATCH /api/events/:id/capacity - Update capacity
 eventsRouter.patch('/:id/capacity', requireAuth, requireRole(Role.ORGANIZER), async (req: AuthenticatedRequest, res: Response) => {
@@ -262,8 +265,8 @@ eventsRouter.patch('/:id/capacity', requireAuth, requireRole(Role.ORGANIZER), as
   });
 });
 
-// GET /api/events/:id/registrations - Organizer Registrant Roster
-eventsRouter.get('/:id/registrations', requireAuth, requireRole(Role.ORGANIZER), async (req: AuthenticatedRequest, res: Response) => {
+// GET /api/events/:id/registrations (and alias /:id/roster) - Organizer Registrant Roster
+const rosterHandler = async (req: AuthenticatedRequest, res: Response) => {
   const { id } = req.params;
 
   const event = await prisma.event.findUnique({ where: { id } });
@@ -303,4 +306,7 @@ eventsRouter.get('/:id/registrations', requireAuth, requireRole(Role.ORGANIZER),
       participant: r.user,
     })),
   });
-});
+};
+
+eventsRouter.get('/:id/registrations', requireAuth, requireRole(Role.ORGANIZER), rosterHandler);
+eventsRouter.get('/:id/roster', requireAuth, requireRole(Role.ORGANIZER), rosterHandler);
