@@ -14,14 +14,14 @@
 
 ## Short Navigation Table (Table of Contents)
 
-| Part | Section Heading | Direct Repository Document Reference | Key Artifact IDs / Scope |
-|:---:|---|---|---|
-| **A** | **SRS and Product Scope** | `docs/srs.md` | Problem statement, Actors, `FR-01`–`FR-11`, `BR-01`–`BR-07`, `NFR-01`–`NFR-05`, `AD-01`–`AD-06` |
-| **B** | **Feature Inventory & Traceability** | `docs/features.md`<br>`docs/traceability.md` | Feature breakdown `F-01`–`F-09`, Requirements-to-Feature-to-Sprint Traceability Matrix |
-| **C** | **System-Level Software Design (SDS)** | `docs/system-sds.md` | 3-tier architecture, PostgreSQL schema, Pessimistic row locking, Session lifecycle, Cloud Run & Cloud SQL topology |
-| **D** | **Three-Sprint Plan** | `docs/sprints/plan.md` | Goals, dependencies, Sprint 1 vertical slice feasibility explanation, and deferred sprint roadmap |
-| **E** | **Sprint 1 Engineering Contracts** | `docs/sprints/sprint-1/` | Pre-implementation contracts for `F-01`, `F-02`, `F-03`, `F-04` with AC, STS, and Definition of Done |
-| **F** | **Working Sprint 1 and Verification** | `server/`, `client/`, `server/tests/` | 26 automated tests execution output, AC-to-Test mapping, Test code excerpts (`TEST-F03-04`, `TEST-F04-03`), Workflow evidence, and Team contributions |
+| Part | Section Heading | Direct Repository Document Reference | Lead Author & Reviewer | Key Artifact IDs / Scope |
+|:---:|---|---|---|---|
+| **A** | **SRS and Product Scope** | `docs/srs.md` | **Author:** Pimchaya Suprateravarnit<br>**Reviewer:** Suphattra Kongsiriphat (PR #4) | Problem statement, Actors, `FR-01`–`FR-11`, `BR-01`–`BR-07`, `NFR-01`–`NFR-05`, `AD-01`–`AD-06` |
+| **B** | **Feature Inventory & Traceability** | `docs/features.md`<br>`docs/traceability.md` | **Author:** Pimchaya Suprateravarnit<br>**Reviewer:** Suphattra Kongsiriphat (PR #14) | Feature breakdown `F-01`–`F-09`, Requirements-to-Feature-to-Sprint Traceability Matrix |
+| **C** | **System-Level Software Design (SDS)** | `docs/system-sds.md` | **Author:** Suphattra Kongsiriphat<br>**Reviewer:** Pimchaya Suprateravarnit (PR #16) | 3-tier architecture, PostgreSQL schema, Pessimistic row locking, Session lifecycle, Cloud Run & Cloud SQL topology |
+| **D** | **Three-Sprint Plan** | `docs/sprints/plan.md` | **Author:** Pimchaya Suprateravarnit<br>**Reviewer:** Suphattra Kongsiriphat (PR #14) | Goals, dependencies, Sprint 1 vertical slice feasibility explanation, and deferred sprint roadmap |
+| **E** | **Sprint 1 Engineering Contracts** | `docs/sprints/sprint-1/` | **Author:** Pimchaya Suprateravarnit<br>**Reviewer:** Suphattra Kongsiriphat (PRs #6, #8, #10, #12) | Pre-implementation contracts for `F-01`, `F-02`, `F-03`, `F-04` with AC, STS, and Definition of Done |
+| **F** | **Working Sprint 1 and Verification** | `server/`, `client/`, `server/tests/` | **Author:** Suphattra Kongsiriphat<br>**Reviewer:** Pimchaya Suprateravarnit (PRs #17, #18) | 26 automated tests execution output, AC-to-Test mapping, Test code excerpts (`TEST-F03-04`, `TEST-F04-03`), Workflow evidence, and Team contributions |
 
 ---
 
@@ -289,13 +289,18 @@ it('TEST-F04-03: prevents non-owner organizer and participant from accessing eve
 
 ## 5. Engineering Workflow and GitHub Traceability Evidence
 
-### 5.1 Sampled Issues and Pull Requests
+### 5.1 Sampled Issues and Pull Requests (Peer-Reviewed Collaboration Traceability)
 
-| Issue ID | Feature / Contract | PR # | Author | Reviewer | Substantive Review Finding / Rationale | Merged Commit |
+In accordance with Course Rule `R-09` and `R-11`, all features and engineering contracts followed branch isolation, Issue tracking, and mandatory teammate peer review prior to integration. Authors never approved their own Pull Requests:
+
+| Issue ID | Feature / Contract / Scope | PR # | Author | Reviewer | Substantive Review Finding & Rational Validation | Merged Commit |
 |:---:|:---:|:---:|:---:|:---:|---|:---:|
-| **#15** | `C` (System SDS) | **#16** | Suphattra (`@supa-gif173`) | Pimchaya (`@pimchayasupr-hash`) | Verified 3-tier architecture, Prisma PostgreSQL schema, `SELECT ... FOR UPDATE` locking mechanism, and Session 8h TTL. | `9b4d59e` |
-| **#16** | `F` (Core App & CI) | **#17** | Suphattra (`@supa-gif173`) | Pimchaya (`@pimchayasupr-hash`) | Verified fullstack React SPA, 26 Vitest test cases passing, Dockerfile multi-stage build, and CI green checkmark. | `e78b973` |
-| **#17** | Release Baseline | **#18** | Suphattra (`@supa-gif173`) | Pimchaya (`@pimchayasupr-hash`) | Sprint 1 release baseline merge from `staging` to `main`, tagged `v1.0.0-sprint1`. | `10834da` |
+| **#3** | `Part A` (SRS Baseline) | **#4** | Pimchaya (`@pimchayasupr-hash`) | Suphattra (`@supa-gif173`) | Reviewed and confirmed FR-01..11, BR-01..07, positive capacity rule, and explicit deferral of self-registration. | `c304b0e` |
+| **#9** | `Part E` (Contract F-03: Registration) | **#10** | Pimchaya (`@pimchayasupr-hash`) | Suphattra (`@supa-gif173`) | Verified Software Test Specification (STS) for race condition handling, 1-seat limit, and duplicate registration 409 conflict. | `39788ef` |
+| **#13** | `Parts B & D` (Traceability & 3-Sprint Plan) | **#14** | Pimchaya (`@pimchayasupr-hash`) | Suphattra (`@supa-gif173`) | Audited 100% requirements-to-features-to-sprint matrix and verified feasible vertical slice allocation for Sprint 1. | `ac06adc` |
+| **#15** | `Part C` (System-Level SDS) | **#16** | Suphattra (`@supa-gif173`) | Pimchaya (`@pimchayasupr-hash`) | Verified 3-tier architecture, Prisma PostgreSQL relational schema, `SELECT ... FOR UPDATE` locking mechanism, and Session 8h TTL. | `9b4d59e` |
+| **#16** | `Part F` (Core Fullstack App & CI) | **#17** | Suphattra (`@supa-gif173`) | Pimchaya (`@pimchayasupr-hash`) | Verified fullstack React SPA, 26 Vitest test cases passing, Dockerfile multi-stage build, and CI green checkmark. | `e78b973` |
+| **#17** | Release Baseline (v1.0.0-sprint1) | **#18** | Suphattra (`@supa-gif173`) | Pimchaya (`@pimchayasupr-hash`) | Verified end-to-end integration from `staging` to `main`, tagged `v1.0.0-sprint1`, and confirmed zero secrets in Git. | `10834da` |
 
 ### 5.2 GitHub Pull Request Review and Merge Evidence
 
@@ -307,10 +312,12 @@ it('TEST-F04-03: prevents non-owner organizer and participant from accessing eve
 
 ## 6. Team Contribution Matrix
 
-| Team Member | Student ID | GitHub Username | Key Contributions across Sprint 1 |
+Both team members contributed equitably across all requirements engineering, system design, testing, implementation, peer review, and release integration phases (`R-11`):
+
+| Team Member | Student ID & GitHub | Primary Engineering Role | Key Contributions across Sprint 1 |
 |---|:---:|:---:|---|
-| **Suphattra Kongsiriphat** | `67070505228` | `@supa-gif173` | • Author of System-Level SDS (Part C, PR #16)<br>• Full-stack backend API implementation (`/api/auth`, `/api/events`, `/api/registrations`, `/api/health`)<br>• Concurrency row-locking transaction logic & Vitest test suite (26 tests)<br>• Frontend React SPA development (Catalog, Modal, Workspace, Roster)<br>• Multi-stage Dockerfile and GitHub Actions CI/CD pipeline |
-| **Pimchaya Suprateravarnit** | `67070505223` | `@pimchayasupr-hash` | • Author of SRS & Scope (Part A, PR #4)<br>• Author of Feature Inventory & Traceability Matrix (Part B, PR #14)<br>• Author of Three-Sprint Plan (Part D, PR #14)<br>• Author of Feature Engineering Contracts F-01 to F-04 (Part E, PRs #6, #8, #10, #12)<br>• Code Reviewer & Approver for PR #16, #17, and Release PR #18<br>• GCP Project Administrator (Lab 5) |
+| **Pimchaya Suprateravarnit** | `67070505223`<br>`@pimchayasupr-hash` | Product Owner & Lead Requirements Engineer | • Lead Author of **Part A: SRS and Product Scope** (Problem context, Actors, FR-01..11, BR-01..07, NFR-01..05, AD-01..06, PR #4)<br>• Lead Author of **Part B: Feature Inventory and Traceability Matrix** (Complete F-01..F-09 breakdown, 100% requirements mapping matrix, PR #14)<br>• Lead Author of **Part D: Three-Sprint Plan** (Sprint roadmap, dependencies, and vertical slice scope feasibility, PR #14)<br>• Lead Author of **Part E: Feature Engineering Contracts** for F-01, F-02, F-03, and F-04 with detailed Acceptance Criteria (AC), Software Test Specifications (STS), and DoD (PRs #6, #8, #10, #12)<br>• Substantive Peer Reviewer & Merger for System SDS (PR #16), Core Fullstack Application & Tests (PR #17), and Final Release Integration (PR #18)<br>• GitHub Project Board manager, issue tracking coordinator, and Google Cloud Platform topology planner. |
+| **Suphattra Kongsiriphat** | `67070505228`<br>`@supa-gif173` | Tech Lead & Core Fullstack Engineer | • Lead Author of **Part C: System-Level Software Design Specification (System SDS)** (Modular monolith, Prisma relational schema, PostgreSQL row-level pessimistic locking, Session lifecycle, PR #16)<br>• Peer Reviewer for Part A (PR #4), Part E Contracts (PRs #6, #8, #10, #12), and Parts B & D (PR #14)<br>• Backend REST API implementation in Node.js 24 + Express + TypeScript (`/api/auth`, `/api/events`, `/api/registrations`, `/api/health`)<br>• PostgreSQL concurrency row-level locking transaction logic (`SELECT ... FOR UPDATE`) and Vitest automated test suite (26 passing test cases, PR #17)<br>• Frontend React 18 + Vite SPA development (KMUTT theme, Event Catalog, Registration Modal, My Registrations, Organizer Studio, Attendee Roster)<br>• Multi-stage Dockerfile containerization, GitHub Actions CI pipeline (`.github/workflows/ci-docker.yml`), and C-02 controlled failing check demonstration (PR #19). |
 
 ---
 

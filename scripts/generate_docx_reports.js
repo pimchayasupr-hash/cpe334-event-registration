@@ -561,12 +561,12 @@ async function generateDeliverable1Docx() {
   );
 
   const navRows = [
-    ['Part A', 'SRS and Product Scope', 'Problem context, Actors, FR-01 to FR-11, BR-01 to BR-07, NFR-01 to NFR-05, AD-01 to AD-06'],
-    ['Part B', 'Feature Inventory & Traceability', 'Feature breakdown F-01 to F-09 and 100% requirements-to-tests traceability matrix'],
-    ['Part C', 'System-Level Software Design (SDS)', 'Modular monolith 3-tier architecture, Prisma schema, PostgreSQL row-level pessimistic locking, session lifecycle'],
-    ['Part D', 'Three-Sprint Plan', 'Three-sprint roadmap, Sprint 1 vertical slice feasibility explanation, and deferred sprint roadmap'],
-    ['Part E', 'Sprint 1 Engineering Contracts', 'Pre-implementation feature contracts for F-01, F-02, F-03, and F-04 with AC, STS, and DoD'],
-    ['Part F', 'Working Sprint 1 and Verification', 'Local setup, 26 automated tests, demonstration scenarios, test excerpts, team contributions, and AI declaration'],
+    ['Part A', 'SRS and Product Scope', 'Author: Pimchaya Suprateravarnit\nReviewer: Suphattra Kongsiriphat (PR #4)', 'Problem context, Actors, FR-01 to FR-11, BR-01 to BR-07, NFR-01 to NFR-05, AD-01 to AD-06'],
+    ['Part B', 'Feature Inventory & Traceability', 'Author: Pimchaya Suprateravarnit\nReviewer: Suphattra Kongsiriphat (PR #14)', 'Feature breakdown F-01 to F-09 and 100% requirements-to-tests traceability matrix'],
+    ['Part C', 'System-Level Software Design (SDS)', 'Author: Suphattra Kongsiriphat\nReviewer: Pimchaya Suprateravarnit (PR #16)', 'Modular monolith 3-tier architecture, Prisma schema, PostgreSQL row-level pessimistic locking, session lifecycle'],
+    ['Part D', 'Three-Sprint Plan', 'Author: Pimchaya Suprateravarnit\nReviewer: Suphattra Kongsiriphat (PR #14)', 'Three-sprint roadmap, Sprint 1 vertical slice feasibility explanation, and deferred sprint roadmap'],
+    ['Part E', 'Sprint 1 Engineering Contracts', 'Author: Pimchaya Suprateravarnit\nReviewer: Suphattra Kongsiriphat (PRs #6, #8, #10, #12)', 'Pre-implementation feature contracts for F-01, F-02, F-03, and F-04 with AC, STS, and DoD'],
+    ['Part F', 'Working Sprint 1 and Verification', 'Author: Suphattra Kongsiriphat\nReviewer: Pimchaya Suprateravarnit (PRs #17, #18)', 'Local setup, 26 automated tests, 4 UI demonstration figures, 2 GitHub PR figures, and team contributions'],
   ];
 
   children.push(
@@ -576,7 +576,7 @@ async function generateDeliverable1Docx() {
       rows: [
         new TableRow({
           tableHeader: true,
-          children: ['Part', 'Section Heading', 'Summary of Contents'].map(
+          children: ['Part', 'Section Heading', 'Lead Author & Reviewer', 'Summary of Contents'].map(
             (h) =>
               new TableCell({
                 shading: { type: ShadingType.CLEAR, fill: 'F1F5F9' },
@@ -586,23 +586,28 @@ async function generateDeliverable1Docx() {
           ),
         }),
         ...navRows.map(
-          ([p, title, desc]) =>
+          ([p, title, auth, desc]) =>
             new TableRow({
               children: [
                 new TableCell({
-                  width: { size: 15, type: WidthType.PERCENTAGE },
+                  width: { size: 10, type: WidthType.PERCENTAGE },
                   margins: { top: 80, bottom: 80, left: 120, right: 120 },
                   children: [new Paragraph({ children: [new TextRun({ text: p, bold: true, size: 20 })] })],
                 }),
                 new TableCell({
-                  width: { size: 35, type: WidthType.PERCENTAGE },
+                  width: { size: 25, type: WidthType.PERCENTAGE },
                   margins: { top: 80, bottom: 80, left: 120, right: 120 },
                   children: [new Paragraph({ children: [new TextRun({ text: title, bold: true, size: 20 })] })],
                 }),
                 new TableCell({
-                  width: { size: 50, type: WidthType.PERCENTAGE },
+                  width: { size: 30, type: WidthType.PERCENTAGE },
                   margins: { top: 80, bottom: 80, left: 120, right: 120 },
-                  children: [new Paragraph({ children: [new TextRun({ text: desc, size: 19 })] })],
+                  children: auth.split('\n').map((a) => new Paragraph({ children: [new TextRun({ text: a, size: 18 })] })),
+                }),
+                new TableCell({
+                  width: { size: 35, type: WidthType.PERCENTAGE },
+                  margins: { top: 80, bottom: 80, left: 120, right: 120 },
+                  children: [new Paragraph({ children: [new TextRun({ text: desc, size: 18 })] })],
                 }),
               ],
             })
@@ -614,12 +619,12 @@ async function generateDeliverable1Docx() {
 
   // Append Parts A to F with page breaks
   const parts = [
-    { title: 'Part A: Software Requirements Specification (SRS)', content: srsMd },
-    { title: 'Part B: Feature Inventory and Traceability Matrix', content: `${featuresMd}\n\n${traceabilityMd}` },
-    { title: 'Part C: System-Level Software Design Specification (System SDS)', content: systemSdsMd },
-    { title: 'Part D: Three-Sprint Development Plan', content: planMd },
-    { title: 'Part E: Sprint 1 Feature Engineering Contracts', content: `## Contract F-01: User Authentication & Session Lifecycle\n\n${f01Md}\n\n## Contract F-02: Event Creation, Publication, and Capacity Management\n\n${f02Md}\n\n## Contract F-03: Participant Registration & Concurrency Protection\n\n${f03Md}\n\n## Contract F-04: Organizer Roster & Health Probes\n\n${f04Md}` },
-    { title: 'Part F: Working Sprint 1 Verification and Execution Evidence', content: partFMd },
+    { title: 'Part A: Software Requirements Specification (SRS)', author: 'Lead Author: Pimchaya Suprateravarnit | Peer Reviewer: Suphattra Kongsiriphat (PR #4)', content: srsMd },
+    { title: 'Part B: Feature Inventory and Traceability Matrix', author: 'Lead Author: Pimchaya Suprateravarnit | Peer Reviewer: Suphattra Kongsiriphat (PR #14)', content: `${featuresMd}\n\n${traceabilityMd}` },
+    { title: 'Part C: System-Level Software Design Specification (System SDS)', author: 'Lead Author: Suphattra Kongsiriphat | Peer Reviewer: Pimchaya Suprateravarnit (PR #16)', content: systemSdsMd },
+    { title: 'Part D: Three-Sprint Development Plan', author: 'Lead Author: Pimchaya Suprateravarnit | Peer Reviewer: Suphattra Kongsiriphat (PR #14)', content: planMd },
+    { title: 'Part E: Sprint 1 Feature Engineering Contracts', author: 'Lead Author: Pimchaya Suprateravarnit | Peer Reviewer: Suphattra Kongsiriphat (PRs #6, #8, #10, #12)', content: `## Contract F-01: User Authentication & Session Lifecycle\n\n${f01Md}\n\n## Contract F-02: Event Creation, Publication, and Capacity Management\n\n${f02Md}\n\n## Contract F-03: Participant Registration & Concurrency Protection\n\n${f03Md}\n\n## Contract F-04: Organizer Roster & Health Probes\n\n${f04Md}` },
+    { title: 'Part F: Working Sprint 1 Verification and Execution Evidence', author: 'Lead Author: Suphattra Kongsiriphat | Peer Reviewer: Pimchaya Suprateravarnit (PRs #17, #18)', content: partFMd },
   ];
 
   for (let idx = 0; idx < parts.length; idx++) {
@@ -627,8 +632,12 @@ async function generateDeliverable1Docx() {
     children.push(
       new Paragraph({
         heading: HeadingLevel.HEADING_1,
-        spacing: { before: 200, after: 140 },
+        spacing: { before: 200, after: 60 },
         children: [new TextRun({ text: part.title, bold: true, size: 30, color: '0F172A' })],
+      }),
+      new Paragraph({
+        spacing: { after: 140 },
+        children: [new TextRun({ text: part.author, italics: true, size: 20, color: '64748B' })],
       })
     );
 

@@ -296,6 +296,7 @@ const fullHtml = `<!DOCTYPE html>
             <th>Part</th>
             <th>Section Heading</th>
             <th>Direct Repo Artifact</th>
+            <th>Lead Author & Peer Reviewer</th>
             <th>Summary of Contents</th>
           </tr>
         </thead>
@@ -304,36 +305,42 @@ const fullHtml = `<!DOCTYPE html>
             <td><strong>Part A</strong></td>
             <td><strong>SRS and Product Scope</strong></td>
             <td><code>docs/srs.md</code></td>
+            <td><strong>Author:</strong> Pimchaya Suprateravarnit<br/><strong>Reviewer:</strong> Suphattra Kongsiriphat (PR #4)</td>
             <td>Problem context, Actors, FR-01 to FR-11, BR-01 to BR-07, NFR-01 to NFR-05, Decisions AD-01 to AD-06</td>
           </tr>
           <tr>
             <td><strong>Part B</strong></td>
             <td><strong>Feature Inventory & Traceability</strong></td>
             <td><code>docs/features.md</code><br/><code>docs/traceability.md</code></td>
+            <td><strong>Author:</strong> Pimchaya Suprateravarnit<br/><strong>Reviewer:</strong> Suphattra Kongsiriphat (PR #14)</td>
             <td>Complete 3-sprint feature list (F-01 to F-09) and 100% requirements-to-tests traceability matrix</td>
           </tr>
           <tr>
             <td><strong>Part C</strong></td>
             <td><strong>System-Level Software Design (SDS)</strong></td>
             <td><code>docs/system-sds.md</code></td>
+            <td><strong>Author:</strong> Suphattra Kongsiriphat<br/><strong>Reviewer:</strong> Pimchaya Suprateravarnit (PR #16)</td>
             <td>Modular monolith 3-tier architecture, Prisma schema, PostgreSQL row-level pessimistic locking, session lifecycle</td>
           </tr>
           <tr>
             <td><strong>Part D</strong></td>
             <td><strong>Three-Sprint Plan</strong></td>
             <td><code>docs/sprints/plan.md</code></td>
+            <td><strong>Author:</strong> Pimchaya Suprateravarnit<br/><strong>Reviewer:</strong> Suphattra Kongsiriphat (PR #14)</td>
             <td>Three-sprint roadmap, Sprint 1 vertical slice feasibility explanation, and deferred sprint roadmap</td>
           </tr>
           <tr>
             <td><strong>Part E</strong></td>
             <td><strong>Sprint 1 Engineering Contracts</strong></td>
             <td><code>docs/sprints/sprint-1/</code></td>
+            <td><strong>Author:</strong> Pimchaya Suprateravarnit<br/><strong>Reviewer:</strong> Suphattra Kongsiriphat (PRs #6, #8, #10, #12)</td>
             <td>Pre-implementation feature contracts for F-01, F-02, F-03, and F-04 with AC, STS, and DoD</td>
           </tr>
           <tr>
             <td><strong>Part F</strong></td>
             <td><strong>Working Sprint 1 and Verification</strong></td>
             <td><code>server/</code>, <code>client/</code></td>
+            <td><strong>Author:</strong> Suphattra Kongsiriphat<br/><strong>Reviewer:</strong> Pimchaya Suprateravarnit (PRs #17, #18)</td>
             <td>26 passing automated tests execution output, test mapping, code excerpts, contributions, and AI declaration</td>
           </tr>
         </tbody>
@@ -343,27 +350,32 @@ const fullHtml = `<!DOCTYPE html>
     <!-- PART A -->
     <div class="section-divider"></div>
     <h1>Part A: Software Requirements Specification (SRS)</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Pimchaya Suprateravarnit | <strong>Peer Reviewer:</strong> Suphattra Kongsiriphat (PR #4)</p>
     ${mdToHtml(srsMd)}
 
     <!-- PART B -->
     <div class="section-divider"></div>
     <h1>Part B: Feature Inventory and Traceability Matrix</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Pimchaya Suprateravarnit | <strong>Peer Reviewer:</strong> Suphattra Kongsiriphat (PR #14)</p>
     ${mdToHtml(featuresMd)}
     ${mdToHtml(traceabilityMd)}
 
     <!-- PART C -->
     <div class="section-divider"></div>
     <h1>Part C: System-Level Software Design Specification (System SDS)</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Suphattra Kongsiriphat | <strong>Peer Reviewer:</strong> Pimchaya Suprateravarnit (PR #16)</p>
     ${mdToHtml(systemSdsMd)}
 
     <!-- PART D -->
     <div class="section-divider"></div>
     <h1>Part D: Three-Sprint Development Plan</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Pimchaya Suprateravarnit | <strong>Peer Reviewer:</strong> Suphattra Kongsiriphat (PR #14)</p>
     ${mdToHtml(planMd)}
 
     <!-- PART E -->
     <div class="section-divider"></div>
     <h1>Part E: Sprint 1 Feature Engineering Contracts</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Pimchaya Suprateravarnit | <strong>Peer Reviewer:</strong> Suphattra Kongsiriphat (PRs #6, #8, #10, #12)</p>
     <h2>Contract F-01: User Authentication & Session Lifecycle</h2>
     ${mdToHtml(f01Md)}
     <h2>Contract F-02: Event Creation, Publication, and Capacity Management</h2>
@@ -376,6 +388,7 @@ const fullHtml = `<!DOCTYPE html>
     <!-- PART F -->
     <div class="section-divider"></div>
     <h1>Part F: Working Sprint 1 Verification and Execution Evidence</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Suphattra Kongsiriphat | <strong>Peer Reviewer:</strong> Pimchaya Suprateravarnit (PRs #17, #18)</p>
     ${mdToHtml(partFMd)}
 
   </div>

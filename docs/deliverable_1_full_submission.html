@@ -184,6 +184,7 @@
             <th>Part</th>
             <th>Section Heading</th>
             <th>Direct Repo Artifact</th>
+            <th>Lead Author & Peer Reviewer</th>
             <th>Summary of Contents</th>
           </tr>
         </thead>
@@ -192,36 +193,42 @@
             <td><strong>Part A</strong></td>
             <td><strong>SRS and Product Scope</strong></td>
             <td><code>docs/srs.md</code></td>
+            <td><strong>Author:</strong> Pimchaya Suprateravarnit<br/><strong>Reviewer:</strong> Suphattra Kongsiriphat (PR #4)</td>
             <td>Problem context, Actors, FR-01 to FR-11, BR-01 to BR-07, NFR-01 to NFR-05, Decisions AD-01 to AD-06</td>
           </tr>
           <tr>
             <td><strong>Part B</strong></td>
             <td><strong>Feature Inventory & Traceability</strong></td>
             <td><code>docs/features.md</code><br/><code>docs/traceability.md</code></td>
+            <td><strong>Author:</strong> Pimchaya Suprateravarnit<br/><strong>Reviewer:</strong> Suphattra Kongsiriphat (PR #14)</td>
             <td>Complete 3-sprint feature list (F-01 to F-09) and 100% requirements-to-tests traceability matrix</td>
           </tr>
           <tr>
             <td><strong>Part C</strong></td>
             <td><strong>System-Level Software Design (SDS)</strong></td>
             <td><code>docs/system-sds.md</code></td>
+            <td><strong>Author:</strong> Suphattra Kongsiriphat<br/><strong>Reviewer:</strong> Pimchaya Suprateravarnit (PR #16)</td>
             <td>Modular monolith 3-tier architecture, Prisma schema, PostgreSQL row-level pessimistic locking, session lifecycle</td>
           </tr>
           <tr>
             <td><strong>Part D</strong></td>
             <td><strong>Three-Sprint Plan</strong></td>
             <td><code>docs/sprints/plan.md</code></td>
+            <td><strong>Author:</strong> Pimchaya Suprateravarnit<br/><strong>Reviewer:</strong> Suphattra Kongsiriphat (PR #14)</td>
             <td>Three-sprint roadmap, Sprint 1 vertical slice feasibility explanation, and deferred sprint roadmap</td>
           </tr>
           <tr>
             <td><strong>Part E</strong></td>
             <td><strong>Sprint 1 Engineering Contracts</strong></td>
             <td><code>docs/sprints/sprint-1/</code></td>
+            <td><strong>Author:</strong> Pimchaya Suprateravarnit<br/><strong>Reviewer:</strong> Suphattra Kongsiriphat (PRs #6, #8, #10, #12)</td>
             <td>Pre-implementation feature contracts for F-01, F-02, F-03, and F-04 with AC, STS, and DoD</td>
           </tr>
           <tr>
             <td><strong>Part F</strong></td>
             <td><strong>Working Sprint 1 and Verification</strong></td>
             <td><code>server/</code>, <code>client/</code></td>
+            <td><strong>Author:</strong> Suphattra Kongsiriphat<br/><strong>Reviewer:</strong> Pimchaya Suprateravarnit (PRs #17, #18)</td>
             <td>26 passing automated tests execution output, test mapping, code excerpts, contributions, and AI declaration</td>
           </tr>
         </tbody>
@@ -231,6 +238,7 @@
     <!-- PART A -->
     <div class="section-divider"></div>
     <h1>Part A: Software Requirements Specification (SRS)</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Pimchaya Suprateravarnit | <strong>Peer Reviewer:</strong> Suphattra Kongsiriphat (PR #4)</p>
     <h1>Software Requirements Specification (SRS) — Sprint 1 Baseline</h1>
 
 <ul><li><strong>Course:</strong> CPE 334 Introduction to Software Engineering in the Age of AI Agents (Semester 1/2026)</li><li><strong>Theme:</strong> Theme 3 — Event Registration and Attendance System</li><li><strong>Chosen Context:</strong> Faculty and University Academic Workshops & Seminars</li><li><strong>Repository:</strong> <code class="inline-code">https://github.com/pimchayasupr-hash/cpe334-event-registration</code></li><li><strong>Team Members:</strong></li></ul>
@@ -327,6 +335,7 @@ The <strong>Faculty Event Registration and Attendance System</strong> provides a
     <!-- PART B -->
     <div class="section-divider"></div>
     <h1>Part B: Feature Inventory and Traceability Matrix</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Pimchaya Suprateravarnit | <strong>Peer Reviewer:</strong> Suphattra Kongsiriphat (PR #14)</p>
     <h1>Feature Inventory (<code class="inline-code">F-01</code> to <code class="inline-code">F-09</code>)</h1>
 
 <ul><li><strong>Course:</strong> CPE 334 Introduction to Software Engineering in the Age of AI Agents (Semester 1/2026)</li><li><strong>Theme:</strong> Theme 3 — Event Registration and Attendance System (Faculty Workshops & Seminars)</li><li><strong>Team Members:</strong></li></ul>
@@ -413,6 +422,7 @@ The <strong>Faculty Event Registration and Attendance System</strong> provides a
     <!-- PART C -->
     <div class="section-divider"></div>
     <h1>Part C: System-Level Software Design Specification (System SDS)</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Suphattra Kongsiriphat | <strong>Peer Reviewer:</strong> Pimchaya Suprateravarnit (PR #16)</p>
     <h1>System-Level Software Design Specification (System SDS)</h1>
 
 <ul><li><strong>Course:</strong> CPE 334 Introduction to Software Engineering in the Age of AI Agents (Semester 1/2026)</li><li><strong>Theme:</strong> Theme 3 — Event Registration and Attendance System</li><li><strong>Chosen Context:</strong> Faculty and University Academic Workshops & Seminars</li><li><strong>Repository:</strong> <code class="inline-code">https://github.com/pimchayasupr-hash/cpe334-event-registration</code></li><li><strong>Team Members:</strong></li></ul>
@@ -743,6 +753,7 @@ This System-Level SDS directly implements and verifies the following specificati
     <!-- PART D -->
     <div class="section-divider"></div>
     <h1>Part D: Three-Sprint Development Plan</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Pimchaya Suprateravarnit | <strong>Peer Reviewer:</strong> Suphattra Kongsiriphat (PR #14)</p>
     <h1>Three-Sprint Development Plan</h1>
 
 <ul><li><strong>Course:</strong> CPE 334 Introduction to Software Engineering in the Age of AI Agents (Semester 1/2026)</li><li><strong>Theme:</strong> Theme 3 — Event Registration and Attendance System (Faculty Workshops & Seminars)</li><li><strong>Team Members:</strong></li></ul>
@@ -784,6 +795,7 @@ Both team members (<strong>Pimchaya Suprateravarnit</strong> and <strong>Suphatt
     <!-- PART E -->
     <div class="section-divider"></div>
     <h1>Part E: Sprint 1 Feature Engineering Contracts</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Pimchaya Suprateravarnit | <strong>Peer Reviewer:</strong> Suphattra Kongsiriphat (PRs #6, #8, #10, #12)</p>
     <h2>Contract F-01: User Authentication & Session Lifecycle</h2>
     <h1>Sprint 1 Feature Engineering Contract — F-01: User Authentication and Session Management</h1>
 
@@ -1156,6 +1168,7 @@ Both team members (<strong>Pimchaya Suprateravarnit</strong> and <strong>Suphatt
     <!-- PART F -->
     <div class="section-divider"></div>
     <h1>Part F: Working Sprint 1 Verification and Execution Evidence</h1>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: -8px; margin-bottom: 20px;"><strong>Lead Author:</strong> Suphattra Kongsiriphat | <strong>Peer Reviewer:</strong> Pimchaya Suprateravarnit (PRs #17, #18)</p>
     <h1>CPE 334 Project Deliverable 1 — Engineering Baseline and Working Sprint 1</h1>
 
 <ul><li><strong>Course:</strong> CPE 334 Introduction to Software Engineering in the Age of AI Agents (Semester 1/2026)</li><li><strong>Theme:</strong> Theme 3 — Event Registration and Attendance System</li><li><strong>Chosen Context:</strong> Faculty and University Academic Workshops & Seminars</li><li><strong>Repository URL:</strong> <code class="inline-code">https://github.com/pimchayasupr-hash/cpe334-event-registration</code></li><li><strong>Submitted Release Tag:</strong> <code class="inline-code">v1.0.0-sprint1</code> (Release Commit: <code class="inline-code">10834da</code>)</li><li><strong>Team Members:</strong></li></ul>
@@ -1167,13 +1180,13 @@ Both team members (<strong>Pimchaya Suprateravarnit</strong> and <strong>Suphatt
 
 <h2>Short Navigation Table (Table of Contents)</h2>
 
-<div class="table-container"><table><thead><tr><th>Part</th><th>Section Heading</th><th>Direct Repository Document Reference</th><th>Key Artifact IDs / Scope</th></tr></thead><tbody><tr><td><strong>A</strong></td></tr></tbody></table></div>
- <strong>SRS and Product Scope</strong> | <code class="inline-code">docs/srs.md</code> | Problem statement, Actors, <code class="inline-code">FR-01</code>–<code class="inline-code">FR-11</code>, <code class="inline-code">BR-01</code>–<code class="inline-code">BR-07</code>, <code class="inline-code">NFR-01</code>–<code class="inline-code">NFR-05</code>, <code class="inline-code">AD-01</code>–<code class="inline-code">AD-06</code> |
-| <strong>B</strong> | <strong>Feature Inventory & Traceability</strong> | <code class="inline-code">docs/features.md</code><br><code class="inline-code">docs/traceability.md</code> | Feature breakdown <code class="inline-code">F-01</code>–<code class="inline-code">F-09</code>, Requirements-to-Feature-to-Sprint Traceability Matrix |
-| <strong>C</strong> | <strong>System-Level Software Design (SDS)</strong> | <code class="inline-code">docs/system-sds.md</code> | 3-tier architecture, PostgreSQL schema, Pessimistic row locking, Session lifecycle, Cloud Run & Cloud SQL topology |
-| <strong>D</strong> | <strong>Three-Sprint Plan</strong> | <code class="inline-code">docs/sprints/plan.md</code> | Goals, dependencies, Sprint 1 vertical slice feasibility explanation, and deferred sprint roadmap |
-| <strong>E</strong> | <strong>Sprint 1 Engineering Contracts</strong> | <code class="inline-code">docs/sprints/sprint-1/</code> | Pre-implementation contracts for <code class="inline-code">F-01</code>, <code class="inline-code">F-02</code>, <code class="inline-code">F-03</code>, <code class="inline-code">F-04</code> with AC, STS, and Definition of Done |
-| <strong>F</strong> | <strong>Working Sprint 1 and Verification</strong> | <code class="inline-code">server/</code>, <code class="inline-code">client/</code>, <code class="inline-code">server/tests/</code> | 26 automated tests execution output, AC-to-Test mapping, Test code excerpts (<code class="inline-code">TEST-F03-04</code>, <code class="inline-code">TEST-F04-03</code>), Workflow evidence, and Team contributions |
+<div class="table-container"><table><thead><tr><th>Part</th><th>Section Heading</th><th>Direct Repository Document Reference</th><th>Lead Author & Reviewer</th><th>Key Artifact IDs / Scope</th></tr></thead><tbody><tr><td><strong>A</strong></td></tr></tbody></table></div>
+ <strong>SRS and Product Scope</strong> | <code class="inline-code">docs/srs.md</code> | <strong>Author:</strong> Pimchaya Suprateravarnit<br><strong>Reviewer:</strong> Suphattra Kongsiriphat (PR #4) | Problem statement, Actors, <code class="inline-code">FR-01</code>–<code class="inline-code">FR-11</code>, <code class="inline-code">BR-01</code>–<code class="inline-code">BR-07</code>, <code class="inline-code">NFR-01</code>–<code class="inline-code">NFR-05</code>, <code class="inline-code">AD-01</code>–<code class="inline-code">AD-06</code> |
+| <strong>B</strong> | <strong>Feature Inventory & Traceability</strong> | <code class="inline-code">docs/features.md</code><br><code class="inline-code">docs/traceability.md</code> | <strong>Author:</strong> Pimchaya Suprateravarnit<br><strong>Reviewer:</strong> Suphattra Kongsiriphat (PR #14) | Feature breakdown <code class="inline-code">F-01</code>–<code class="inline-code">F-09</code>, Requirements-to-Feature-to-Sprint Traceability Matrix |
+| <strong>C</strong> | <strong>System-Level Software Design (SDS)</strong> | <code class="inline-code">docs/system-sds.md</code> | <strong>Author:</strong> Suphattra Kongsiriphat<br><strong>Reviewer:</strong> Pimchaya Suprateravarnit (PR #16) | 3-tier architecture, PostgreSQL schema, Pessimistic row locking, Session lifecycle, Cloud Run & Cloud SQL topology |
+| <strong>D</strong> | <strong>Three-Sprint Plan</strong> | <code class="inline-code">docs/sprints/plan.md</code> | <strong>Author:</strong> Pimchaya Suprateravarnit<br><strong>Reviewer:</strong> Suphattra Kongsiriphat (PR #14) | Goals, dependencies, Sprint 1 vertical slice feasibility explanation, and deferred sprint roadmap |
+| <strong>E</strong> | <strong>Sprint 1 Engineering Contracts</strong> | <code class="inline-code">docs/sprints/sprint-1/</code> | <strong>Author:</strong> Pimchaya Suprateravarnit<br><strong>Reviewer:</strong> Suphattra Kongsiriphat (PRs #6, #8, #10, #12) | Pre-implementation contracts for <code class="inline-code">F-01</code>, <code class="inline-code">F-02</code>, <code class="inline-code">F-03</code>, <code class="inline-code">F-04</code> with AC, STS, and Definition of Done |
+| <strong>F</strong> | <strong>Working Sprint 1 and Verification</strong> | <code class="inline-code">server/</code>, <code class="inline-code">client/</code>, <code class="inline-code">server/tests/</code> | <strong>Author:</strong> Suphattra Kongsiriphat<br><strong>Reviewer:</strong> Pimchaya Suprateravarnit (PRs #17, #18) | 26 automated tests execution output, AC-to-Test mapping, Test code excerpts (<code class="inline-code">TEST-F03-04</code>, <code class="inline-code">TEST-F04-03</code>), Workflow evidence, and Team contributions |
 
 <hr/>
 
@@ -1427,12 +1440,17 @@ it('TEST-F04-03: prevents non-owner organizer and participant from accessing eve
 
 <h2>5. Engineering Workflow and GitHub Traceability Evidence</h2>
 
-<h3>5.1 Sampled Issues and Pull Requests</h3>
+<h3>5.1 Sampled Issues and Pull Requests (Peer-Reviewed Collaboration Traceability)</h3>
 
-<div class="table-container"><table><thead><tr><th>Issue ID</th><th>Feature / Contract</th><th>PR #</th><th>Author</th><th>Reviewer</th><th>Substantive Review Finding / Rationale</th><th>Merged Commit</th></tr></thead><tbody><tr><td><strong>#15</strong></td></tr></tbody></table></div>
- <code class="inline-code">C</code> (System SDS) | <strong>#16</strong> | Suphattra (<code class="inline-code">@supa-gif173</code>) | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Verified 3-tier architecture, Prisma PostgreSQL schema, <code class="inline-code">SELECT ... FOR UPDATE</code> locking mechanism, and Session 8h TTL. | <code class="inline-code">9b4d59e</code> |
-| <strong>#16</strong> | <code class="inline-code">F</code> (Core App & CI) | <strong>#17</strong> | Suphattra (<code class="inline-code">@supa-gif173</code>) | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Verified fullstack React SPA, 26 Vitest test cases passing, Dockerfile multi-stage build, and CI green checkmark. | <code class="inline-code">e78b973</code> |
-| <strong>#17</strong> | Release Baseline | <strong>#18</strong> | Suphattra (<code class="inline-code">@supa-gif173</code>) | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Sprint 1 release baseline merge from <code class="inline-code">staging</code> to <code class="inline-code">main</code>, tagged <code class="inline-code">v1.0.0-sprint1</code>. | <code class="inline-code">10834da</code> |
+<p>In accordance with Course Rule <code class="inline-code">R-09</code> and <code class="inline-code">R-11</code>, all features and engineering contracts followed branch isolation, Issue tracking, and mandatory teammate peer review prior to integration. Authors never approved their own Pull Requests:</p>
+
+<div class="table-container"><table><thead><tr><th>Issue ID</th><th>Feature / Contract / Scope</th><th>PR #</th><th>Author</th><th>Reviewer</th><th>Substantive Review Finding & Rational Validation</th><th>Merged Commit</th></tr></thead><tbody><tr><td><strong>#3</strong></td></tr></tbody></table></div>
+ <code class="inline-code">Part A</code> (SRS Baseline) | <strong>#4</strong> | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Suphattra (<code class="inline-code">@supa-gif173</code>) | Reviewed and confirmed FR-01..11, BR-01..07, positive capacity rule, and explicit deferral of self-registration. | <code class="inline-code">c304b0e</code> |
+| <strong>#9</strong> | <code class="inline-code">Part E</code> (Contract F-03: Registration) | <strong>#10</strong> | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Suphattra (<code class="inline-code">@supa-gif173</code>) | Verified Software Test Specification (STS) for race condition handling, 1-seat limit, and duplicate registration 409 conflict. | <code class="inline-code">39788ef</code> |
+| <strong>#13</strong> | <code class="inline-code">Parts B & D</code> (Traceability & 3-Sprint Plan) | <strong>#14</strong> | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Suphattra (<code class="inline-code">@supa-gif173</code>) | Audited 100% requirements-to-features-to-sprint matrix and verified feasible vertical slice allocation for Sprint 1. | <code class="inline-code">ac06adc</code> |
+| <strong>#15</strong> | <code class="inline-code">Part C</code> (System-Level SDS) | <strong>#16</strong> | Suphattra (<code class="inline-code">@supa-gif173</code>) | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Verified 3-tier architecture, Prisma PostgreSQL relational schema, <code class="inline-code">SELECT ... FOR UPDATE</code> locking mechanism, and Session 8h TTL. | <code class="inline-code">9b4d59e</code> |
+| <strong>#16</strong> | <code class="inline-code">Part F</code> (Core Fullstack App & CI) | <strong>#17</strong> | Suphattra (<code class="inline-code">@supa-gif173</code>) | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Verified fullstack React SPA, 26 Vitest test cases passing, Dockerfile multi-stage build, and CI green checkmark. | <code class="inline-code">e78b973</code> |
+| <strong>#17</strong> | Release Baseline (v1.0.0-sprint1) | <strong>#18</strong> | Suphattra (<code class="inline-code">@supa-gif173</code>) | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Verified end-to-end integration from <code class="inline-code">staging</code> to <code class="inline-code">main</code>, tagged <code class="inline-code">v1.0.0-sprint1</code>, and confirmed zero secrets in Git. | <code class="inline-code">10834da</code> |
 
 <h3>5.2 GitHub Pull Request Review and Merge Evidence</h3>
 
@@ -1446,9 +1464,11 @@ it('TEST-F04-03: prevents non-owner organizer and participant from accessing eve
 
 <h2>6. Team Contribution Matrix</h2>
 
-<div class="table-container"><table><thead><tr><th>Team Member</th><th>Student ID</th><th>GitHub Username</th><th>Key Contributions across Sprint 1</th></tr></thead><tbody><tr><td><strong>Suphattra Kongsiriphat</strong></td></tr></tbody></table></div>
- <code class="inline-code">67070505228</code> | <code class="inline-code">@supa-gif173</code> | • Author of System-Level SDS (Part C, PR #16)<br>• Full-stack backend API implementation (<code class="inline-code">/api/auth</code>, <code class="inline-code">/api/events</code>, <code class="inline-code">/api/registrations</code>, <code class="inline-code">/api/health</code>)<br>• Concurrency row-locking transaction logic & Vitest test suite (26 tests)<br>• Frontend React SPA development (Catalog, Modal, Workspace, Roster)<br>• Multi-stage Dockerfile and GitHub Actions CI/CD pipeline |
-| <strong>Pimchaya Suprateravarnit</strong> | <code class="inline-code">67070505223</code> | <code class="inline-code">@pimchayasupr-hash</code> | • Author of SRS & Scope (Part A, PR #4)<br>• Author of Feature Inventory & Traceability Matrix (Part B, PR #14)<br>• Author of Three-Sprint Plan (Part D, PR #14)<br>• Author of Feature Engineering Contracts F-01 to F-04 (Part E, PRs #6, #8, #10, #12)<br>• Code Reviewer & Approver for PR #16, #17, and Release PR #18<br>• GCP Project Administrator (Lab 5) |
+<p>Both team members contributed equitably across all requirements engineering, system design, testing, implementation, peer review, and release integration phases (<code class="inline-code">R-11</code>):</p>
+
+<div class="table-container"><table><thead><tr><th>Team Member</th><th>Student ID & GitHub</th><th>Primary Engineering Role</th><th>Key Contributions across Sprint 1</th></tr></thead><tbody><tr><td><strong>Pimchaya Suprateravarnit</strong></td></tr></tbody></table></div>
+ <code class="inline-code">67070505223</code><br><code class="inline-code">@pimchayasupr-hash</code> | Product Owner & Lead Requirements Engineer | • Lead Author of <strong>Part A: SRS and Product Scope</strong> (Problem context, Actors, FR-01..11, BR-01..07, NFR-01..05, AD-01..06, PR #4)<br>• Lead Author of <strong>Part B: Feature Inventory and Traceability Matrix</strong> (Complete F-01..F-09 breakdown, 100% requirements mapping matrix, PR #14)<br>• Lead Author of <strong>Part D: Three-Sprint Plan</strong> (Sprint roadmap, dependencies, and vertical slice scope feasibility, PR #14)<br>• Lead Author of <strong>Part E: Feature Engineering Contracts</strong> for F-01, F-02, F-03, and F-04 with detailed Acceptance Criteria (AC), Software Test Specifications (STS), and DoD (PRs #6, #8, #10, #12)<br>• Substantive Peer Reviewer & Merger for System SDS (PR #16), Core Fullstack Application & Tests (PR #17), and Final Release Integration (PR #18)<br>• GitHub Project Board manager, issue tracking coordinator, and Google Cloud Platform topology planner. |
+| <strong>Suphattra Kongsiriphat</strong> | <code class="inline-code">67070505228</code><br><code class="inline-code">@supa-gif173</code> | Tech Lead & Core Fullstack Engineer | • Lead Author of <strong>Part C: System-Level Software Design Specification (System SDS)</strong> (Modular monolith, Prisma relational schema, PostgreSQL row-level pessimistic locking, Session lifecycle, PR #16)<br>• Peer Reviewer for Part A (PR #4), Part E Contracts (PRs #6, #8, #10, #12), and Parts B & D (PR #14)<br>• Backend REST API implementation in Node.js 24 + Express + TypeScript (<code class="inline-code">/api/auth</code>, <code class="inline-code">/api/events</code>, <code class="inline-code">/api/registrations</code>, <code class="inline-code">/api/health</code>)<br>• PostgreSQL concurrency row-level locking transaction logic (<code class="inline-code">SELECT ... FOR UPDATE</code>) and Vitest automated test suite (26 passing test cases, PR #17)<br>• Frontend React 18 + Vite SPA development (KMUTT theme, Event Catalog, Registration Modal, My Registrations, Organizer Studio, Attendee Roster)<br>• Multi-stage Dockerfile containerization, GitHub Actions CI pipeline (<code class="inline-code">.github/workflows/ci-docker.yml</code>), and C-02 controlled failing check demonstration (PR #19). |
 
 <hr/>
 
