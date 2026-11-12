@@ -1,0 +1,58 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: eventreg-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-eventreg}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-eventreg}
+      POSTGRES_DB: ${POSTGRES_DB:-eventreg}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-eventreg} -d ${POSTGRES_DB:-eventreg}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  migrate:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: eventreg-migrate
+    restart: "no"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-eventreg}:${POSTGRES_PASSWORD:-eventreg}@db:5432/${POSTGRES_DB:-eventreg}?schema=public
+      SEED_ORGANIZER_EMAIL: ${SEED_ORGANIZER_EMAIL:-organizer@kmutt.ac.th}
+      SEED_ORGANIZER_PASSWORD: ${SEED_ORGANIZER_PASSWORD:-AdminInitial123!}
+      SEED_PARTICIPANT_EMAIL: ${SEED_PARTICIPANT_EMAIL:-participant@kmutt.ac.th}
+      SEED_PARTICIPANT_PASSWORD: ${SEED_PARTICIPANT_PASSWORD:-Participant123!}
+    command: ["sh", "-c", "npx prisma migrate deploy && npm run prisma:seed"]
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: eventreg-server
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      NODE_ENV: production
+      TZ: Asia/Bangkok
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-eventreg}:${POSTGRES_PASSWORD:-eventreg}@db:5432/${POSTGRES_DB:-eventreg}?schema=public
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
