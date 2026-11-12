@@ -108,6 +108,54 @@ Test Files  4 passed (4)
 
 ---
 
+## 2.5 Program Demonstration Scenarios (Per Deliverable 1 Section 4.2)
+
+All demonstrations below were executed against the accepted release on `main` (**Commit `10834da`**, release tag `v1.0.0-sprint1`).
+
+### Scenario 1: Complete Normal Domain Journey (UI, API, Database Persistence & Retrieval)
+- **Features / Contracts Verified:** `F-01` (`AC-F01-02`), `F-02` (`AC-F02-02`), `F-03` (`AC-F03-01`), `F-04` (`AC-F04-01`)
+- **Actors / Roles Involved:** Organizer (`organizer@kmutt.ac.th`), Participant (`participant@kmutt.ac.th`)
+- **Starting Condition:** Fresh PostgreSQL database seeded via `npm run prisma:seed`.
+- **Execution Steps:**
+  1. **Organizer Login:** Organizer authenticates via `POST /api/auth/login`. Server responds with `200 OK`, sets an 8-hour HttpOnly `sid` session cookie, and records the session row in PostgreSQL.
+  2. **Event Creation:** Organizer creates a new academic seminar titled *"AI Agents in Software Engineering Workshop"* with `capacity: 25`, category `WORKSHOP`, and future schedule. Event is persisted in `DRAFT` status (`201 Created`).
+  3. **Event Publication:** Organizer issues `POST /api/events/:id/publish`. Server validates that schedule is in the future, transitions status from `DRAFT` to `PUBLISHED` (`200 OK`), and exposes the event in public catalog.
+  4. **Participant Login:** Participant authenticates via `POST /api/auth/login` and receives their unique `sid` session cookie.
+  5. **Event Discovery & Registration:** Participant queries `GET /api/events`, views the newly published seminar with 25 available seats, and submits registration via `POST /api/events/:id/registrations`.
+  6. **Pessimistic Locking & Booking:** Database executes transaction with `SELECT ... FOR UPDATE`, validates capacity, creates an `ACTIVE` registration record, and decrements available capacity to 24 (`201 Created`).
+  7. **Persisted Result Retrieval:** Participant calls `GET /api/registrations/me` -> returns the persisted registration with event metadata and status `ACTIVE`.
+  8. **Organizer Roster Audit:** Organizer navigates to Organizer Studio and requests `GET /api/events/:id/registrations` -> returns the attendee roster containing the participant's name, department, registration timestamp, and sanitized student ID.
+- **Expected Result:** Entire workflow succeeds with valid HTTP 200/201 status codes. Data is persistently retained in PostgreSQL across all layers.
+- **Actual Result:** Matches expected behavior identically across both automated integration tests (`TEST-F03-01`, `TEST-F04-01`) and interactive browser UI.
+
+### Scenario 2: Meaningful Business Rule and Boundary Rejections
+- **Features / Contracts Verified:** `F-03` (`AC-F03-02`, `AC-F03-03`), `F-02` (`AC-F02-01`, `AC-F02-03`, `AC-F02-07`)
+- **Actors / Roles Involved:** Participant, Organizer
+- **Starting Condition:** Participant is actively registered for Seminar A; Event B is filled to capacity (`remainingSeats: 0`).
+- **Execution Steps & Verifications:**
+  1. **Duplicate Booking Rejection (`BR-02`):** Participant attempts to register a second time for Seminar A via `POST /api/events/:id/registrations`.
+     - *Expected & Actual Result:* HTTP `409 Conflict` with body `{"error": "User is already registered for this event"}`. No duplicate row created. Verified by `TEST-F03-02`.
+  2. **Capacity Exhaustion Rejection (`BR-01`):** Participant attempts to book a seat in Seminar B which has reached capacity.
+     - *Expected & Actual Result:* HTTP `409 Conflict` with body `{"error": "Event is at full capacity"}`. Registration rejected. Verified by `TEST-F03-03`.
+  3. **Concurrency Race Condition Protection (`BR-01`):** 5 concurrent requests fired simultaneously for a single remaining seat (`TEST-F03-04`).
+     - *Expected & Actual Result:* PostgreSQL row-level lock serializes transactions; exactly 1 request receives `201 Created`, remaining 4 receive `409 Conflict`. Zero overbooking.
+  4. **Invalid Boundary Rejections (`BR-01`, `BR-07`):** Organizer attempts to create event with `capacity: 0` or inverted timestamps (`endAt < startAt`).
+     - *Expected & Actual Result:* HTTP `400 Bad Request` with structured error messages. Verified by `TEST-F02-01` and `TEST-F02-03`.
+
+### Scenario 3: Login/Logout Lifecycle and Role/Ownership Access Restrictions
+- **Features / Contracts Verified:** `F-01` (`AC-F01-04`, `AC-F01-05`), `F-04` (`AC-F04-02`), `F-02` (`AC-F02-05`, `AC-F02-06`)
+- **Actors / Roles Involved:** Unauthenticated Guest, Participant, Organizer A (owner), Organizer B (non-owner)
+- **Execution Steps & Verifications:**
+  1. **Unauthenticated Access Block:** Anonymous client requests protected endpoint `GET /api/registrations/me` without cookie.
+     - *Expected & Actual Result:* HTTP `401 Unauthorized` with `{"error": "Unauthorized: Session cookie missing or expired"}`. Zero private data leaked. Verified by `TEST-F01-05`.
+  2. **Role Authorization Block (`BR-05`):** Authenticated Participant attempts to access Organizer roster `GET /api/events/:id/registrations` or create event `POST /api/events`.
+     - *Expected & Actual Result:* HTTP `403 Forbidden` with `{"error": "Forbidden: Organizer role required"}`. Backend enforces permission regardless of UI tampering. Verified by `TEST-F02-06`.
+  3. **Event Ownership Authorization Block (`BR-06`):** Organizer B attempts to inspect roster or edit capacity of Seminar A owned by Organizer A.
+     - *Expected & Actual Result:* HTTP `403 Forbidden` with `{"error": "Forbidden: You do not own this event"}`. Verified by `TEST-F02-05` and `TEST-F04-03`.
+  4. **Logout Invalidation Lifecycle:** User issues `POST /api/auth/logout`. Server deletes session row from PostgreSQL and clears cookie. Subsequent requests with previously valid session token return `401 Unauthorized`. Verified by `TEST-F01-06`.
+
+---
+
 ## 3. Acceptance Criteria to Automated Test Mapping Table
 
 | AC ID | Acceptance Criteria Summary | Test ID | Test File | Result |
