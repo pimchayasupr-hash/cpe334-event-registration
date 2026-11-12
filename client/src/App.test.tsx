@@ -22,4 +22,9 @@ describe('Frontend Client Unit Tests', () => {
     expect('/api/events').toContain('/api');
     expect('/api/auth/login').toContain('/api');
   });
+
+  it('TEST-C02-FAIL: deliberate failing test for Lab 5 C-02 Quality Gate demonstration', () => {
+    // Deliberate failure to demonstrate that a failing test blocks PR merge (R-06)
+    expect('quality-gate-passing').toBe('deliberate-failure-for-lab5-c02-demo');
+  });
 });
