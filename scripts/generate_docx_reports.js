@@ -460,10 +460,10 @@ async function generateDeliverable1Docx() {
   const traceabilityMd = readDoc('docs/traceability.md');
   const systemSdsMd = readDoc('docs/system-sds.md');
   const planMd = readDoc('docs/sprints/plan.md');
-  const f01Md = readDoc('docs/sprints/sprint-1/f-01-auth.md');
-  const f02Md = readDoc('docs/sprints/sprint-1/f-02-events.md');
-  const f03Md = readDoc('docs/sprints/sprint-1/f-03-registrations.md');
-  const f04Md = readDoc('docs/sprints/sprint-1/f-04-roster.md');
+  const f01Md = readDoc('docs/sprints/sprint-1/f-01-auth-session.md');
+  const f02Md = readDoc('docs/sprints/sprint-1/f-02-event-management.md');
+  const f03Md = readDoc('docs/sprints/sprint-1/f-03-registration-concurrency.md');
+  const f04Md = readDoc('docs/sprints/sprint-1/f-04-organizer-roster.md');
   const partFMd = readDoc('docs/deliverable-1-report.md');
 
   const children = [];
