@@ -620,37 +620,6 @@ async function generateDeliverable1Docx() {
             },
           },
         },
-        headers: {
-          default: new Header({
-            children: [
-              new Paragraph({
-                alignment: AlignmentType.RIGHT,
-                children: [
-                  new TextRun({
-                    text: 'CPE 334 Deliverable 1 | Theme 3: Event Registration & Attendance System',
-                    size: 16, // 8pt
-                    color: '94A3B8',
-                  }),
-                ],
-              }),
-            ],
-          }),
-        },
-        footers: {
-          default: new Footer({
-            children: [
-              new Paragraph({
-                alignment: AlignmentType.RIGHT,
-                children: [
-                  new TextRun({ text: 'Page ', size: 18, color: '64748B' }),
-                  new TextRun({ children: [PageNumber.CURRENT], size: 18, color: '64748B' }),
-                  new TextRun({ text: ' of ', size: 18, color: '64748B' }),
-                  new TextRun({ children: [PageNumber.TOTAL_PAGES], size: 18, color: '64748B' }),
-                ],
-              }),
-            ],
-          }),
-        },
         children: children,
       },
     ],
