@@ -66,6 +66,16 @@ function mdToHtml(md) {
   // Clean duplicate <ul> tags
   html = html.replace(/<\/ul>\s*<ul>/g, '');
 
+  // Images
+  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_match, caption, relPath) => {
+    const fullPath = path.isAbsolute(relPath) ? relPath : path.join(repoRoot, relPath);
+    if (!fs.existsSync(fullPath)) return `<p><em>[Image not found: ${caption}]</em></p>`;
+    const ext = path.extname(fullPath).slice(1) || 'png';
+    const mime = ext === 'jpg' ? 'jpeg' : ext;
+    const base64 = fs.readFileSync(fullPath).toString('base64');
+    return `\n<div class="figure-container"><img src="data:image/${mime};base64,${base64}" alt="${caption}" style="max-width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);" /><p class="caption"><strong>${caption}</strong></p></div>\n`;
+  });
+
   // Paragraphs
   html = html
     .split('\n\n')

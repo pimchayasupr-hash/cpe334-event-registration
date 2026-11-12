@@ -128,6 +128,10 @@ All demonstrations below were executed against the accepted release on `main` (*
 - **Expected Result:** Entire workflow succeeds with valid HTTP 200/201 status codes. Data is persistently retained in PostgreSQL across all layers.
 - **Actual Result:** Matches expected behavior identically across both automated integration tests (`TEST-F03-01`, `TEST-F04-01`) and interactive browser UI.
 
+![Figure 1. Scenario 1 (Normal Domain Journey): Academic event catalog with available capacity progress indicators (F-02, AC-F02-02).](docs/screenshots/ui_01_catalog.png)
+
+![Figure 2. Scenario 1 (Persisted Retrieval): Participant active registration retrieved via GET /api/registrations/me (F-03, AC-F03-01).](docs/screenshots/ui_02_registration_success.png)
+
 ### Scenario 2: Meaningful Business Rule and Boundary Rejections
 - **Features / Contracts Verified:** `F-03` (`AC-F03-02`, `AC-F03-03`), `F-02` (`AC-F02-01`, `AC-F02-03`, `AC-F02-07`)
 - **Actors / Roles Involved:** Participant, Organizer
@@ -142,6 +146,8 @@ All demonstrations below were executed against the accepted release on `main` (*
   4. **Invalid Boundary Rejections (`BR-01`, `BR-07`):** Organizer attempts to create event with `capacity: 0` or inverted timestamps (`endAt < startAt`).
      - *Expected & Actual Result:* HTTP `400 Bad Request` with structured error messages. Verified by `TEST-F02-01` and `TEST-F02-03`.
 
+![Figure 3. Scenario 2 (Business Rule Rejection): HTTP 409 Conflict rejection modal when participant attempts duplicate booking on the same seminar (BR-02, AC-F03-02).](docs/screenshots/ui_03_duplicate_rejection.png)
+
 ### Scenario 3: Login/Logout Lifecycle and Role/Ownership Access Restrictions
 - **Features / Contracts Verified:** `F-01` (`AC-F01-04`, `AC-F01-05`), `F-04` (`AC-F04-02`), `F-02` (`AC-F02-05`, `AC-F02-06`)
 - **Actors / Roles Involved:** Unauthenticated Guest, Participant, Organizer A (owner), Organizer B (non-owner)
@@ -153,6 +159,8 @@ All demonstrations below were executed against the accepted release on `main` (*
   3. **Event Ownership Authorization Block (`BR-06`):** Organizer B attempts to inspect roster or edit capacity of Seminar A owned by Organizer A.
      - *Expected & Actual Result:* HTTP `403 Forbidden` with `{"error": "Forbidden: You do not own this event"}`. Verified by `TEST-F02-05` and `TEST-F04-03`.
   4. **Logout Invalidation Lifecycle:** User issues `POST /api/auth/logout`. Server deletes session row from PostgreSQL and clears cookie. Subsequent requests with previously valid session token return `401 Unauthorized`. Verified by `TEST-F01-06`.
+
+![Figure 4. Scenario 3 (Role & Ownership Access): Organizer Studio attendee roster modal displaying sanitized participant registrations (F-04, AC-F04-01, BR-06).](docs/screenshots/ui_04_organizer_roster.png)
 
 ---
 
@@ -288,6 +296,12 @@ it('TEST-F04-03: prevents non-owner organizer and participant from accessing eve
 | **#15** | `C` (System SDS) | **#16** | Suphattra (`@supa-gif173`) | Pimchaya (`@pimchayasupr-hash`) | Verified 3-tier architecture, Prisma PostgreSQL schema, `SELECT ... FOR UPDATE` locking mechanism, and Session 8h TTL. | `9b4d59e` |
 | **#16** | `F` (Core App & CI) | **#17** | Suphattra (`@supa-gif173`) | Pimchaya (`@pimchayasupr-hash`) | Verified fullstack React SPA, 26 Vitest test cases passing, Dockerfile multi-stage build, and CI green checkmark. | `e78b973` |
 | **#17** | Release Baseline | **#18** | Suphattra (`@supa-gif173`) | Pimchaya (`@pimchayasupr-hash`) | Sprint 1 release baseline merge from `staging` to `main`, tagged `v1.0.0-sprint1`. | `10834da` |
+
+### 5.2 GitHub Pull Request Review and Merge Evidence
+
+![Figure 5. Engineering Workflow: Pull Request #17 (Sprint 1 core fullstack implementation) reviewed, approved by teammate @pimchayasupr-hash, and merged into staging (R-09, R-11).](docs/screenshots/github_pr17_merged.jpg)
+
+![Figure 6. Release Workflow: Pull Request #18 (Sprint 1 release baseline) reviewed and merged into main, producing release commit 10834da and tag v1.0.0-sprint1.](docs/screenshots/github_pr18_merged.png)
 
 ---
 

@@ -317,6 +317,50 @@ function markdownToDocxElements(md) {
       continue;
     }
 
+    // Image: ![Caption](path)
+    const imgMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)/);
+    if (imgMatch) {
+      const caption = imgMatch[1];
+      const relImgPath = imgMatch[2];
+      const fullImgPath = path.isAbsolute(relImgPath) ? relImgPath : path.join(repoRoot, relImgPath);
+      if (fs.existsSync(fullImgPath)) {
+        const imgBuffer = fs.readFileSync(fullImgPath);
+        const isWide = relImgPath.includes('github_pr') || relImgPath.includes('c02_failing');
+        const imgWidth = 540;
+        const imgHeight = isWide ? 260 : 330;
+
+        elements.push(
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            spacing: { before: 140, after: 60 },
+            children: [
+              new ImageRun({
+                data: imgBuffer,
+                transformation: {
+                  width: imgWidth,
+                  height: imgHeight,
+                },
+              }),
+            ],
+          }),
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            spacing: { after: 140 },
+            children: [
+              new TextRun({
+                text: caption,
+                italics: true,
+                size: 18, // 9pt
+                color: '475569',
+              }),
+            ],
+          })
+        );
+      }
+      i++;
+      continue;
+    }
+
     // Headings
     if (trimmed.startsWith('# ')) {
       elements.push(
