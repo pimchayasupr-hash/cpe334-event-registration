@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CPE334 Deliverable 1 — Event Registration & Attendance System</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 20mm 15mm 20mm 15mm;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.6;
+      background: #f8fafc;
+      margin: 0;
+      padding: 20px;
+    }
+    .page-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 40px 50px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    .cover-header {
+      border-bottom: 3px solid #f97316;
+      padding-bottom: 25px;
+      margin-bottom: 30px;
+    }
+    .badge-course {
+      display: inline-block;
+      background: #fff7ed;
+      color: #ea580c;
+      border: 1px solid #fdba74;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 15px;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 10px;
+      line-height: 1.25;
+    }
+    h2 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 8px;
+    }
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+    p, li {
+      font-size: 0.95rem;
+      color: #334155;
+    }
+    .meta-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 30px;
+      font-size: 0.9rem;
+    }
+    .meta-row {
+      display: flex;
+      margin-bottom: 6px;
+    }
+    .meta-label {
+      width: 170px;
+      font-weight: 700;
+      color: #475569;
+    }
+    .meta-val {
+      color: #0f172a;
+    }
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 15px 0 25px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      background: #ffffff;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    .code-block {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px 18px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      margin: 15px 0;
+    }
+    .inline-code {
+      background: #f1f5f9;
+      color: #c2410c;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.88em;
+    }
+    blockquote {
+      border-left: 4px solid #f97316;
+      background: #fff7ed;
+      padding: 10px 16px;
+      margin: 15px 0;
+      font-style: italic;
+    }
+    .section-divider {
+      page-break-before: always;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid #cbd5e1;
+    }
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .page-wrapper {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .section-divider {
+        page-break-before: always;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="cover-header">
+      <div class="badge-course">CPE 334 Introduction to Software Engineering in the Age of AI Agents</div>
+      <h1>Project Deliverable 1: Engineering Baseline and Working Sprint 1</h1>
+      <p style="color: #64748b; font-size: 1.1rem; margin-top: 5px;">
+        Theme 3: Event Registration and Attendance System (Faculty Workshops & Seminars)
+      </p>
+    </div>
+
+    <div class="meta-box">
+      <div class="meta-row"><span class="meta-label">Team Members:</span><span class="meta-val">1. <strong>Suphattra Kongsiriphat</strong> (ID: 67070505228, GitHub: @supa-gif173)<br/>2. <strong>Pimchaya Suprateravarnit</strong> (ID: 67070505223, GitHub: @pimchayasupr-hash)</span></div>
+      <div class="meta-row"><span class="meta-label">Repository URL:</span><span class="meta-val"><a href="https://github.com/pimchayasupr-hash/cpe334-event-registration">https://github.com/pimchayasupr-hash/cpe334-event-registration</a></span></div>
+      <div class="meta-row"><span class="meta-label">Submitted Release Tag:</span><span class="meta-val"><strong>v1.0.0-sprint1</strong> (Commit: <code>10834da</code>)</span></div>
+      <div class="meta-row"><span class="meta-label">Submission Date:</span><span class="meta-val">November 2026</span></div>
+    </div>
+
+    <h2>Short Navigation Table (Parts A to F)</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Part</th>
+            <th>Section Heading</th>
+            <th>Direct Repo Artifact</th>
+            <th>Summary of Contents</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Part A</strong></td>
+            <td><strong>SRS and Product Scope</strong></td>
+            <td><code>docs/srs.md</code></td>
+            <td>Problem context, Actors, FR-01 to FR-11, BR-01 to BR-07, NFR-01 to NFR-05, Decisions AD-01 to AD-06</td>
+          </tr>
+          <tr>
+            <td><strong>Part B</strong></td>
+            <td><strong>Feature Inventory & Traceability</strong></td>
+            <td><code>docs/features.md</code><br/><code>docs/traceability.md</code></td>
+            <td>Complete 3-sprint feature list (F-01 to F-09) and 100% requirements-to-tests traceability matrix</td>
+          </tr>
+          <tr>
+            <td><strong>Part C</strong></td>
+            <td><strong>System-Level Software Design (SDS)</strong></td>
+            <td><code>docs/system-sds.md</code></td>
+            <td>Modular monolith 3-tier architecture, Prisma schema, PostgreSQL row-level pessimistic locking, session lifecycle</td>
+          </tr>
+          <tr>
+            <td><strong>Part D</strong></td>
+            <td><strong>Three-Sprint Plan</strong></td>
+            <td><code>docs/sprints/plan.md</code></td>
+            <td>Three-sprint roadmap, Sprint 1 vertical slice feasibility explanation, and deferred sprint roadmap</td>
+          </tr>
+          <tr>
+            <td><strong>Part E</strong></td>
+            <td><strong>Sprint 1 Engineering Contracts</strong></td>
+            <td><code>docs/sprints/sprint-1/</code></td>
+            <td>Pre-implementation feature contracts for F-01, F-02, F-03, and F-04 with AC, STS, and DoD</td>
+          </tr>
+          <tr>
+            <td><strong>Part F</strong></td>
+            <td><strong>Working Sprint 1 and Verification</strong></td>
+            <td><code>server/</code>, <code>client/</code></td>
+            <td>26 passing automated tests execution output, test mapping, code excerpts, contributions, and AI declaration</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PART A -->
+    <div class="section-divider"></div>
+    <h1>Part A: Software Requirements Specification (SRS)</h1>
+    <h1>Software Requirements Specification (SRS) — Sprint 1 Baseline</h1>
+
+<ul><li><strong>Course:</strong> CPE 334 Introduction to Software Engineering in the Age of AI Agents (Semester 1/2026)</li><li><strong>Theme:</strong> Theme 3 — Event Registration and Attendance System</li><li><strong>Chosen Context:</strong> Faculty and University Academic Workshops & Seminars</li><li><strong>Repository:</strong> <code class="inline-code">https://github.com/pimchayasupr-hash/cpe334-event-registration</code></li><li><strong>Team Members:</strong></li></ul>
+  1. Pimchaya Suprateravarnit (<code class="inline-code">67070505223</code>, GitHub: <code class="inline-code">pimchayasupr-hash</code>)
+  2. Suphattra Kongsiriphat (<code class="inline-code">67070505228</code>, GitHub: <code class="inline-code">supa-gif173</code>)
+
+<hr/>
+
+<h2>1. Stakeholder Problem, Chosen Context, Scope, and Explicit Exclusions</h2>
+
+<h3>1.1 Stakeholder Problem and Chosen Context</h3>
+In a university faculty setting, academic departments, research labs, and student academic committees frequently organize hands-on technical workshops and guest seminars with strict room capacity limits (ranging from small 20-seat computer labs to 500-seat auditoriums). Currently, organizers rely on shared spreadsheets or generic web forms that lack real-time seat enforcement and role-based access control. As a result, popular workshops suffer from overbooking when multiple students submit forms for the last remaining seats at the same time, duplicate entries by the same student, premature sign-ups before event details are finalized, and privacy breaches when participant rosters are exposed to unauthorized students or other organizers.
+
+<h3>1.2 Product Scope</h3>
+The <strong>Faculty Event Registration and Attendance System</strong> provides an end-to-end web platform across three sprints:
+<ul><li><strong>Sprint 1 (Deliverable 1 Baseline):</strong> Authenticated <code class="inline-code">ORGANIZER</code> and <code class="inline-code">PARTICIPANT</code> workflows; creating events in <code class="inline-code">DRAFT</code> state and explicitly publishing them (<code class="inline-code">PUBLISHED</code>) with validated positive capacity (<code class="inline-code">1..500</code>) and future start time; safe capacity adjustments; discovering published events; participant seat registration with strict capacity and duplicate-registration prevention (including concurrent requests for the final seat); viewing own registrations; and organizer inspection of their own event's registrant roster.</li><li><strong>Sprint 2 (Core Expansion):</strong> Participant registration cancellation with seat release, registration deadline enforcement, organizer event editing/closing workflows, and event search/filtering.</li><li><strong>Sprint 3 (Completion and Hardening):</strong> On-site participant check-in, attendance status recording (<code class="inline-code">PRESENT</code> / <code class="inline-code">ABSENT</code>), and event attendance summary/reporting.</li></ul>
+
+<h3>1.3 Explicit Exclusions</h3>
+<ul><li><strong>No Paid Ticketing or Payment Processing:</strong> All faculty workshops and seminars are free university activities; payment gateways and billing are excluded.</li><li><strong>No External Messaging Gateways:</strong> Email, SMS, or push notification services are excluded; confirmation and status updates are displayed directly in the web UI.</li><li><strong>No Self-Registration or Password Recovery in Sprint 1:</strong> User accounts are provisioned via reproducible database seed scripts reading passwords from environment variables; self-service sign-up, email verification, password reset, and multi-role assignment per user are excluded from Sprint 1.</li><li><strong>No Waiting List / Auto-Promotion:</strong> When an event reaches full capacity, new registration attempts are rejected immediately rather than queued on a waitlist.</li></ul>
+
+<hr/>
+
+<h2>2. Actors and Responsibilities</h2>
+
+| Actor | Role Code | Responsibilities in Sprint 1 | Access & Ownership Restrictions |
+|---|---|---|---|
+| <strong>Organizer</strong> (Faculty Staff / Workshop Instructor) | <code class="inline-code">ORGANIZER</code> | Log in/out; create faculty workshop/seminar events in <code class="inline-code">DRAFT</code> status; publish own <code class="inline-code">DRAFT</code> events to <code class="inline-code">PUBLISHED</code>; update capacity of own events within allowed bounds; view own events (<code class="inline-code">DRAFT</code> and <code class="inline-code">PUBLISHED</code>) and inspect the registrant roster for events they own. | Cannot register as a participant; cannot view, edit, publish, or inspect the registrant roster of any event owned by another Organizer. |
+| <strong>Participant</strong> (University Student) | <code class="inline-code">PARTICIPANT</code> | Log in/out; browse and view details of <code class="inline-code">PUBLISHED</code> events; register for available seats in <code class="inline-code">PUBLISHED</code> events; view their own active registrations. | Cannot create, edit, or publish events; cannot view <code class="inline-code">DRAFT</code> events; cannot view another participant's registration records or any event's registrant roster. |
+
+<hr/>
+
+<h2>3. Sprint 1 Functional Requirements (<code class="inline-code">FR-01</code> to <code class="inline-code">FR-06</code>)</h2>
+
+| ID | Requirement Statement (Observable Behavior) | Actor(s) | Target Sprint |
+|---|---|---|---|
+| <strong>FR-01</strong> | <strong>User Authentication and Session Lifecycle:</strong> The system shall allow a user with a valid email and password to log in (<code class="inline-code">POST /api/auth/login</code>), retrieve their authenticated profile and role (<code class="inline-code">GET /api/auth/me</code>), and log out (<code class="inline-code">POST /api/auth/logout</code>) by invalidating the active session on the backend. | <code class="inline-code">ORGANIZER</code>, <code class="inline-code">PARTICIPANT</code> | Sprint 1 |
+| <strong>FR-02</strong> | <strong>Draft Event Creation, Separate Publication, and Capacity Update:</strong> The system shall allow an authenticated <code class="inline-code">ORGANIZER</code> to create a new workshop/seminar event (<code class="inline-code">title</code>, <code class="inline-code">description</code>, <code class="inline-code">category</code>, <code class="inline-code">location</code>, <code class="inline-code">startAt</code>, <code class="inline-code">endAt</code>, <code class="inline-code">capacity</code>) exclusively in <code class="inline-code">DRAFT</code> status (<code class="inline-code">POST /api/events</code>), subsequently publish a <code class="inline-code">DRAFT</code> event they own to <code class="inline-code">PUBLISHED</code> status as a separate action (<code class="inline-code">POST /api/events/:id/publish</code>), and update the capacity of an event they own (<code class="inline-code">PATCH /api/events/:id/capacity</code>). | <code class="inline-code">ORGANIZER</code> | Sprint 1 |
+| <strong>FR-03</strong> | <strong>Event Discovery and Detail Retrieval:</strong> The system shall allow authenticated users to list and inspect <code class="inline-code">PUBLISHED</code> events (<code class="inline-code">GET /api/events</code>, <code class="inline-code">GET /api/events/:id</code>) showing schedule, location, capacity, active registration count, and remaining seats, and shall allow an <code class="inline-code">ORGANIZER</code> to list all events they own including <code class="inline-code">DRAFT</code> events (<code class="inline-code">GET /api/organizer/events</code>). | <code class="inline-code">ORGANIZER</code>, <code class="inline-code">PARTICIPANT</code> | Sprint 1 |
+| <strong>FR-04</strong> | <strong>Participant Event Registration:</strong> The system shall allow an authenticated <code class="inline-code">PARTICIPANT</code> to submit a registration for a <code class="inline-code">PUBLISHED</code> event (<code class="inline-code">POST /api/events/:id/registrations</code>) and persist an <code class="inline-code">ACTIVE</code> registration record in the database. | <code class="inline-code">PARTICIPANT</code> | Sprint 1 |
+| <strong>FR-05</strong> | <strong>Participant Own Registrations View:</strong> The system shall allow an authenticated <code class="inline-code">PARTICIPANT</code> to retrieve the list of their own persisted registrations along with the associated event details (<code class="inline-code">GET /api/registrations/me</code>). | <code class="inline-code">PARTICIPANT</code> | Sprint 1 |
+| <strong>FR-06</strong> | <strong>Organizer Event Registrant Roster:</strong> The system shall allow an authenticated <code class="inline-code">ORGANIZER</code> to retrieve the list of <code class="inline-code">ACTIVE</code> registrations (participant name, email, registration timestamp, status) for a specific event that the organizer owns (<code class="inline-code">GET /api/events/:id/registrations</code>). | <code class="inline-code">ORGANIZER</code> | Sprint 1 |
+
+<hr/>
+
+<h2>4. Planned Later-Sprint Functional Requirements (<code class="inline-code">FR-07</code> to <code class="inline-code">FR-11</code>)</h2>
+
+| ID | One-Line Requirement Summary | Actor(s) | Allocated Sprint |
+|---|---|---|---|
+| <strong>FR-07</strong> | <strong>Registration Cancellation:</strong> Allow a <code class="inline-code">PARTICIPANT</code> to cancel their own <code class="inline-code">ACTIVE</code> registration (<code class="inline-code">CANCELLED</code>) before the event starts, releasing the seat back to available capacity. | <code class="inline-code">PARTICIPANT</code> | Sprint 2 |
+| <strong>FR-08</strong> | <strong>Registration Deadline Enforcement:</strong> Allow an <code class="inline-code">ORGANIZER</code> to set a <code class="inline-code">registrationDeadline</code> on an event and reject new registrations or cancellations submitted after that deadline. | <code class="inline-code">ORGANIZER</code>, <code class="inline-code">PARTICIPANT</code> | Sprint 2 |
+| <strong>FR-09</strong> | <strong>Event Details Editing, Closing, and Filtering:</strong> Allow an <code class="inline-code">ORGANIZER</code> to edit event details or close registration, and allow users to search/filter published events by category (<code class="inline-code">WORKSHOP</code>, <code class="inline-code">SEMINAR</code>) and availability. | <code class="inline-code">ORGANIZER</code>, <code class="inline-code">PARTICIPANT</code> | Sprint 2 |
+| <strong>FR-10</strong> | <strong>Participant Check-In and Attendance Recording:</strong> Allow an <code class="inline-code">ORGANIZER</code> to record attendance (<code class="inline-code">PRESENT</code> / <code class="inline-code">ABSENT</code>) for <code class="inline-code">ACTIVE</code> registrants of their own event during or after the session. | <code class="inline-code">ORGANIZER</code> | Sprint 3 |
+| <strong>FR-11</strong> | <strong>Event Attendance Summary Report:</strong> Provide an <code class="inline-code">ORGANIZER</code> with an aggregate summary for each owned event showing total capacity, active registrations, cancellations, checked-in count, and attendance rate. | <code class="inline-code">ORGANIZER</code> | Sprint 3 |
+
+<hr/>
+
+<h2>5. Sprint 1 Business Rules (<code class="inline-code">BR-01</code> to <code class="inline-code">BR-07</code>)</h2>
+
+| ID | Business Rule Definition (Testable Domain Rule) | Target Sprint |
+|---|---|---|
+| <strong>BR-01</strong> | <strong>Valid Capacity Bounds and Non-Reduction Below Active Count:</strong> An event's <code class="inline-code">capacity</code> must be an integer between <code class="inline-code">1</code> and <code class="inline-code">500</code> inclusive (<code class="inline-code">1 <= capacity <= 500</code>). An organizer cannot reduce an event's capacity below the current number of <code class="inline-code">ACTIVE</code> registrations for that event (<code class="inline-code">newCapacity >= activeRegistrationsCount</code>). | Sprint 1 |
+| <strong>BR-02</strong> | <strong>Valid Event Schedule and Future Start on Publish:</strong> An event's <code class="inline-code">endAt</code> must be strictly later than <code class="inline-code">startAt</code> (<code class="inline-code">endAt > startAt</code>). A <code class="inline-code">DRAFT</code> event can be transitioned to <code class="inline-code">PUBLISHED</code> only if its <code class="inline-code">startAt</code> timestamp is in the future relative to the server clock at the moment of publication (<code class="inline-code">startAt > now</code>). | Sprint 1 |
+| <strong>BR-03</strong> | <strong>Published-Only Visibility and Registration for Participants:</strong> Events in <code class="inline-code">DRAFT</code> status are hidden from participant listings and cannot accept registrations. Any attempt by a <code class="inline-code">PARTICIPANT</code> to view or register for a <code class="inline-code">DRAFT</code> event is rejected (<code class="inline-code">404 Not Found</code> / <code class="inline-code">409 Conflict</code>). | Sprint 1 |
+| <strong>BR-04</strong> | <strong>Strict Capacity Enforcement and Last-Seat Concurrency Safety:</strong> The number of <code class="inline-code">ACTIVE</code> registrations for an event must never exceed <code class="inline-code">event.capacity</code>. When <code class="inline-code">activeRegistrationsCount >= event.capacity</code>, any new registration request is rejected with <code class="inline-code">409 Conflict</code>. When multiple requests compete simultaneously for the final available seat, the system must process seat allocation atomically so that at most one request succeeds and total <code class="inline-code">ACTIVE</code> registrations never exceed <code class="inline-code">capacity</code> (technical locking mechanism specified in the System-Level SDS). | Sprint 1 |
+| <strong>BR-05</strong> | <strong>Single Active Registration per Participant per Event:</strong> A <code class="inline-code">PARTICIPANT</code> may hold at most one <code class="inline-code">ACTIVE</code> registration for a given event. Attempting to register again for the same event is rejected with <code class="inline-code">409 Conflict</code>. <em>(See Assumption <code class="inline-code">AD-05</code> regarding Sprint 1 constraint vs. Sprint 2 cancellation.)</em> | Sprint 1 |
+| <strong>BR-06</strong> | <strong>Role-Based Operation Restrictions:</strong> Only users with role <code class="inline-code">ORGANIZER</code> may create draft events, publish events, update capacity, or view event registrant rosters. Only users with role <code class="inline-code">PARTICIPANT</code> may register for an event. Unauthorized role requests are rejected on the backend with <code class="inline-code">403 Forbidden</code>. | Sprint 1 |
+| <strong>BR-07</strong> | <strong>Event Ownership and Registration Privacy Isolation:</strong> An <code class="inline-code">ORGANIZER</code> may publish, update, or view the registrant roster only for events where <code class="inline-code">event.organizerId == currentUser.id</code>; requests targeting another organizer's event are rejected with <code class="inline-code">403 Forbidden</code>. A <code class="inline-code">PARTICIPANT</code> can retrieve only registrations where <code class="inline-code">registration.userId == currentUser.id</code>. | Sprint 1 |
+
+<hr/>
+
+<h2>6. Sprint 1 Non-Functional Requirements (<code class="inline-code">NFR-01</code> to <code class="inline-code">NFR-05</code>)</h2>
+
+| ID | Category | Measurable Target | Verification Method | Verified In |
+|---|---|---|---|---|
+| <strong>NFR-01</strong> | <strong>Credential & Secret Security</strong> | 100% of stored user passwords use salted <code class="inline-code">bcrypt</code> hashes (cost factor >= 10); 0 plaintext passwords or real secrets (<code class="inline-code">.env</code>, <code class="inline-code">DATABASE_URL</code>, <code class="inline-code">SESSION_SECRET</code>, seed passwords) appear in Git commits, logs, or API responses. | Automated API/DB integration test verifying hashed password storage and omission of <code class="inline-code">passwordHash</code> from API responses; <code class="inline-code">git status</code> and <code class="inline-code">git diff</code> inspection before every commit. | Sprint 1 |
+| <strong>NFR-02</strong> | <strong>Stateful Session & Expiry Enforcement</strong> | Server-side sessions stored in PostgreSQL expire automatically after <strong>8 hours</strong> (<code class="inline-code">expiresAt</code>) and are deleted immediately upon logout; 100% of unauthenticated, expired, or logged-out requests to protected endpoints return <code class="inline-code">401 Unauthorized</code> without returning private data. | Automated API integration tests covering valid login, invalid login, unauthenticated access, expired session record, and post-logout request rejection. | Sprint 1 |
+| <strong>NFR-03</strong> | <strong>Concurrency & Atomic Seat Allocation</strong> | When 5 or more concurrent registration requests target a <code class="inline-code">PUBLISHED</code> event with <code class="inline-code">1</code> remaining seat, exactly <code class="inline-code">1</code> request succeeds (<code class="inline-code">201 Created</code>), all others fail (<code class="inline-code">409 Conflict</code>), and persisted <code class="inline-code">ACTIVE</code> registrations equal <code class="inline-code">event.capacity</code> with zero overbooking. | <strong>API concurrency test</strong> (automated integration test firing parallel <code class="inline-code">POST /api/events/:id/registrations</code> requests against a 1-seat event and asserting response codes and final DB row count). | <strong>Sprint 1</strong> |
+| <strong>NFR-04</strong> | <strong>Durable Database Persistence</strong> | 100% of committed users, active sessions, events, and registrations persist in PostgreSQL and remain retrievable after an application server restart. | Automated API/DB persistence integration test in Sprint 1; container restart and redeploy verification (<code class="inline-code">C-05</code>) in Lab 5. | Sprint 1 & Lab 5 |
+| <strong>NFR-05</strong> | <strong>Cloud-Ready Runtime & Health Probes</strong> | The backend reads <code class="inline-code">PORT</code>, <code class="inline-code">DATABASE_URL</code>, and <code class="inline-code">SESSION_SECRET</code> from environment variables, returns <code class="inline-code">200 OK</code> on <code class="inline-code">GET /api/health</code>, returns <code class="inline-code">200 OK</code> on <code class="inline-code">GET /api/ready</code> when PostgreSQL is reachable, and returns <code class="inline-code">503 Service Unavailable</code> when the database connection fails. | Automated API integration tests for <code class="inline-code">/api/health</code> and <code class="inline-code">/api/ready</code> (healthy and simulated DB failure) in Sprint 1; Cloud Run smoke check in Lab 5. | Sprint 1 & Lab 5 |
+
+<hr/>
+
+<h2>7. Assumptions, Questions, and Resolved Design Decisions (<code class="inline-code">AD-01</code> to <code class="inline-code">AD-06</code>)</h2>
+
+| ID | Ambiguity / Question | Resolved Decision & Assumption | Impacted IDs |
+|---|---|---|---|
+| <strong>AD-01</strong> | What types of events are supported in the university context? | The system targets <strong>Faculty Workshops and Academic Seminars</strong> (<code class="inline-code">WORKSHOP</code>, <code class="inline-code">SEMINAR</code>). Every event includes <code class="inline-code">title</code>, <code class="inline-code">description</code>, <code class="inline-code">category</code>, <code class="inline-code">location</code>, <code class="inline-code">startAt</code>, <code class="inline-code">endAt</code>, and <code class="inline-code">capacity</code>. | <code class="inline-code">FR-02</code>, <code class="inline-code">FR-03</code> |
+| <strong>AD-02</strong> | What are the minimum and maximum allowed capacities for an event? | Event <code class="inline-code">capacity</code> must be an integer from <strong><code class="inline-code">1</code> to <code class="inline-code">500</code></strong> (<code class="inline-code">1 <= capacity <= 500</code>), matching faculty lab and seminar room sizes and providing clear boundary test values (<code class="inline-code">0</code>, <code class="inline-code">1</code>, <code class="inline-code">500</code>, <code class="inline-code">501</code>). | <code class="inline-code">FR-02</code>, <code class="inline-code">BR-01</code> |
+| <strong>AD-03</strong> | Does an event require dates, and when can it be published? | Every event requires <code class="inline-code">startAt</code>, <code class="inline-code">endAt</code> (<code class="inline-code">endAt > startAt</code>), and <code class="inline-code">location</code>. Events are always created as <code class="inline-code">DRAFT</code> first (<code class="inline-code">POST /api/events</code>) and published via a separate action (<code class="inline-code">POST /api/events/:id/publish</code>). At publication time, <code class="inline-code">startAt</code> must be in the future (<code class="inline-code">startAt > now</code>). | <code class="inline-code">FR-02</code>, <code class="inline-code">BR-02</code>, <code class="inline-code">BR-03</code> |
+| <strong>AD-04</strong> | Can an organizer change an event's capacity after creation or publication? | Yes, an organizer may update the capacity of their own event (<code class="inline-code">1 <= newCapacity <= 500</code>), provided <code class="inline-code">newCapacity</code> is never less than the current number of <code class="inline-code">ACTIVE</code> registrations (<code class="inline-code">newCapacity >= activeRegistrationsCount</code>). | <code class="inline-code">FR-02</code>, <code class="inline-code">BR-01</code>, <code class="inline-code">BR-07</code> |
+| <strong>AD-05</strong> | How is duplicate registration prevented now vs. when cancellation is added in Sprint 2? | <strong>Assumption:</strong> Sprint 1 does not include registration cancellation (<code class="inline-code">FR-07</code> is in Sprint 2), so every registration created in Sprint 1 remains <code class="inline-code">ACTIVE</code> and a composite unique constraint on <code class="inline-code">(eventId, userId)</code> suffices in Sprint 1. In Sprint 2, when <code class="inline-code">CANCELLED</code> status is introduced, the schema will be migrated to a partial unique index enforcing uniqueness only where <code class="inline-code">status = 'ACTIVE'</code> (allowing re-registration after cancellation), and this evolution will be recorded as an approved contract change. | <code class="inline-code">FR-04</code>, <code class="inline-code">FR-07</code>, <code class="inline-code">BR-05</code> |
+| <strong>AD-06</strong> | How are user sessions and test credentials managed safely in a public repository? | Sessions use an <code class="inline-code">httpOnly</code> cookie storing a random session ID persisted in PostgreSQL with an <strong>8-hour expiry</strong>, deleted on logout. Seed accounts read passwords exclusively from environment variables (<code class="inline-code">SEED_ORGANIZER_PASSWORD</code>, <code class="inline-code">SEED_PARTICIPANT_PASSWORD</code>) in <code class="inline-code">.env</code> (gitignored). | <code class="inline-code">FR-01</code>, <code class="inline-code">NFR-01</code>, <code class="inline-code">NFR-02</code> |
+
+    <!-- PART B -->
+    <div class="section-divider"></div>
+    <h1>Part B: Feature Inventory and Traceability Matrix</h1>
+    <h1>Feature Inventory (<code class="inline-code">F-01</code> to <code class="inline-code">F-09</code>)</h1>
+
+<ul><li><strong>Course:</strong> CPE 334 Introduction to Software Engineering in the Age of AI Agents (Semester 1/2026)</li><li><strong>Theme:</strong> Theme 3 — Event Registration and Attendance System (Faculty Workshops & Seminars)</li><li><strong>Team Members:</strong></li></ul>
+  1. Pimchaya Suprateravarnit (<code class="inline-code">67070505223</code>, GitHub: <code class="inline-code">pimchayasupr-hash</code>)
+  2. Suphattra Kongsiriphat (<code class="inline-code">67070505228</code>, GitHub: <code class="inline-code">supa-gif173</code>)
+
+<hr/>
+
+<h2>1. Complete Product Feature Inventory (Sprints 1–3)</h2>
+
+| Feature ID | Feature Name & Short Description | Related Requirements (<code class="inline-code">FR</code> / <code class="inline-code">BR</code> / <code class="inline-code">NFR</code>) | Dependencies | Planned Sprint | Contract / Status |
+|---|---|---|---|---|---|
+| <strong>F-01</strong> | <strong>User Authentication and Session Management:</strong> Backend login (<code class="inline-code">POST /api/auth/login</code>), current-user retrieval (<code class="inline-code">GET /api/auth/me</code>), and logout (<code class="inline-code">POST /api/auth/logout</code>) using <code class="inline-code">bcryptjs</code> password hashes and a PostgreSQL <code class="inline-code">Session</code> table (<code class="inline-code">httpOnly</code> cookie, 8-hour expiry, <code class="inline-code">crypto.randomBytes(32).toString('hex')</code>). | <code class="inline-code">FR-01</code>, <code class="inline-code">NFR-01</code>, <code class="inline-code">NFR-02</code>, <code class="inline-code">NFR-04</code>, <code class="inline-code">AD-06</code> | PostgreSQL, Prisma (<code class="inline-code">User</code>, <code class="inline-code">Session</code>), Seed script | <strong>Sprint 1</strong> | <code class="inline-code">docs/sprints/sprint-1/f-01-auth-session.md</code> |
+| <strong>F-02</strong> | <strong>Event Creation, Separate Publication, Discovery, and Capacity Management:</strong> <code class="inline-code">ORGANIZER</code> creates events exclusively in <code class="inline-code">DRAFT</code> status (<code class="inline-code">1 <= capacity <= 500</code>, <code class="inline-code">endAt > startAt</code>), publishes owned events to <code class="inline-code">PUBLISHED</code> (<code class="inline-code">startAt > now</code>), updates capacity (<code class="inline-code">newCapacity >= activeCount</code>), and users browse <code class="inline-code">PUBLISHED</code> events. | <code class="inline-code">FR-02</code>, <code class="inline-code">FR-03</code>, <code class="inline-code">BR-01</code>, <code class="inline-code">BR-02</code>, <code class="inline-code">BR-03</code>, <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">NFR-04</code>, <code class="inline-code">AD-01</code>–<code class="inline-code">AD-04</code> | <code class="inline-code">F-01</code> (Auth & <code class="inline-code">ORGANIZER</code> role guard) | <strong>Sprint 1</strong> | <code class="inline-code">docs/sprints/sprint-1/f-02-event-management.md</code> |
+| <strong>F-03</strong> | <strong>Participant Event Registration, Own Registrations View, Capacity Enforcement, and Concurrency Protection:</strong> <code class="inline-code">PARTICIPANT</code> registers for <code class="inline-code">PUBLISHED</code> events inside an atomic PostgreSQL transaction (<code class="inline-code">SELECT ... FOR UPDATE</code> on <code class="inline-code">Event</code>) enforcing <code class="inline-code">activeCount < capacity</code> and 1 active registration per user per event (<code class="inline-code">@@unique([eventId, userId])</code>), and views own registrations (<code class="inline-code">GET /api/registrations/me</code>). | <code class="inline-code">FR-04</code>, <code class="inline-code">FR-05</code>, <code class="inline-code">BR-03</code>, <code class="inline-code">BR-04</code>, <code class="inline-code">BR-05</code>, <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">NFR-03</code>, <code class="inline-code">NFR-04</code>, <code class="inline-code">AD-05</code> | <code class="inline-code">F-01</code> (<code class="inline-code">PARTICIPANT</code> auth), <code class="inline-code">F-02</code> (<code class="inline-code">PUBLISHED</code> events) | <strong>Sprint 1</strong> | <code class="inline-code">docs/sprints/sprint-1/f-03-registration-concurrency.md</code> |
+| <strong>F-04</strong> | <strong>Organizer Event Registrant Roster, Ownership Enforcement, and Runtime Readiness Probes:</strong> <code class="inline-code">ORGANIZER</code> retrieves the registrant roster (<code class="inline-code">GET /api/events/:id/registrations</code>) strictly for events where <code class="inline-code">organizerId == currentUser.id</code>; exposes <code class="inline-code">GET /api/health</code> and <code class="inline-code">GET /api/ready</code> (<code class="inline-code">503</code> when DB unreachable). | <code class="inline-code">FR-06</code>, <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">NFR-01</code>, <code class="inline-code">NFR-02</code>, <code class="inline-code">NFR-04</code>, <code class="inline-code">NFR-05</code> | <code class="inline-code">F-01</code>, <code class="inline-code">F-02</code>, <code class="inline-code">F-03</code> | <strong>Sprint 1</strong> | <code class="inline-code">docs/sprints/sprint-1/f-04-organizer-roster.md</code> |
+| <strong>F-05</strong> | <strong>Participant Registration Cancellation and Seat Release:</strong> <code class="inline-code">PARTICIPANT</code> cancels their own <code class="inline-code">ACTIVE</code> registration (<code class="inline-code">status -> CANCELLED</code>) before the event starts or deadline passes, releasing the seat back to <code class="inline-code">remainingSeats</code> and migrating uniqueness to a partial index on <code class="inline-code">status = 'ACTIVE'</code>. | <code class="inline-code">FR-07</code>, <code class="inline-code">BR-04</code>, <code class="inline-code">BR-05</code>, <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">AD-05</code> | <code class="inline-code">F-03</code> | <strong>Sprint 2</strong> | Planned for Sprint 2 |
+| <strong>F-06</strong> | <strong>Event Registration Deadline Enforcement:</strong> <code class="inline-code">ORGANIZER</code> configures an optional or required <code class="inline-code">registrationDeadline</code> (<code class="inline-code">registrationDeadline <= startAt</code>); backend rejects new registrations and cancellations after <code class="inline-code">now > registrationDeadline</code>. | <code class="inline-code">FR-08</code>, <code class="inline-code">BR-02</code>, <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code> | <code class="inline-code">F-02</code>, <code class="inline-code">F-03</code>, <code class="inline-code">F-05</code> | <strong>Sprint 2</strong> | Planned for Sprint 2 |
+| <strong>F-07</strong> | <strong>Event Editing, Registration Closing, and Catalog Search/Filtering:</strong> <code class="inline-code">ORGANIZER</code> edits event metadata (<code class="inline-code">title</code>, <code class="inline-code">description</code>, <code class="inline-code">location</code>, schedule) or manually closes registration (<code class="inline-code">CLOSED</code>), and users filter/search <code class="inline-code">PUBLISHED</code> events by category (<code class="inline-code">WORKSHOP</code>, <code class="inline-code">SEMINAR</code>), keyword, and seat availability. | <code class="inline-code">FR-09</code>, <code class="inline-code">BR-01</code>, <code class="inline-code">BR-02</code>, <code class="inline-code">BR-03</code>, <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code> | <code class="inline-code">F-02</code> | <strong>Sprint 2</strong> | Planned for Sprint 2 |
+| <strong>F-08</strong> | <strong>Participant On-Site Check-In and Attendance Recording:</strong> <code class="inline-code">ORGANIZER</code> marks <code class="inline-code">ACTIVE</code> registrants of their own event as <code class="inline-code">PRESENT</code> or <code class="inline-code">ABSENT</code> (<code class="inline-code">PATCH /api/events/:id/registrations/:regId/attendance</code>) with timestamped audit fields. | <code class="inline-code">FR-10</code>, <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">NFR-04</code> | <code class="inline-code">F-03</code>, <code class="inline-code">F-04</code> | <strong>Sprint 3</strong> | Planned for Sprint 3 |
+| <strong>F-09</strong> | <strong>Event Attendance Summary and Participation Rate Reporting:</strong> <code class="inline-code">ORGANIZER</code> views an aggregate summary for each owned event showing total capacity, active registrations, cancellations, checked-in (<code class="inline-code">PRESENT</code>) count, no-show (<code class="inline-code">ABSENT</code>) count, and attendance percentage. | <code class="inline-code">FR-11</code>, <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code> | <code class="inline-code">F-04</code>, <code class="inline-code">F-05</code>, <code class="inline-code">F-08</code> | <strong>Sprint 3</strong> | Planned for Sprint 3 |
+
+<hr/>
+
+<h2>2. Feature Dependency Summary</h2>
+
+1. <strong>Foundation (<code class="inline-code">F-01</code>):</strong> Provides authenticated identity (<code class="inline-code">req.user</code>) and role-based access control (<code class="inline-code">ORGANIZER</code> vs. <code class="inline-code">PARTICIPANT</code>) required by all domain features (<code class="inline-code">F-02</code>–<code class="inline-code">F-09</code>).
+2. <strong>Core Event Lifecycle (<code class="inline-code">F-02</code>):</strong> Creates and publishes <code class="inline-code">Event</code> records consumed by registration (<code class="inline-code">F-03</code>), roster inspection (<code class="inline-code">F-04</code>), deadlines (<code class="inline-code">F-06</code>), and search/editing (<code class="inline-code">F-07</code>).
+3. <strong>Seat Allocation & Roster (<code class="inline-code">F-03</code>, <code class="inline-code">F-04</code>):</strong> Establishes transactional registration records consumed by cancellation (<code class="inline-code">F-05</code>), check-in (<code class="inline-code">F-08</code>), and attendance reporting (<code class="inline-code">F-09</code>).
+    <h1>Requirements-to-Feature-to-Sprint Traceability Matrix</h1>
+
+<ul><li><strong>Course:</strong> CPE 334 Introduction to Software Engineering in the Age of AI Agents (Semester 1/2026)</li><li><strong>Theme:</strong> Theme 3 — Event Registration and Attendance System (Faculty Workshops & Seminars)</li></ul>
+
+<hr/>
+
+<h2>1. Functional Requirements (<code class="inline-code">FR</code>) Traceability</h2>
+
+| Requirement ID | Requirement Summary | Mapped Feature(s) | Planned Sprint | Acceptance Criteria (<code class="inline-code">AC</code>) | Planned Verification (<code class="inline-code">STS</code>) |
+|---|---|---|---|---|---|
+| <strong>FR-01</strong> | User authentication (<code class="inline-code">login</code>, <code class="inline-code">me</code>, <code class="inline-code">logout</code>) with DB-backed session | <code class="inline-code">F-01</code> | Sprint 1 | <code class="inline-code">AC-F01-01</code>–<code class="inline-code">AC-F01-05</code>, <code class="inline-code">AC-F01-07</code> | <code class="inline-code">TEST-F01-01</code>–<code class="inline-code">TEST-F01-05</code>, <code class="inline-code">TEST-F01-07</code>, <code class="inline-code">TEST-F01-08</code> |
+| <strong>FR-02</strong> | Create event in <code class="inline-code">DRAFT</code>, publish separately to <code class="inline-code">PUBLISHED</code>, and update capacity | <code class="inline-code">F-02</code> | Sprint 1 | <code class="inline-code">AC-F02-01</code>–<code class="inline-code">AC-F02-04</code>, <code class="inline-code">AC-F02-06</code> | <code class="inline-code">TEST-F02-01</code>–<code class="inline-code">TEST-F02-03</code>, <code class="inline-code">TEST-F02-05</code>, <code class="inline-code">TEST-F02-08</code> |
+| <strong>FR-03</strong> | Discover and view <code class="inline-code">PUBLISHED</code> events (<code class="inline-code">remainingSeats</code>) and organizer's own <code class="inline-code">DRAFT</code>/<code class="inline-code">PUBLISHED</code> events | <code class="inline-code">F-02</code> | Sprint 1 | <code class="inline-code">AC-F02-03</code>, <code class="inline-code">AC-F02-05</code> | <code class="inline-code">TEST-F02-02</code>, <code class="inline-code">TEST-F02-04</code>, <code class="inline-code">TEST-F02-08</code> |
+| <strong>FR-04</strong> | Participant registers for a <code class="inline-code">PUBLISHED</code> event (<code class="inline-code">ACTIVE</code> registration) | <code class="inline-code">F-03</code> | Sprint 1 | <code class="inline-code">AC-F03-01</code> | <code class="inline-code">TEST-F03-01</code>, <code class="inline-code">TEST-F03-07</code> |
+| <strong>FR-05</strong> | Participant views their own persisted registrations (<code class="inline-code">GET /api/registrations/me</code>) | <code class="inline-code">F-03</code> | Sprint 1 | <code class="inline-code">AC-F03-06</code> | <code class="inline-code">TEST-F03-01</code>, <code class="inline-code">TEST-F03-06</code>, <code class="inline-code">TEST-F03-07</code> |
+| <strong>FR-06</strong> | Organizer views the registrant roster for an event they own (<code class="inline-code">GET /api/events/:id/registrations</code>) | <code class="inline-code">F-04</code> | Sprint 1 | <code class="inline-code">AC-F04-01</code>, <code class="inline-code">AC-F04-02</code> | <code class="inline-code">TEST-F04-01</code>, <code class="inline-code">TEST-F04-06</code> |
+| <strong>FR-07</strong> | Participant cancels own <code class="inline-code">ACTIVE</code> registration and releases seat | <code class="inline-code">F-05</code> | Sprint 2 | Elaborated in Sprint 2 contract | Sprint 2 API/DB integration & UI tests |
+| <strong>FR-08</strong> | Organizer sets registration deadline; reject registrations/cancellations past deadline | <code class="inline-code">F-06</code> | Sprint 2 | Elaborated in Sprint 2 contract | Sprint 2 unit & API integration tests |
+| <strong>FR-09</strong> | Organizer edits/closes events; users search and filter events by category/availability | <code class="inline-code">F-07</code> | Sprint 2 | Elaborated in Sprint 2 contract | Sprint 2 API & UI tests |
+| <strong>FR-10</strong> | Organizer checks in participants and records attendance (<code class="inline-code">PRESENT</code> / <code class="inline-code">ABSENT</code>) | <code class="inline-code">F-08</code> | Sprint 3 | Elaborated in Sprint 3 contract | Sprint 3 API/DB & UI tests |
+| <strong>FR-11</strong> | Organizer views event attendance summary and participation rate report | <code class="inline-code">F-09</code> | Sprint 3 | Elaborated in Sprint 3 contract | Sprint 3 unit, API & E2E tests |
+
+<hr/>
+
+<h2>2. Business Rules (<code class="inline-code">BR</code>) Traceability</h2>
+
+| Rule ID | Business Rule Summary | Mapped Feature(s) | Establishes & Verifies In | Acceptance Criteria (<code class="inline-code">AC</code>) | Planned Verification (<code class="inline-code">STS</code>) |
+|---|---|---|---|---|---|
+| <strong>BR-01</strong> | <code class="inline-code">1 <= capacity <= 500</code> integer; cannot reduce capacity below <code class="inline-code">activeRegistrationsCount</code> | <code class="inline-code">F-02</code> (extended in <code class="inline-code">F-07</code>) | <strong>Sprint 1</strong> | <code class="inline-code">AC-F02-01</code>, <code class="inline-code">AC-F02-02</code>, <code class="inline-code">AC-F02-06</code> | <code class="inline-code">TEST-F02-01</code>, <code class="inline-code">TEST-F02-03</code>, <code class="inline-code">TEST-F02-05</code> |
+| <strong>BR-02</strong> | <code class="inline-code">endAt > startAt</code>; <code class="inline-code">DRAFT -> PUBLISHED</code> requires <code class="inline-code">startAt > now</code> | <code class="inline-code">F-02</code> (extended in <code class="inline-code">F-06</code>) | <strong>Sprint 1</strong> | <code class="inline-code">AC-F02-02</code>, <code class="inline-code">AC-F02-03</code>, <code class="inline-code">AC-F02-04</code> | <code class="inline-code">TEST-F02-01</code>, <code class="inline-code">TEST-F02-02</code>, <code class="inline-code">TEST-F02-03</code> |
+| <strong>BR-03</strong> | Participants can only view and register for <code class="inline-code">PUBLISHED</code> events (<code class="inline-code">DRAFT</code> rejected) | <code class="inline-code">F-02</code>, <code class="inline-code">F-03</code> | <strong>Sprint 1</strong> | <code class="inline-code">AC-F02-05</code>, <code class="inline-code">AC-F03-05</code> | <code class="inline-code">TEST-F02-04</code>, <code class="inline-code">TEST-F03-05</code> |
+| <strong>BR-04</strong> | Active registrations never exceed <code class="inline-code">capacity</code>; atomic seat allocation for competing last-seat requests | <code class="inline-code">F-03</code> (extended in <code class="inline-code">F-05</code>) | <strong>Sprint 1</strong> | <code class="inline-code">AC-F03-03</code>, <code class="inline-code">AC-F03-04</code> | <code class="inline-code">TEST-F03-03</code>, <code class="inline-code">TEST-F03-04</code> (API concurrency test) |
+| <strong>BR-05</strong> | At most 1 <code class="inline-code">ACTIVE</code> registration per participant per event (<code class="inline-code">409 Conflict</code> on duplicate) | <code class="inline-code">F-03</code> (extended in <code class="inline-code">F-05</code>) | <strong>Sprint 1</strong> | <code class="inline-code">AC-F03-02</code> | <code class="inline-code">TEST-F03-02</code> |
+| <strong>BR-06</strong> | Backend role enforcement (<code class="inline-code">ORGANIZER</code> vs. <code class="inline-code">PARTICIPANT</code> operations return <code class="inline-code">403 Forbidden</code>) | <code class="inline-code">F-02</code>, <code class="inline-code">F-03</code>, <code class="inline-code">F-04</code> (and <code class="inline-code">F-05</code>–<code class="inline-code">F-09</code>) | <strong>Sprint 1</strong> | <code class="inline-code">AC-F02-07</code>, <code class="inline-code">AC-F03-07</code>, <code class="inline-code">AC-F04-04</code> | <code class="inline-code">TEST-F02-06</code>, <code class="inline-code">TEST-F03-06</code>, <code class="inline-code">TEST-F04-03</code> |
+| <strong>BR-07</strong> | Resource ownership (<code class="inline-code">event.organizerId == currentUser.id</code>) & participant registration privacy isolation | <code class="inline-code">F-02</code>, <code class="inline-code">F-03</code>, <code class="inline-code">F-04</code> (and <code class="inline-code">F-05</code>–<code class="inline-code">F-09</code>) | <strong>Sprint 1</strong> | <code class="inline-code">AC-F02-08</code>, <code class="inline-code">AC-F03-06</code>, <code class="inline-code">AC-F04-03</code>, <code class="inline-code">AC-F04-04</code> | <code class="inline-code">TEST-F02-07</code>, <code class="inline-code">TEST-F03-06</code>, <code class="inline-code">TEST-F04-02</code>, <code class="inline-code">TEST-F04-03</code> |
+
+<hr/>
+
+<h2>3. Non-Functional Requirements (<code class="inline-code">NFR</code>) Traceability</h2>
+
+| NFR ID | NFR Summary & Target | Mapped Feature / System Responsibility | Establishes & Verifies In | Acceptance Criteria (<code class="inline-code">AC</code>) | Planned Verification (<code class="inline-code">STS</code>) |
+|---|---|---|---|---|---|
+| <strong>NFR-01</strong> | <code class="inline-code">bcryptjs</code> password hashing (cost >= 10); 0 secrets/hashes in Git or API responses | <code class="inline-code">F-01</code>, <code class="inline-code">F-04</code> (System Auth & Serialization) | <strong>Sprint 1</strong> | <code class="inline-code">AC-F01-01</code>, <code class="inline-code">AC-F04-01</code> | <code class="inline-code">TEST-F01-01</code>, <code class="inline-code">TEST-F01-02</code>, <code class="inline-code">TEST-F04-01</code> + pre-commit diff check |
+| <strong>NFR-02</strong> | Stateful DB session (<code class="inline-code">httpOnly</code> cookie, 8h TTL, immediate logout revocation; <code class="inline-code">401</code> on invalid/expired) | <code class="inline-code">F-01</code>, <code class="inline-code">F-03</code>, <code class="inline-code">F-04</code> (Auth Middleware) | <strong>Sprint 1</strong> | <code class="inline-code">AC-F01-01</code>–<code class="inline-code">AC-F01-06</code>, <code class="inline-code">AC-F03-07</code>, <code class="inline-code">AC-F04-04</code> | <code class="inline-code">TEST-F01-02</code>–<code class="inline-code">TEST-F01-06</code>, <code class="inline-code">TEST-F04-03</code> |
+| <strong>NFR-03</strong> | Zero overbooking under >= 5 concurrent requests competing for 1 remaining seat | <code class="inline-code">F-03</code> (Transactional Seat Lock) | <strong>Sprint 1</strong> | <code class="inline-code">AC-F03-04</code> | <code class="inline-code">TEST-F03-04</code> (Parallel API concurrency test) |
+| <strong>NFR-04</strong> | 100% durable persistence in PostgreSQL across restarts | <code class="inline-code">F-01</code>–<code class="inline-code">F-04</code> (PostgreSQL + Prisma Migrations) | <strong>Sprint 1 & Lab 5</strong> | <code class="inline-code">AC-F01-05</code>, <code class="inline-code">AC-F02-01</code>, <code class="inline-code">AC-F03-01</code>, <code class="inline-code">AC-F04-01</code> | <code class="inline-code">TEST-F01-05</code>, <code class="inline-code">TEST-F02-02</code>, <code class="inline-code">TEST-F03-01</code>, <code class="inline-code">TEST-F04-01</code> + Lab 5 <code class="inline-code">C-05</code> |
+| <strong>NFR-05</strong> | Environment-driven config (<code class="inline-code">PORT</code>, <code class="inline-code">DATABASE_URL</code>, <code class="inline-code">SESSION_SECRET</code>) & <code class="inline-code">/api/health</code>, <code class="inline-code">/api/ready</code> (<code class="inline-code">503</code> on DB down) | <code class="inline-code">F-04</code> (Runtime Readiness & Config) | <strong>Sprint 1 & Lab 5</strong> | <code class="inline-code">AC-F04-05</code>, <code class="inline-code">AC-F04-06</code> | <code class="inline-code">TEST-F04-04</code>, <code class="inline-code">TEST-F04-05</code> + Lab 5 <code class="inline-code">C-03</code>, <code class="inline-code">C-04</code> |
+
+<hr/>
+
+<h2>4. Coverage Gaps and Approved Changes Log</h2>
+
+<ul><li><strong>Uncovered Baseline Requirements (Coverage Gaps):</strong> <strong>None (0 gaps).</strong> Every baseline requirement (<code class="inline-code">FR-01</code>–<code class="inline-code">FR-11</code>, <code class="inline-code">BR-01</code>–<code class="inline-code">BR-07</code>, <code class="inline-code">NFR-01</code>–<code class="inline-code">NFR-05</code>) is mapped to a feature and sprint. All Sprint 1 requirements (<code class="inline-code">FR-01</code>–<code class="inline-code">FR-06</code>, <code class="inline-code">BR-01</code>–<code class="inline-code">BR-07</code>, <code class="inline-code">NFR-01</code>–<code class="inline-code">NFR-05</code>) have complete pre-implementation contracts (<code class="inline-code">AC</code> + <code class="inline-code">STS</code>).</li><li><strong>Planned / Approved Schema Evolution (<code class="inline-code">AD-05</code>):</strong> In Sprint 1 (<code class="inline-code">F-03</code>), <code class="inline-code">BR-05</code> is enforced with a composite unique constraint <code class="inline-code">@@unique([eventId, userId])</code> because cancellation (<code class="inline-code">FR-07</code>) is not in Sprint 1. In Sprint 2 (<code class="inline-code">F-05</code>), when <code class="inline-code">CANCELLED</code> status is added, an additive migration will replace that constraint with a partial unique index <code class="inline-code">ON "Registration"("eventId", "userId") WHERE status = 'ACTIVE'</code> so a participant who cancelled can re-register if seats remain.</li></ul>
+
+    <!-- PART C -->
+    <div class="section-divider"></div>
+    <h1>Part C: System-Level Software Design Specification (System SDS)</h1>
+    <h1>System-Level Software Design Specification (System SDS)</h1>
+
+<ul><li><strong>Course:</strong> CPE 334 Introduction to Software Engineering in the Age of AI Agents (Semester 1/2026)</li><li><strong>Theme:</strong> Theme 3 — Event Registration and Attendance System</li><li><strong>Chosen Context:</strong> Faculty and University Academic Workshops & Seminars</li><li><strong>Repository:</strong> <code class="inline-code">https://github.com/pimchayasupr-hash/cpe334-event-registration</code></li><li><strong>Team Members:</strong></li></ul>
+  1. Suphattra Kongsiriphat (<code class="inline-code">67070505228</code>, GitHub: <code class="inline-code">supa-gif173</code>) — Primary Author (Part C)
+  2. Pimchaya Suprateravarnit (<code class="inline-code">67070505223</code>, GitHub: <code class="inline-code">pimchayasupr-hash</code>) — Contributor & Reviewer
+<ul><li><strong>Target Release:</strong> Sprint 1 Baseline (<code class="inline-code">Deliverable 1</code>) & Cloud Deployment (<code class="inline-code">Lab 5</code>)</li><li><strong>Document Version:</strong> <code class="inline-code">v1.0</code></li></ul>
+
+<hr/>
+
+<h2>1. System Architecture and Component Responsibilities</h2>
+
+<h3>1.1 Architectural Overview & Technology Stack</h3>
+The <strong>Faculty Event Registration and Attendance System</strong> is architected as a modular, three-tier cloud-native web application designed to run seamlessly in both local Docker environments and on Google Cloud Platform (GCP Cloud Run and Cloud SQL).
+
+``<code class="inline-code">mermaid
+flowchart TD
+    subgraph ClientLayer["Client Layer (Browser)"]
+        SPA["React 18 + TypeScript + Vite SPA<br/>(Tailwind CSS, React Router v6)"]
+    end
+
+    subgraph ContainerBoundary["Application Container (Cloud Run / Docker)"]
+        NginxStatic["Static Asset Server / Express Static Handler"]
+        
+        subgraph ServerApp["Backend API Server (Node.js 24 + Express)"]
+            AuthMW["Auth & Session Middleware<br/>(Cookie parser, Session verification)"]
+            RoleMW["Role & Ownership Guards<br/>(ORGANIZER vs. PARTICIPANT)"]
+            DomainLayer["Domain Business Logic Services<br/>(Capacity checks, Temporal validations, Mutex)"]
+            HealthRoutes["Operational Probes<br/>(/api/health, /api/ready)"]
+        end
+    end
+
+    subgraph DataLayer["Persistence Layer (GCP Cloud SQL / Local Docker)"]
+        Postgres[("PostgreSQL 16 Database")]
+        Tables[("User | Session | Event | Registration")]
+        Postgres --- Tables
+    end
+
+    SPA -- "HTTPS / REST API (JSON) + httpOnly Cookie" --> AuthMW
+    AuthMW --> RoleMW
+    RoleMW --> DomainLayer
+    DomainLayer -- "Prisma ORM (Transactions & Row Locks)" --> Postgres
+    HealthRoutes -- "SELECT 1" --> Postgres
+</code>`<code class="inline-code">
+
+<h3>1.2 Technology Stack Selection & Rationale</h3>
+
+| Tier / Component | Technology Selected | Technical Rationale & Role |
+|---|---|---|
+| <strong>Frontend UI</strong> | <strong>React 18, TypeScript, Vite</strong> | High-performance Single Page Application (SPA), type-safe client component trees, deterministic client state management, and rapid bundle generation. |
+| <strong>Backend API</strong> | <strong>Node.js 24 LTS, Express 4, TypeScript</strong> | Asynchronous event-driven I/O model ideal for concurrent seat reservation workflows, native ES modules support, and seamless shared typing between layers. |
+| <strong>ORM / Data Access</strong> | <strong>Prisma ORM (v5+)</strong> | Declarative schema definition, automated type-safe client generation, migrations tracking, and robust interactive transaction support (</code>prisma.$transaction<code class="inline-code">). |
+| <strong>Database Engine</strong> | <strong>PostgreSQL 16</strong> | ACID compliance, pessimistic row-level locking (</code>SELECT ... FOR UPDATE<code class="inline-code">), composite unique constraints, and direct parity with GCP Cloud SQL for PostgreSQL. |
+| <strong>Security & Auth</strong> | <strong>bcryptjs, node:crypto, httpOnly Cookies</strong> | Salted password hashing (cost factor 10), 256-bit CSPRNG session IDs, stateful DB session tracking, and XSS-immune credential transmission. |
+| <strong>Containerization</strong> | <strong>Docker (Multi-stage build)</strong> | Packages production frontend bundle, Node API runtime, and Prisma migration engine into a single immutable, non-root container image for Cloud Run. |
+
+<h3>1.3 Component Responsibilities and Business Rule Enforcement</h3>
+1. <strong>Presentation / UI Layer (Client):</strong> Responsible for routing, view rendering, accessible empty/loading states, responsive layout, and client-side form validation. <em>Client-side guards provide user guidance but never replace backend authorization.</em>
+2. <strong>API & Middleware Layer (Server Controller):</strong> Responsible for HTTP protocol handling, cookie parsing, session token extraction, schema validation (Zod/Joi-style validation), and mapping domain errors to standard HTTP status codes (</code>400<code class="inline-code">, </code>401<code class="inline-code">, </code>403<code class="inline-code">, </code>404<code class="inline-code">, </code>409<code class="inline-code">, </code>500<code class="inline-code">, </code>503<code class="inline-code">).
+3. <strong>Domain Service Layer:</strong> <strong>Strictly where all Business Rules (</code>BR-01<code class="inline-code"> to </code>BR-07<code class="inline-code">) are enforced.</strong> Validates capacity bounds, schedule chronology (</code>endAt > startAt<code class="inline-code">), publication future-start guard (</code>startAt > now<code class="inline-code">), registration state transitions, and resource ownership checks (</code>event.organizerId === currentUser.id<code class="inline-code">).
+4. <strong>Persistence Layer (PostgreSQL):</strong> Enforces data integrity via primary keys, foreign keys with referential actions (</code>CASCADE<code class="inline-code"> / </code>RESTRICT<code class="inline-code">), check constraints, composite unique constraints (</code>@@unique([eventId, userId])<code class="inline-code">), and row-level locks during concurrent transactions.
+
+<hr/>
+
+<h2>2. Data Model, Relational Schema, and Persistence Design</h2>
+
+<h3>2.1 Entity-Relationship Diagram (ERD)</h3>
+
+</code>`<code class="inline-code">mermaid
+erDiagram
+    USER ||--o{ SESSION : "owns (1:N)"
+    USER ||--o{ EVENT : "organizes (1:N)"
+    USER ||--o{ REGISTRATION : "participates (1:N)"
+    EVENT ||--o{ REGISTRATION : "contains (1:N)"
+
+    USER {
+        uuid id PK
+        string email UK "unique, not null"
+        string name "not null"
+        string passwordHash "bcrypt hash, not null"
+        enum role "ORGANIZER | PARTICIPANT"
+        datetime createdAt "default now"
+    }
+
+    SESSION {
+        string id PK "64-hex CSPRNG token"
+        uuid userId FK "references USER(id) ON DELETE CASCADE"
+        datetime expiresAt "not null, 8-hour TTL"
+        datetime createdAt "default now"
+    }
+
+    EVENT {
+        uuid id PK
+        string title "not null"
+        string description "not null"
+        enum category "WORKSHOP | SEMINAR"
+        string location "not null"
+        datetime startAt "not null"
+        datetime endAt "not null, endAt > startAt"
+        int capacity "not null, 1 <= capacity <= 500"
+        enum status "DRAFT | PUBLISHED, default DRAFT"
+        uuid organizerId FK "references USER(id) ON DELETE RESTRICT"
+        datetime createdAt "default now"
+        datetime updatedAt "auto-updated"
+    }
+
+    REGISTRATION {
+        uuid id PK
+        uuid eventId FK "references EVENT(id) ON DELETE CASCADE"
+        uuid userId FK "references USER(id) ON DELETE CASCADE"
+        enum status "ACTIVE (Sprint 1), default ACTIVE"
+        datetime createdAt "default now"
+    }
+</code>`<code class="inline-code">
+
+<h3>2.2 Relational Entity Definitions & Constraints</h3>
+
+<h4>Table 1: </code>User<code class="inline-code"></h4>
+Stores authenticated actors in the system.
+<ul><li></code>id<code class="inline-code"> (</code>UUID<code class="inline-code">, Primary Key, default </code>uuid()<code class="inline-code">): Immutable unique identifier.</li><li></code>email<code class="inline-code"> (</code>VarChar(255)<code class="inline-code">, Unique, Not Null): Case-insensitive unique student/faculty email address.</li><li></code>name<code class="inline-code"> (</code>VarChar(255)<code class="inline-code">, Not Null): Full name of the user.</li><li></code>passwordHash<code class="inline-code"> (</code>VarChar(255)<code class="inline-code">, Not Null): Salted bcrypt hash ($2b$10$...). Never serialized in API responses (</code>NFR-01<code class="inline-code">).</li><li></code>role<code class="inline-code"> (</code>Role<code class="inline-code"> Enum, Not Null): Allowed values: </code>'ORGANIZER'<code class="inline-code">, </code>'PARTICIPANT'<code class="inline-code">.</li><li></code>createdAt<code class="inline-code"> (</code>Timestamp(3)<code class="inline-code">, Default </code>now()<code class="inline-code">).</li></ul>
+
+<h4>Table 2: </code>Session<code class="inline-code"></h4>
+Stores active server-side sessions, decoupling state from server memory (</code>NFR-02<code class="inline-code">, Lab 5 Ep 2).
+<ul><li></code>id<code class="inline-code"> (</code>VarChar(64)<code class="inline-code">, Primary Key): Cryptographically secure 256-bit random hex string.</li><li></code>userId<code class="inline-code"> (</code>UUID<code class="inline-code">, Foreign Key -> </code>User.id<code class="inline-code"> </code>ON DELETE CASCADE<code class="inline-code">, Indexed, Not Null): Links session to actor.</li><li></code>expiresAt<code class="inline-code"> (</code>Timestamp(3)<code class="inline-code">, Not Null, Indexed): Absolute expiration timestamp (set to </code>now() + 8 hours<code class="inline-code">).</li><li></code>createdAt<code class="inline-code"> (</code>Timestamp(3)<code class="inline-code">, Default </code>now()<code class="inline-code">).</li></ul>
+
+<h4>Table 3: </code>Event<code class="inline-code"></h4>
+Stores faculty workshops and seminars managed by organizers.
+<ul><li></code>id<code class="inline-code"> (</code>UUID<code class="inline-code">, Primary Key, default </code>uuid()<code class="inline-code">).</li><li></code>title<code class="inline-code"> (</code>VarChar(255)<code class="inline-code">, Not Null).</li><li></code>description<code class="inline-code"> (</code>Text<code class="inline-code">, Not Null).</li><li></code>category<code class="inline-code"> (</code>EventCategory<code class="inline-code"> Enum, Not Null): </code>'WORKSHOP'<code class="inline-code">, </code>'SEMINAR'<code class="inline-code">.</li><li></code>location<code class="inline-code"> (</code>VarChar(255)<code class="inline-code">, Not Null).</li><li></code>startAt<code class="inline-code"> (</code>Timestamp(3)<code class="inline-code">, Not Null).</li><li></code>endAt<code class="inline-code"> (</code>Timestamp(3)<code class="inline-code">, Not Null): Must satisfy </code>endAt > startAt<code class="inline-code"> (</code>BR-02<code class="inline-code">).</li><li></code>capacity<code class="inline-code"> (</code>Int<code class="inline-code">, Not Null): Database check constraint </code>1 <= capacity <= 500<code class="inline-code"> (</code>BR-01<code class="inline-code">).</li><li></code>status<code class="inline-code"> (</code>EventStatus<code class="inline-code"> Enum, Not Null, Default </code>'DRAFT'<code class="inline-code">): </code>'DRAFT'<code class="inline-code">, </code>'PUBLISHED'<code class="inline-code">.</li><li></code>organizerId<code class="inline-code"> (</code>UUID<code class="inline-code">, Foreign Key -> </code>User.id<code class="inline-code"> </code>ON DELETE RESTRICT<code class="inline-code">, Indexed, Not Null): Enforces event ownership (</code>BR-07<code class="inline-code">).</li><li></code>createdAt<code class="inline-code"> (</code>Timestamp(3)<code class="inline-code">, Default </code>now()<code class="inline-code">), </code>updatedAt<code class="inline-code"> (</code>Timestamp(3)<code class="inline-code">, </code>@updatedAt<code class="inline-code">).</li></ul>
+
+<h4>Table 4: </code>Registration<code class="inline-code"></h4>
+Stores participant bookings for published events.
+<ul><li></code>id<code class="inline-code"> (</code>UUID<code class="inline-code">, Primary Key, default </code>uuid()<code class="inline-code">).</li><li></code>eventId<code class="inline-code"> (</code>UUID<code class="inline-code">, Foreign Key -> </code>Event.id<code class="inline-code"> </code>ON DELETE CASCADE<code class="inline-code">, Indexed, Not Null).</li><li></code>userId<code class="inline-code"> (</code>UUID<code class="inline-code">, Foreign Key -> </code>User.id<code class="inline-code"> </code>ON DELETE CASCADE<code class="inline-code">, Indexed, Not Null).</li><li></code>status<code class="inline-code"> (</code>RegistrationStatus<code class="inline-code"> Enum, Not Null, Default </code>'ACTIVE'<code class="inline-code">): </code>'ACTIVE'<code class="inline-code"> in Sprint 1 (</code>FR-04<code class="inline-code">).</li><li></code>createdAt<code class="inline-code"> (</code>Timestamp(3)<code class="inline-code">, Default </code>now()<code class="inline-code">).</li><li><strong>Composite Unique Constraint (</code>BR-05<code class="inline-code">, </code>AD-05<code class="inline-code">):</strong> </code>@@unique([eventId, userId])<code class="inline-code">. Guarantees exactly one active registration per participant per event in Sprint 1.</li></ul>
+
+<h3>2.3 Database Migrations and Reproducible Seed Strategy</h3>
+1. <strong>Prisma Migrations (</code>prisma migrate<code class="inline-code">):</strong>
+   - Migration scripts are versioned under </code>prisma/migrations/<code class="inline-code">.
+   - In CI/CD and deployment, migrations are applied non-destructively via </code>npx prisma migrate deploy<code class="inline-code">.
+2. <strong>Reproducible Environment-Driven Seed (</code>prisma/seed.ts<code class="inline-code">):</strong>
+   - Implements idempotent upsert operations (</code>upsert<code class="inline-code">) for default seed accounts.
+   - <strong>Zero hardcoded credentials:</strong> Passwords are read strictly from environment variables:
+     - </code>SEED_ORGANIZER_EMAIL<code class="inline-code"> (default: </code>organizer@kmutt.ac.th<code class="inline-code">)
+     - </code>SEED_ORGANIZER_PASSWORD<code class="inline-code"> (placeholder: </code>change-me-organizer<code class="inline-code">)
+     - </code>SEED_PARTICIPANT_EMAIL<code class="inline-code"> (default: </code>participant@kmutt.ac.th<code class="inline-code">)
+     - </code>SEED_PARTICIPANT_PASSWORD<code class="inline-code"> (placeholder: </code>change-me-participant<code class="inline-code">)
+   - Pre-seeds at least 1 </code>DRAFT<code class="inline-code"> event and 2 </code>PUBLISHED<code class="inline-code"> events (including 1 almost-full event for concurrency testing).
+
+<hr/>
+
+<h2>3. UI Architecture, Navigation, and Shared UX Conventions</h2>
+
+<h3>3.1 Screen Catalog and Navigation Map</h3>
+
+</code>`<code class="inline-code">mermaid
+graph TD
+    Login["/login<br/>(Authentication Form)"]
+    Catalog["/events<br/>(Public/Participant Event Catalog)"]
+    Detail["/events/:id<br/>(Event Details & Register Action)"]
+    MyReg["/my-registrations<br/>(Participant Own Bookings)"]
+    OrgDash["/organizer/events<br/>(Organizer Workspace & Event Management)"]
+    OrgRoster["/organizer/events/:id/registrations<br/>(Organizer Registrant Roster)"]
+
+    Login -- "Participant Login" --> Catalog
+    Login -- "Organizer Login" --> OrgDash
+    Catalog --> Detail
+    Detail -- "Register" --> MyReg
+    OrgDash -- "View Registrants" --> OrgRoster
+</code>`<code class="inline-code">
+
+<h3>3.2 Shared UI Behaviors and State Standards</h3>
+<ul><li><strong>Loading State:</strong> Async actions (button clicks, data fetching) trigger accessible skeleton placeholders or button spinners with </code>disabled<code class="inline-code"> attributes to prevent accidental double-submits.</li><li><strong>Empty States:</strong> When no records exist (e.g., zero published events or empty registrations), screens display meaningful illustrations and actions (e.g., </code>"No workshops available right now — check back later"<code class="inline-code">).</li><li><strong>Form Validation & Inline Errors:</strong> Inputs validate format upon blur/submit (</code>1..500<code class="inline-code"> bounds, valid future dates); API rejection messages (</code>400<code class="inline-code">, </code>409<code class="inline-code">) render directly in alert banners with actionable text.</li><li><strong>Client-Side Session Guard:</strong> On initial application mount, the client calls </code>GET /api/auth/me<code class="inline-code">. If unauthenticated, attempts to access protected routes redirect to </code>/login<code class="inline-code"> with a redirect query param.</li></ul>
+
+<hr/>
+
+<h2>4. API Design Conventions, Contracts, and Error Handling</h2>
+
+<h3>4.1 RESTful Endpoint Standard</h3>
+<ul><li>All API routes are namespaced under </code>/api<code class="inline-code">.</li><li>Nouns are pluralized (</code>/api/events<code class="inline-code">, </code>/api/registrations<code class="inline-code">).</li><li>Standard HTTP verbs define semantic operations:</li></ul>
+  - </code>GET<code class="inline-code">: Safe, idempotent data retrieval.
+  - </code>POST<code class="inline-code">: Non-idempotent resource creation or state transition actions (</code>/publish<code class="inline-code">).
+  - </code>PATCH<code class="inline-code">: Partial resource updates (e.g., updating capacity).
+
+<h3>4.2 Standard HTTP Status Codes</h3>
+
+| Status Code | Semantic Meaning | Usage in System |
+|---|---|---|
+| </code>200 OK<code class="inline-code"> | Request succeeded | </code>GET<code class="inline-code"> lists/details, </code>POST /api/events/:id/publish<code class="inline-code">, </code>PATCH /capacity<code class="inline-code">, </code>POST /logout<code class="inline-code">. |
+| </code>201 Created<code class="inline-code"> | Resource created | </code>POST /api/events<code class="inline-code"> (Draft), </code>POST /api/events/:id/registrations<code class="inline-code">. |
+| </code>400 Bad Request<code class="inline-code"> | Input validation failed | Non-integer capacity, capacity outside </code>1..500<code class="inline-code">, </code>endAt <= startAt<code class="inline-code">, past start time on publish. |
+| </code>401 Unauthorized<code class="inline-code"> | Missing / invalid / expired session | Unauthenticated access to protected endpoints; invalid login credentials. |
+| </code>403 Forbidden<code class="inline-code"> | Access denied by role or ownership | Participant attempting organizer operations; Organizer accessing another's event. |
+| </code>404 Not Found<code class="inline-code"> | Resource nonexistent or invisible | Unknown event ID; Participant querying a </code>DRAFT<code class="inline-code"> event (</code>BR-03<code class="inline-code">). |
+| </code>409 Conflict<code class="inline-code"> | Domain invariant / state collision | Event full; duplicate registration; reducing capacity below active registrants. |
+| </code>500 Server Error<code class="inline-code"> | Unexpected internal exception | Sanitized internal error (stack trace withheld). |
+| </code>503 Unavailable<code class="inline-code">| Dependency failure | </code>/api/ready<code class="inline-code"> when PostgreSQL connection fails (</code>NFR-05<code class="inline-code">). |
+
+<h3>4.3 Standard JSON Error Envelope</h3>
+All error responses adhere to a consistent JSON format:
+</code>`<code class="inline-code">json
+{
+  "error": "Short human-readable error title",
+  "message": "Specific explanation of the failure without leaking sensitive system details",
+  "code": "MACHINE_READABLE_CODE"
+}
+</code>`<code class="inline-code">
+
+<hr/>
+
+<h2>5. Access Control and Role/Permission Matrix</h2>
+
+<h3>5.1 Role Definitions</h3>
+<ul><li><strong></code>GUEST<code class="inline-code"> (Unauthenticated):</strong> Can access login endpoint and operational health probes.</li><li><strong></code>PARTICIPANT<code class="inline-code"> (Student):</strong> Can view published workshops, register for available seats, and view their own booking history.</li><li><strong></code>ORGANIZER<code class="inline-code"> (Faculty Staff / Instructor):</strong> Can create, publish, and manage their own events, adjust capacity, and inspect participant rosters for their owned events.</li></ul>
+
+<h3>5.2 Comprehensive Role and Permission Matrix</h3>
+
+| Endpoint / Operation | HTTP Verb | </code>GUEST<code class="inline-code"> | </code>PARTICIPANT<code class="inline-code"> | </code>ORGANIZER<code class="inline-code"> | Scoping & Ownership Rule |
+|---|---|:---:|:---:|:---:|---|
+| <strong>Login</strong> (</code>/api/auth/login<code class="inline-code">) | </code>POST<code class="inline-code"> | ALLOW | ALLOW | ALLOW | Public authentication gateway. |
+| <strong>Current User</strong> (</code>/api/auth/me<code class="inline-code">) | </code>GET<code class="inline-code"> | 401 | ALLOW | ALLOW | Returns profile of active </code>sid<code class="inline-code"> session. |
+| <strong>Logout</strong> (</code>/api/auth/logout<code class="inline-code">) | </code>POST<code class="inline-code"> | 401 | ALLOW | ALLOW | Invalidates caller's session in DB. |
+| <strong>List Published Events</strong> (</code>/api/events<code class="inline-code">) | </code>GET<code class="inline-code"> | 401 | ALLOW | ALLOW | Filtered strictly to </code>status = 'PUBLISHED'<code class="inline-code">. |
+| <strong>Get Event Details</strong> (</code>/api/events/:id<code class="inline-code">) | </code>GET<code class="inline-code"> | 401 | ALLOW<em> | ALLOW</em> | <em>404 if </code>DRAFT<code class="inline-code"> unless caller is owning </code>ORGANIZER<code class="inline-code">. |
+| <strong>Create Event</strong> (</code>/api/events<code class="inline-code">) | </code>POST<code class="inline-code"> | 401 | 403 | ALLOW | Always created as </code>DRAFT<code class="inline-code"> with </code>organizerId = currentUser.id<code class="inline-code">. |
+| <strong>Publish Event</strong> (</code>/api/events/:id/publish<code class="inline-code">) | </code>POST<code class="inline-code"> | 401 | 403 | ALLOW</em> | <em>403 unless </code>event.organizerId === currentUser.id<code class="inline-code">. |
+| <strong>Update Capacity</strong> (</code>/api/events/:id/capacity<code class="inline-code">) | </code>PATCH<code class="inline-code"> | 401 | 403 | ALLOW</em> | <em>403 unless </code>event.organizerId === currentUser.id<code class="inline-code">. |
+| <strong>Organizer Events</strong> (</code>/api/organizer/events<code class="inline-code">) | </code>GET<code class="inline-code"> | 401 | 403 | ALLOW | Scoped strictly to </code>organizerId === currentUser.id<code class="inline-code">. |
+| <strong>Register for Event</strong> (</code>/api/events/:id/registrations<code class="inline-code">) | </code>POST<code class="inline-code"> | 401 | ALLOW | 403 | Enforces </code>status = 'PUBLISHED'<code class="inline-code">, active < cap, no duplicate. |
+| <strong>My Registrations</strong> (</code>/api/registrations/me<code class="inline-code">) | </code>GET<code class="inline-code"> | 401 | ALLOW | 403 | Scoped strictly to </code>userId === currentUser.id<code class="inline-code">. |
+| <strong>Event Registrant Roster</strong> (</code>/api/events/:id/registrations<code class="inline-code">) | </code>GET<code class="inline-code"> | 401 | 403 | ALLOW</em> | *403 unless </code>event.organizerId === currentUser.id<code class="inline-code">. |
+| <strong>Liveness Check</strong> (</code>/api/health<code class="inline-code">) | </code>GET<code class="inline-code"> | ALLOW | ALLOW | ALLOW | Unauthenticated probe returning </code>200 OK<code class="inline-code">. |
+| <strong>Readiness Check</strong> (</code>/api/ready<code class="inline-code">) | </code>GET<code class="inline-code"> | ALLOW | ALLOW | ALLOW | Unauthenticated probe verifying PostgreSQL connection (</code>200<code class="inline-code">/</code>503<code class="inline-code">). |
+
+<hr/>
+
+<h2>6. Security, Authentication, and Session Lifecycle</h2>
+
+<h3>6.1 Credential Protection & Password Hashing (</code>NFR-01<code class="inline-code">)</h3>
+<ul><li>Stored passwords use salted </code>bcrypt<code class="inline-code"> hashes generated via </code>bcryptjs<code class="inline-code"> with a cost factor of </code>10<code class="inline-code">.</li><li>Application queries explicitly omit </code>passwordHash<code class="inline-code"> from </code>SELECT<code class="inline-code"> projections (</code>select: { id: true, email: true, name: true, role: true }<code class="inline-code">).</li><li>Pre-commit checklists ensure zero passwords, connection strings, or </code>.env<code class="inline-code"> files enter Git commits (</code>R-12<code class="inline-code">).</li></ul>
+
+<h3>6.2 Stateful Session Token Lifecycle (</code>NFR-02<code class="inline-code">)</h3>
+1. <strong>Creation:</strong> Upon successful credential validation, the server generates 32 cryptographically secure random bytes formatted as a 64-character hexadecimal string (</code>crypto.randomBytes(32).toString('hex')<code class="inline-code">).
+2. <strong>Storage:</strong> The token is inserted into PostgreSQL with </code>expiresAt = now() + 8 hours<code class="inline-code">.
+3. <strong>Transmission:</strong> Set via HTTP cookie named </code>sid<code class="inline-code"> with flags: </code>HttpOnly<code class="inline-code">, </code>Path=/<code class="inline-code">, </code>SameSite=Lax<code class="inline-code">, and </code>Secure<code class="inline-code"> (in production/HTTPS environments).
+4. <strong>Verification Middleware:</strong> For every incoming protected request, the server reads </code>req.cookies.sid<code class="inline-code">, queries the </code>Session<code class="inline-code"> table, and verifies </code>expiresAt > now()<code class="inline-code">. If expired, the session row is deleted and </code>401 Unauthorized<code class="inline-code"> is returned.
+5. <strong>Revocation (Logout):</strong> Deletes the </code>Session<code class="inline-code"> record from PostgreSQL and clears the </code>sid<code class="inline-code"> cookie. Subsequent requests with that token fail immediately.
+
+<hr/>
+
+<h2>7. Concurrency Architecture and Last-Seat Allocation (</code>BR-04<code class="inline-code">, </code>NFR-03<code class="inline-code">)</h2>
+
+<h3>7.1 The Last-Seat Race Condition Problem</h3>
+When multiple participants submit registration requests simultaneously for an event that has only 1 seat remaining, naive application logic (reading active count, then executing an insert) creates a classic Read-Modify-Write race condition, leading to catastrophic room overbooking.
+
+<h3>7.2 Pessimistic Row-Locking Mechanism</h3>
+To prevent overbooking, registration requests run inside an atomic PostgreSQL transaction using <strong>Pessimistic Row-Level Locking</strong>:
+
+</code>`<code class="inline-code">typescript
+// Architectural Implementation Pattern for Concurrency Protection
+await prisma.$transaction(async (tx) => {
+  // 1. Acquire exclusive row-level lock on the target Event row
+  const [event] = await tx.$queryRaw<Array<{ id: string; status: string; capacity: number }>></code>
+    SELECT id, status, capacity FROM "Event" WHERE id = ${eventId}::uuid FOR UPDATE
+  <code class="inline-code">;
+
+  if (!event || event.status !== 'PUBLISHED') {
+    throw new NotFoundOrConflictError('Event not open for registration');
+  }
+
+  // 2. Check for duplicate registration by the same participant
+  const existing = await tx.registration.findUnique({
+    where: { eventId_userId: { eventId, userId: currentUser.id } }
+  });
+  if (existing) {
+    throw new DuplicateRegistrationError('Already registered for this event');
+  }
+
+  // 3. Count current ACTIVE registrations inside the lock boundary
+  const activeCount = await tx.registration.count({
+    where: { eventId, status: 'ACTIVE' }
+  });
+
+  // 4. Invariant check: activeCount must be strictly less than capacity
+  if (activeCount >= event.capacity) {
+    throw new CapacityExceededError('Event is at full capacity');
+  }
+
+  // 5. Persist the registration row atomically
+  return await tx.registration.create({
+    data: {
+      eventId,
+      userId: currentUser.id,
+      status: 'ACTIVE'
+    }
+  });
+});
+</code>`<code class="inline-code">
+
+<strong>Guarantees:</strong>
+<ul><li>Only one transaction acquires the lock on the </code>Event<code class="inline-code"> row at any instant; concurrent transactions block until the holding transaction finishes.</li><li>The next transaction in queue reads the updated </code>activeCount<code class="inline-code">, immediately detects </code>activeCount >= capacity<code class="inline-code">, and aborts with </code>409 Conflict<code class="inline-code">.</li><li>Overbooking is mathematically impossible under any level of concurrency.</li></ul>
+
+<hr/>
+
+<h2>8. Configuration, Secret Management, and Cloud Deployment Design</h2>
+
+<h3>8.1 Environment Variables Architecture</h3>
+
+| Variable Name | Purpose & Usage | Secret? | Source in Local Dev | Source in GCP Production |
+|---|---|:---:|---|---|
+| </code>PORT<code class="inline-code"> | Listening port for the Express HTTP server | No | </code>.env<code class="inline-code"> (</code>3000<code class="inline-code">) | Set automatically by Cloud Run (</code>8080<code class="inline-code"> / </code>3000<code class="inline-code">) |
+| </code>NODE_ENV<code class="inline-code"> | Runtime environment mode | No | </code>.env<code class="inline-code"> (</code>development<code class="inline-code">) | Set in Cloud Run (</code>production<code class="inline-code">) |
+| </code>DATABASE_URL<code class="inline-code"> | PostgreSQL connection string | <strong>Yes</strong> | </code>.env<code class="inline-code"> (</code>postgresql://postgres:postgres@localhost:5432/eventreg<code class="inline-code">) | Injected via Secret Manager (Unix socket connection) |
+| </code>SESSION_SECRET<code class="inline-code"> | Salt / secret for session signing | <strong>Yes</strong> | </code>.env<code class="inline-code"> (development secret) | Injected via Secret Manager |
+| </code>SEED_ORGANIZER_PASSWORD<code class="inline-code"> | Initial password for demo organizer | <strong>Yes</strong> | </code>.env<code class="inline-code"> (</code>change-me<code class="inline-code">) | Injected via Secret Manager (Episode 5) |
+| </code>SEED_PARTICIPANT_PASSWORD<code class="inline-code"> | Initial password for demo participant | <strong>Yes</strong> | </code>.env<code class="inline-code"> (</code>change-me<code class="inline-code">) | Injected via Secret Manager (Episode 5) |
+
+<h3>8.2 Container & Deployment Topology (Lab 5 Parity)</h3>
+1. <strong>Container Image Build:</strong> Multi-stage </code>Dockerfile<code class="inline-code"> compiles the React frontend into static assets, builds TypeScript backend code into </code>dist/<code class="inline-code">, and prepares Prisma binaries. Runs as unprivileged </code>node<code class="inline-code"> user on </code>0.0.0.0:$PORT<code class="inline-code">.
+2. <strong>Google Cloud Run:</strong> Hosts the stateless container service with auto-scaling down to </code>0<code class="inline-code"> instances when idle (cost-saving) up to </code>3<code class="inline-code"> max instances.
+3. <strong>Google Cloud SQL:</strong> Managed PostgreSQL 16 instance (</code>db-f1-micro<code class="inline-code">) configured with automated storage increase disabled (</code>--no-storage-auto-increase<code class="inline-code">) to ensure fixed, predictable costs.
+4. <strong>Google Secret Manager:</strong> Securely injects </code>DATABASE_URL<code class="inline-code"> and admin passwords into Cloud Run runtime environment without committing keys to Git.
+5. <strong>Workload Identity Federation (WIF):</strong> Authenticates GitHub Actions workflows (</code>deploy.yml<code class="inline-code">) directly with GCP without storing any long-lived JSON service account keys in GitHub repository secrets.
+
+<hr/>
+
+<h2>9. Traceability to Requirements and Definition of Done</h2>
+
+This System-Level SDS directly implements and verifies the following specifications:
+<ul><li><strong></code>FR-01<code class="inline-code"> to </code>FR-06<code class="inline-code">:</strong> Specified across Sections 1, 4, 5, and 6.</li><li><strong></code>BR-01<code class="inline-code"> to </code>BR-07<code class="inline-code">:</strong> Enforced across Sections 1.3, 2.2, 5.2, and 7.2.</li><li><strong></code>NFR-01<code class="inline-code"> to </code>NFR-05<code class="inline-code">:</strong> Verified across Sections 2.3, 6.1, 6.2, 7.2, and 8.1.</li><li><strong></code>AD-01<code class="inline-code"> to </code>AD-06`:</strong> Fully captured in data model definitions and transactional lock design.</li></ul>
+
+    <!-- PART D -->
+    <div class="section-divider"></div>
+    <h1>Part D: Three-Sprint Development Plan</h1>
+    <h1>Three-Sprint Development Plan</h1>
+
+<ul><li><strong>Course:</strong> CPE 334 Introduction to Software Engineering in the Age of AI Agents (Semester 1/2026)</li><li><strong>Theme:</strong> Theme 3 — Event Registration and Attendance System (Faculty Workshops & Seminars)</li><li><strong>Team Members:</strong></li></ul>
+  1. Pimchaya Suprateravarnit (<code class="inline-code">67070505223</code>, GitHub: <code class="inline-code">pimchayasupr-hash</code>)
+  2. Suphattra Kongsiriphat (<code class="inline-code">67070505228</code>, GitHub: <code class="inline-code">supa-gif173</code>)
+
+<hr/>
+
+<h2>1. Three-Sprint Overview Table</h2>
+
+| Sprint | Checkpoint / Due Date | Sprint Goal | Included Feature IDs | Key Dependencies | Completion Outcome |
+|---|---|---|---|---|---|
+| <strong>Sprint 1</strong> | <strong>Deliverable 1</strong><br>(15 Nov 2026)<br><em>Used by Lab 5 (15 Nov) & Lab 6 (22 Nov)</em> | Establish the full-stack engineering baseline, real backend authentication/session lifecycle, role/ownership authorization, and the core end-to-end event publication, registration, last-seat concurrency protection, and roster inspection slice. | <code class="inline-code">F-01</code>, <code class="inline-code">F-02</code>, <code class="inline-code">F-03</code>, <code class="inline-code">F-04</code> | PostgreSQL, Prisma schema & seed, pre-implementation contracts (<code class="inline-code">F-01</code>–<code class="inline-code">F-04</code>) | Working release on <code class="inline-code">main</code> (<code class="inline-code">v1.0.0-sprint1</code>) with unit, API/DB integration, concurrency (<code class="inline-code">TEST-F03-04</code>), and selected UI/E2E tests passing; ready for Docker/CI/CD/GCP deployment in Lab 5. |
+| <strong>Sprint 2</strong> | <strong>Deliverable 2</strong><br>(29 Nov 2026)<br><em>Used by Lab 7 (29 Nov)</em> | Expand core domain lifecycle rules under pre-implementation contracts: participant registration cancellation with seat release, registration deadline enforcement, organizer event editing/closing, and catalog search/category filtering. | <code class="inline-code">F-05</code>, <code class="inline-code">F-06</code>, <code class="inline-code">F-07</code> | Sprint 1 release (<code class="inline-code">F-01</code>–<code class="inline-code">F-04</code>), Lab 5 CI/CD pipeline, Lab 6 cross-team UAT feedback | Deployed integrated increment on <code class="inline-code">main</code> with all Sprint 2 contracts, migrations (partial unique index for active registrations per <code class="inline-code">AD-05</code>), and regression tests passing. |
+| <strong>Sprint 3</strong> | <strong>Progress at D2 (29 Nov)</strong><br><strong>Final Delivery (13 Dec 2026)</strong> | Complete on-site attendance workflows, aggregate reporting, UAT defect resolution, and product hardening across all three sprints. | <code class="inline-code">F-08</code>, <code class="inline-code">F-09</code> | Sprint 1 (<code class="inline-code">F-01</code>–<code class="inline-code">F-04</code>) & Sprint 2 (<code class="inline-code">F-05</code>–<code class="inline-code">F-07</code>) increments | Verified final release deployed on GCP with complete attendance check-in (<code class="inline-code">PRESENT</code>/<code class="inline-code">ABSENT</code>), attendance summary reports, full regression suite, final PDF report, and demonstration video. |
+
+<hr/>
+
+<h2>2. Detailed Sprint 1 Scope and Feasibility Explanation</h2>
+
+<h3>2.1 Why Sprint 1 (<code class="inline-code">F-01</code> to <code class="inline-code">F-04</code>) Forms a Complete, Feasible Vertical Slice</h3>
+Sprint 1 delivers the complete primary domain loop required for Theme 3:
+1. <strong><code class="inline-code">F-01</code> (Authentication & Stateful DB Sessions):</strong> Provides real login, current-user retrieval, and logout for <code class="inline-code">ORGANIZER</code> and <code class="inline-code">PARTICIPANT</code> roles using <code class="inline-code">bcryptjs</code> password hashes and a PostgreSQL <code class="inline-code">Session</code> table (<code class="inline-code">httpOnly</code> cookie, 8-hour expiry). Storing sessions in PostgreSQL ensures immediate readiness for stateless container deployment on Cloud Run in Lab 5 (<code class="inline-code">R-04</code>).
+2. <strong><code class="inline-code">F-02</code> (Draft Creation, Separate Publication & Capacity Management):</strong> Allows an <code class="inline-code">ORGANIZER</code> to create faculty workshop/seminar events in <code class="inline-code">DRAFT</code> state (<code class="inline-code">1 <= capacity <= 500</code>, <code class="inline-code">endAt > startAt</code>), transition owned events to <code class="inline-code">PUBLISHED</code> (<code class="inline-code">startAt > now</code>), and adjust capacity safely (<code class="inline-code">newCapacity >= activeRegistrationsCount</code>), while exposing <code class="inline-code">PUBLISHED</code> events to participants.
+3. <strong><code class="inline-code">F-03</code> (Participant Registration & Last-Seat Concurrency Safety):</strong> Allows a <code class="inline-code">PARTICIPANT</code> to register for a <code class="inline-code">PUBLISHED</code> event and view their own registrations (<code class="inline-code">GET /api/registrations/me</code>), while enforcing single active registration per user per event (<code class="inline-code">BR-05</code>) and serializing competing requests for the last seat via row-level locking (<code class="inline-code">SELECT ... FOR UPDATE</code>) inside a PostgreSQL transaction (<code class="inline-code">BR-04</code>, <code class="inline-code">NFR-03</code>).
+4. <strong><code class="inline-code">F-04</code> (Organizer Registrant Roster, Ownership & Readiness Probes):</strong> Allows an <code class="inline-code">ORGANIZER</code> to inspect the registrant list exclusively for events they own (<code class="inline-code">event.organizerId == currentUser.id</code>, <code class="inline-code">BR-07</code>), blocks cross-organizer and participant access (<code class="inline-code">403 Forbidden</code>), and provides <code class="inline-code">/api/health</code> and <code class="inline-code">/api/ready</code> (<code class="inline-code">503</code> on DB failure) for operational verification.
+
+<h3>2.2 Work Explicitly Deferred to Sprints 2 and 3</h3>
+To keep Sprint 1 focused on high-confidence TDD verification and Lab 5 deployment readiness, secondary lifecycle extensions are scheduled for Sprints 2 and 3:
+<ul><li><strong>Deferred to Sprint 2 (<code class="inline-code">F-05</code>, <code class="inline-code">F-06</code>, <code class="inline-code">F-07</code>):</strong> Registration cancellation (<code class="inline-code">CANCELLED</code> state and seat restoration), registration deadline cutoff enforcement, full event metadata editing/manual closing, and search/category filtering.</li><li><strong>Deferred to Sprint 3 (<code class="inline-code">F-08</code>, <code class="inline-code">F-09</code>):</strong> Organizer check-in/attendance status marking (<code class="inline-code">PRESENT</code> / <code class="inline-code">ABSENT</code>) and event-level attendance summary analytics.</li></ul>
+
+<hr/>
+
+<h2>3. Team Task Allocation Principle Across Sprints</h2>
+
+Both team members (<strong>Pimchaya Suprateravarnit</strong> and <strong>Suphattra Kongsiriphat</strong>) participate across specification, test design, implementation, code review, and deployment in every sprint:
+<ul><li>Neither member is restricted to a permanent spec-only or code-only role.</li><li>Every Issue is implemented on a feature branch from <code class="inline-code">staging</code> and requires a substantive PR review and approval from the other teammate before merging into <code class="inline-code">staging</code>.</li><li>Releases enter <code class="inline-code">main</code> exclusively through a reviewed Release PR from <code class="inline-code">staging</code>.</li></ul>
+
+    <!-- PART E -->
+    <div class="section-divider"></div>
+    <h1>Part E: Sprint 1 Feature Engineering Contracts</h1>
+    <h2>Contract F-01: User Authentication & Session Lifecycle</h2>
+    <h1>Sprint 1 Feature Engineering Contract — F-01: User Authentication and Session Management</h1>
+
+<ul><li><strong>Feature ID:</strong> <code class="inline-code">F-01</code></li><li><strong>Feature Name:</strong> User Authentication and Session Management</li><li><strong>Target Sprint:</strong> Sprint 1 (Deliverable 1 Baseline)</li><li><strong>Linked Requirements:</strong> <code class="inline-code">FR-01</code>, <code class="inline-code">NFR-01</code>, <code class="inline-code">NFR-02</code>, <code class="inline-code">NFR-04</code>, <code class="inline-code">AD-06</code></li><li><strong>Contract Version:</strong> <code class="inline-code">v1.0</code> (Pre-implementation specification)</li></ul>
+
+<hr/>
+
+<h2>1. Feature-Level Software Design Specification (Feature SDS)</h2>
+
+<h3>1.1 Overview and Workflow</h3>
+<code class="inline-code">F-01</code> establishes real backend authentication and stateful session management for both <code class="inline-code">ORGANIZER</code> and <code class="inline-code">PARTICIPANT</code> actors:
+1. <strong>Login (<code class="inline-code">POST /api/auth/login</code>):</strong> Validates email and password input, looks up the user by email in PostgreSQL, verifies the plaintext password against <code class="inline-code">user.passwordHash</code> using <code class="inline-code">bcryptjs</code> (<code class="inline-code">bcrypt.compare</code>), generates a 64-character hex session token via <code class="inline-code">crypto.randomBytes(32).toString('hex')</code>, creates a new <code class="inline-code">Session</code> row in PostgreSQL with an 8-hour expiration (<code class="inline-code">expiresAt = now + 8h</code>), sets an <code class="inline-code">httpOnly</code> cookie (<code class="inline-code">sid</code>), and returns the sanitized user profile (<code class="inline-code">id</code>, <code class="inline-code">email</code>, <code class="inline-code">name</code>, <code class="inline-code">role</code>).
+2. <strong>Current User Retrieval (<code class="inline-code">GET /api/auth/me</code>):</strong> Reads the <code class="inline-code">sid</code> cookie, queries PostgreSQL for the <code class="inline-code">Session</code> joined with <code class="inline-code">User</code>, verifies <code class="inline-code">session.expiresAt > now</code>, and returns the authenticated user's profile. If the cookie is missing, unknown, or expired, returns <code class="inline-code">401 Unauthorized</code>.
+3. <strong>Logout (<code class="inline-code">POST /api/auth/logout</code>):</strong> Deletes the active <code class="inline-code">Session</code> record from PostgreSQL, clears the <code class="inline-code">sid</code> cookie, and returns <code class="inline-code">200 OK</code>. Subsequent requests using the old session cookie are rejected with <code class="inline-code">401 Unauthorized</code>.
+
+<h3>1.2 Dependencies</h3>
+<ul><li>PostgreSQL database via Prisma ORM (<code class="inline-code">User</code> and <code class="inline-code">Session</code> models).</li><li><code class="inline-code">bcryptjs</code> (cost factor >= 10) for password hashing and verification.</li><li>Node.js built-in <code class="inline-code">node:crypto</code> (<code class="inline-code">crypto.randomBytes(32).toString('hex')</code>) for cryptographically random session tokens.</li><li>Reproducible seed script (<code class="inline-code">prisma/seed.ts</code>) reading <code class="inline-code">SEED_ORGANIZER_PASSWORD</code> and <code class="inline-code">SEED_PARTICIPANT_PASSWORD</code> from environment variables.</li></ul>
+
+<h3>1.3 Validation, Boundary Cases, and Security Rules</h3>
+<ul><li>Missing or malformed <code class="inline-code">email</code> or empty <code class="inline-code">password</code> on login returns <code class="inline-code">400 Bad Request</code>.</li><li>Unknown email or mismatched password returns <code class="inline-code">401 Unauthorized</code> with a generic error message (<code class="inline-code">"Invalid email or password"</code>) to prevent user enumeration.</li><li><code class="inline-code">passwordHash</code> is never included in any API response payload or server log (<code class="inline-code">NFR-01</code>).</li><li>Expired sessions (<code class="inline-code">expiresAt <= now</code>) are rejected with <code class="inline-code">401 Unauthorized</code> and cleaned up (<code class="inline-code">NFR-02</code>).</li><li>Client-supplied headers or body fields attempting to spoof <code class="inline-code">userId</code> or <code class="inline-code">role</code> are ignored; identity is derived strictly from the server-side <code class="inline-code">Session</code> record (<code class="inline-code">NFR-02</code>).</li></ul>
+
+<hr/>
+
+<h2>2. UI, API, and Data Specifications</h2>
+
+<h3>2.1 UI Behavior</h3>
+<ul><li><strong>Login Screen (<code class="inline-code">/login</code>):</strong> Email and password inputs, submit button with loading state (<code class="inline-code">"Signing in..."</code>), and inline error alert for <code class="inline-code">400</code>/<code class="inline-code">401</code> responses.</li><li><strong>Navigation Header:</strong> Displays authenticated user's <code class="inline-code">name</code>, <code class="inline-code">role</code> badge (<code class="inline-code">ORGANIZER</code> or <code class="inline-code">PARTICIPANT</code>), and a <strong>Logout</strong> button.</li><li><strong>Session Guard:</strong> On app load, calls <code class="inline-code">GET /api/auth/me</code>. Unauthenticated users attempting to view protected screens are redirected to <code class="inline-code">/login</code>.</li></ul>
+
+<h3>2.2 API Endpoint Specifications</h3>
+
+| Method & Path | Auth Required | Request Body / Cookie | Success Response | Error Responses |
+|---|---|---|---|---|
+| <code class="inline-code">POST /api/auth/login</code> | Public | Body: <code class="inline-code">{ "email": string, "password": string }</code> | <code class="inline-code">200 OK</code> + <code class="inline-code">Set-Cookie: sid=<token>; HttpOnly; Path=/; SameSite=Lax</code><br><code class="inline-code">{ "user": { "id": string, "email": string, "name": string, "role": "ORGANIZER" \| "PARTICIPANT" } }</code> | <code class="inline-code">400</code> validation error<br><code class="inline-code">401 { "error": "Invalid email or password" }</code> |
+| <code class="inline-code">GET /api/auth/me</code> | Authenticated (<code class="inline-code">ORGANIZER</code>, <code class="inline-code">PARTICIPANT</code>) | Cookie: <code class="inline-code">sid=<token></code> | <code class="inline-code">200 OK</code><br><code class="inline-code">{ "user": { "id": string, "email": string, "name": string, "role": "ORGANIZER" \| "PARTICIPANT" } }</code> | <code class="inline-code">401 { "error": "Authentication required" }</code> |
+| <code class="inline-code">POST /api/auth/logout</code> | Authenticated (<code class="inline-code">ORGANIZER</code>, <code class="inline-code">PARTICIPANT</code>) | Cookie: <code class="inline-code">sid=<token></code> | <code class="inline-code">200 OK</code> + clears <code class="inline-code">sid</code> cookie<br><code class="inline-code">{ "message": "Logged out" }</code> | <code class="inline-code">401 { "error": "Authentication required" }</code> |
+
+<h3>2.3 Data Model and Constraints (Prisma / PostgreSQL)</h3>
+<ul><li><strong><code class="inline-code">Role</code> Enum:</strong> <code class="inline-code">ORGANIZER</code>, <code class="inline-code">PARTICIPANT</code></li><li><strong><code class="inline-code">User</code> Table:</strong></li></ul>
+  - <code class="inline-code">id</code> (<code class="inline-code">UUID</code>, Primary Key)
+  - <code class="inline-code">email</code> (<code class="inline-code">String</code>, Unique, Not Null)
+  - <code class="inline-code">name</code> (<code class="inline-code">String</code>, Not Null)
+  - <code class="inline-code">passwordHash</code> (<code class="inline-code">String</code>, Not Null)
+  - <code class="inline-code">role</code> (<code class="inline-code">Role</code>, Not Null)
+  - <code class="inline-code">createdAt</code> (<code class="inline-code">DateTime</code>, default <code class="inline-code">now()</code>)
+<ul><li><strong><code class="inline-code">Session</code> Table:</strong></li></ul>
+  - <code class="inline-code">id</code> (<code class="inline-code">String</code> / opaque 64-hex token generated by <code class="inline-code">crypto.randomBytes(32).toString('hex')</code>, Primary Key)
+  - <code class="inline-code">userId</code> (<code class="inline-code">UUID</code>, Foreign Key -> <code class="inline-code">User.id</code> <code class="inline-code">ON DELETE CASCADE</code>, Indexed)
+  - <code class="inline-code">expiresAt</code> (<code class="inline-code">DateTime</code>, Not Null)
+  - <code class="inline-code">createdAt</code> (<code class="inline-code">DateTime</code>, default <code class="inline-code">now()</code>)
+
+<hr/>
+
+<h2>3. Acceptance Criteria (<code class="inline-code">AC</code>)</h2>
+
+| AC ID | Criterion (Observable Expected Outcome) | Linked Req |
+|---|---|---|
+| <strong>AC-F01-01</strong> | Given a seeded user (<code class="inline-code">ORGANIZER</code> or <code class="inline-code">PARTICIPANT</code>), when <code class="inline-code">POST /api/auth/login</code> is called with valid email and password, then the server responds <code class="inline-code">200 OK</code>, sets an <code class="inline-code">httpOnly</code> <code class="inline-code">sid</code> cookie (<code class="inline-code">crypto.randomBytes(32).toString('hex')</code>), creates a <code class="inline-code">Session</code> record in PostgreSQL with an 8-hour expiry, and returns <code class="inline-code">{ user: { id, email, name, role } }</code> without <code class="inline-code">passwordHash</code>. | <code class="inline-code">FR-01</code>, <code class="inline-code">NFR-01</code>, <code class="inline-code">NFR-02</code> |
+| <strong>AC-F01-02</strong> | Given an invalid password or unknown email, when <code class="inline-code">POST /api/auth/login</code> is called, then the server responds <code class="inline-code">401 Unauthorized</code>, sets no session cookie, and creates no <code class="inline-code">Session</code> row in PostgreSQL. | <code class="inline-code">FR-01</code>, <code class="inline-code">NFR-02</code> |
+| <strong>AC-F01-03</strong> | Given a valid active <code class="inline-code">sid</code> cookie, when <code class="inline-code">GET /api/auth/me</code> is called, then the server responds <code class="inline-code">200 OK</code> with the authenticated user's <code class="inline-code">{ id, email, name, role }</code>. | <code class="inline-code">FR-01</code>, <code class="inline-code">NFR-02</code> |
+| <strong>AC-F01-04</strong> | Given no <code class="inline-code">sid</code> cookie or an unrecognized token, when <code class="inline-code">GET /api/auth/me</code> is called, then the server responds <code class="inline-code">401 Unauthorized</code> without returning user data. | <code class="inline-code">FR-01</code>, <code class="inline-code">NFR-02</code> |
+| <strong>AC-F01-05</strong> | Given a logged-in session, when <code class="inline-code">POST /api/auth/logout</code> is called, then the <code class="inline-code">Session</code> row is removed from PostgreSQL, the cookie is cleared, and a subsequent <code class="inline-code">GET /api/auth/me</code> using the old cookie returns <code class="inline-code">401 Unauthorized</code>. | <code class="inline-code">FR-01</code>, <code class="inline-code">NFR-02</code>, <code class="inline-code">NFR-04</code> |
+| <strong>AC-F01-06</strong> | Given a <code class="inline-code">Session</code> row in PostgreSQL whose <code class="inline-code">expiresAt</code> timestamp is in the past, when <code class="inline-code">GET /api/auth/me</code> is called with that session's cookie, then the server responds <code class="inline-code">401 Unauthorized</code>. | <code class="inline-code">NFR-02</code> |
+| <strong>AC-F01-07</strong> | Given a login request with an empty/missing <code class="inline-code">email</code> or empty/missing <code class="inline-code">password</code>, when <code class="inline-code">POST /api/auth/login</code> is called, then the server responds <code class="inline-code">400 Bad Request</code> with a validation error message and creates no <code class="inline-code">Session</code> row in PostgreSQL. | <code class="inline-code">FR-01</code> |
+
+<hr/>
+
+<h2>4. Software Test Specification (<code class="inline-code">STS</code>)</h2>
+
+| Test ID | Linked AC | Test Level | Preconditions / Input | Action | Expected Result |
+|---|---|---|---|---|---|
+| <strong>TEST-F01-01</strong> | <code class="inline-code">AC-F01-01</code>, <code class="inline-code">NFR-01</code> | Unit + DB Check | Plaintext password hashed with <code class="inline-code">bcryptjs</code> helper; seeded <code class="inline-code">User</code> row in PostgreSQL | Verify stored <code class="inline-code">user.passwordHash</code> format (<code class="inline-code">$2a$</code> / <code class="inline-code">$2b$...</code>) and compare against correct/incorrect passwords | Hash starts with bcrypt prefix, never equals plaintext, and <code class="inline-code">verifyPassword</code> returns <code class="inline-code">true</code> only for matching input |
+| <strong>TEST-F01-02</strong> | <code class="inline-code">AC-F01-01</code>, <code class="inline-code">AC-F01-03</code> | API/DB Integration | Seeded <code class="inline-code">ORGANIZER</code> user in PostgreSQL | <code class="inline-code">POST /api/auth/login</code> with valid credentials, followed by <code class="inline-code">GET /api/auth/me</code> with returned <code class="inline-code">sid</code> cookie | <code class="inline-code">200 OK</code> on both calls; <code class="inline-code">sid</code> is a 64-char hex string; DB has 1 <code class="inline-code">Session</code> row with <code class="inline-code">expiresAt</code> ~8h ahead; response omits <code class="inline-code">passwordHash</code> |
+| <strong>TEST-F01-03</strong> | <code class="inline-code">AC-F01-02</code> | API/DB Integration | Seeded user in PostgreSQL | <code class="inline-code">POST /api/auth/login</code> with wrong password and with non-existent email | <code class="inline-code">401 Unauthorized</code>; 0 new <code class="inline-code">Session</code> rows in DB; no <code class="inline-code">Set-Cookie: sid</code> |
+| <strong>TEST-F01-04</strong> | <code class="inline-code">AC-F01-04</code> | API/DB Integration | No session cookie / bogus <code class="inline-code">sid</code> cookie | <code class="inline-code">GET /api/auth/me</code> without cookie and with <code class="inline-code">sid=invalid-token</code> | <code class="inline-code">401 Unauthorized</code> with <code class="inline-code">{ "error": "Authentication required" }</code> |
+| <strong>TEST-F01-05</strong> | <code class="inline-code">AC-F01-05</code> | API/DB Integration | Active session created via <code class="inline-code">POST /api/auth/login</code> | Call <code class="inline-code">POST /api/auth/logout</code>, then replay captured <code class="inline-code">sid</code> cookie on <code class="inline-code">GET /api/auth/me</code> | Logout returns <code class="inline-code">200 OK</code>; <code class="inline-code">Session</code> row is deleted in DB; replayed <code class="inline-code">GET /api/auth/me</code> returns <code class="inline-code">401 Unauthorized</code> |
+| <strong>TEST-F01-06</strong> | <code class="inline-code">AC-F01-06</code> | API/DB Integration | <code class="inline-code">Session</code> row inserted in DB with <code class="inline-code">expiresAt</code> set to 1 minute in the past | Call <code class="inline-code">GET /api/auth/me</code> with that expired session's <code class="inline-code">sid</code> cookie | Returns <code class="inline-code">401 Unauthorized</code> |
+| <strong>TEST-F01-07</strong> | <code class="inline-code">AC-F01-01</code>, <code class="inline-code">AC-F01-05</code> | UI / E2E | Running frontend and backend with seeded user | Submit login form in UI, observe role badge in header, click Logout | User sees dashboard with name/role after login, and is returned to <code class="inline-code">/login</code> after logout |
+| <strong>TEST-F01-08</strong> | <code class="inline-code">AC-F01-07</code> | API/DB Integration | Running backend API | Call <code class="inline-code">POST /api/auth/login</code> with <code class="inline-code">{ "email": "", "password": "secret" }</code> and <code class="inline-code">{ "email": "user@kmutt.ac.th", "password": "" }</code> | Both requests return <code class="inline-code">400 Bad Request</code>; 0 new <code class="inline-code">Session</code> rows created in PostgreSQL |
+
+<hr/>
+
+<h2>5. Product Definition of Done (DoD) and Revision History</h2>
+
+<h3>5.1 Definition of Done</h3>
+1. Feature contract (<code class="inline-code">docs/sprints/sprint-1/f-01-auth-session.md</code>) committed and reviewed prior to implementation.
+2. Automated tests (<code class="inline-code">TEST-F01-01</code> through <code class="inline-code">TEST-F01-08</code>) written using TDD (failing test commit recorded before passing implementation commit).
+3. All unit, API/DB integration, and UI tests passing against PostgreSQL with zero hardcoded secrets.
+4. Pull Request reviewed and approved by the teammate on GitHub and merged into <code class="inline-code">staging</code>.
+
+<h3>5.2 Contract Revision History</h3>
+
+| Version | Date | Author | Summary of Change |
+|---|---|---|---|
+| <code class="inline-code">v1.0</code> | 2026-11-09 | Pimchaya Suprateravarnit | Initial pre-implementation contract for <code class="inline-code">F-01: User Authentication and Session Management</code>. |
+    <h2>Contract F-02: Event Creation, Publication, and Capacity Management</h2>
+    <h1>Sprint 1 Feature Engineering Contract — F-02: Event Creation, Publication, and Capacity Management</h1>
+
+<ul><li><strong>Feature ID:</strong> <code class="inline-code">F-02</code></li><li><strong>Feature Name:</strong> Event Creation, Separate Publication, Discovery, and Capacity Management</li><li><strong>Target Sprint:</strong> Sprint 1 (Deliverable 1 Baseline)</li><li><strong>Linked Requirements:</strong> <code class="inline-code">FR-02</code>, <code class="inline-code">FR-03</code>, <code class="inline-code">BR-01</code>, <code class="inline-code">BR-02</code>, <code class="inline-code">BR-03</code>, <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">NFR-04</code>, <code class="inline-code">AD-01</code>–<code class="inline-code">AD-04</code></li><li><strong>Contract Version:</strong> <code class="inline-code">v1.0</code> (Pre-implementation specification)</li></ul>
+
+<hr/>
+
+<h2>1. Feature-Level Software Design Specification (Feature SDS)</h2>
+
+<h3>1.1 Overview and Workflow</h3>
+<code class="inline-code">F-02</code> enables <code class="inline-code">ORGANIZER</code> users to author and publish faculty workshops/seminars and enables authenticated users to discover published events:
+1. <strong>Create Draft Event (<code class="inline-code">POST /api/events</code>):</strong> An authenticated <code class="inline-code">ORGANIZER</code> submits <code class="inline-code">title</code>, <code class="inline-code">description</code>, <code class="inline-code">category</code> (<code class="inline-code">WORKSHOP</code> | <code class="inline-code">SEMINAR</code>), <code class="inline-code">location</code>, <code class="inline-code">startAt</code>, <code class="inline-code">endAt</code>, and <code class="inline-code">capacity</code>. The backend validates <code class="inline-code">1 <= capacity <= 500</code> (<code class="inline-code">BR-01</code>) and <code class="inline-code">endAt > startAt</code> (<code class="inline-code">BR-02</code>), sets <code class="inline-code">organizerId = currentUser.id</code>, and persists the event exclusively in <code class="inline-code">DRAFT</code> status (<code class="inline-code">FR-02</code>, <code class="inline-code">AD-03</code>).
+2. <strong>Publish Event (<code class="inline-code">POST /api/events/:id/publish</code>):</strong> The owning <code class="inline-code">ORGANIZER</code> transitions a <code class="inline-code">DRAFT</code> event to <code class="inline-code">PUBLISHED</code>. The backend enforces ownership (<code class="inline-code">event.organizerId == currentUser.id</code>, <code class="inline-code">BR-07</code>), verifies <code class="inline-code">event.status == 'DRAFT'</code>, and verifies <code class="inline-code">event.startAt > now</code> relative to the server clock (<code class="inline-code">BR-02</code>, <code class="inline-code">AD-03</code>).
+3. <strong>Update Event Capacity (<code class="inline-code">PATCH /api/events/:id/capacity</code>):</strong> The owning <code class="inline-code">ORGANIZER</code> updates <code class="inline-code">capacity</code> (<code class="inline-code">1 <= newCapacity <= 500</code>) inside a database transaction that verifies <code class="inline-code">newCapacity >= activeRegistrationsCount</code> (<code class="inline-code">BR-01</code>, <code class="inline-code">AD-04</code>).
+4. <strong>Discover Events (<code class="inline-code">GET /api/events</code>, <code class="inline-code">GET /api/events/:id</code>, <code class="inline-code">GET /api/organizer/events</code>):</strong>
+   - <code class="inline-code">GET /api/events</code> lists only <code class="inline-code">PUBLISHED</code> events ordered by <code class="inline-code">startAt ASC</code>, including computed <code class="inline-code">activeRegistrationsCount</code> and <code class="inline-code">remainingSeats = capacity - activeRegistrationsCount</code> (<code class="inline-code">FR-03</code>, <code class="inline-code">BR-03</code>).
+   - <code class="inline-code">GET /api/events/:id</code> returns details of a <code class="inline-code">PUBLISHED</code> event (or a <code class="inline-code">DRAFT</code> event only if requested by its owning <code class="inline-code">ORGANIZER</code>; otherwise <code class="inline-code">404 Not Found</code>).
+   - <code class="inline-code">GET /api/organizer/events</code> returns all <code class="inline-code">DRAFT</code> and <code class="inline-code">PUBLISHED</code> events where <code class="inline-code">organizerId == currentUser.id</code>.
+
+<h3>1.2 Validation, Boundary Cases, and Permissions</h3>
+<ul><li><strong>Capacity boundaries (<code class="inline-code">BR-01</code>):</strong> <code class="inline-code">capacity</code> must be an integer with <code class="inline-code">1 <= capacity <= 500</code>. Values <code class="inline-code"><= 0</code> (e.g., <code class="inline-code">0</code>, <code class="inline-code">-5</code>), <code class="inline-code">> 500</code> (e.g., <code class="inline-code">501</code>), or non-integers return <code class="inline-code">400 Bad Request</code>. Reducing capacity below <code class="inline-code">activeRegistrationsCount</code> returns <code class="inline-code">409 Conflict</code>.</li><li><strong>Schedule validation (<code class="inline-code">BR-02</code>):</strong> <code class="inline-code">endAt <= startAt</code> returns <code class="inline-code">400 Bad Request</code>. Publishing an event whose <code class="inline-code">startAt <= now</code> returns <code class="inline-code">400 Bad Request</code>.</li><li><strong>Role & Ownership (<code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>):</strong> Unauthenticated requests return <code class="inline-code">401 Unauthorized</code>. <code class="inline-code">PARTICIPANT</code> requests to <code class="inline-code">POST /api/events</code>, <code class="inline-code">POST /api/events/:id/publish</code>, <code class="inline-code">PATCH /api/events/:id/capacity</code>, or <code class="inline-code">GET /api/organizer/events</code> return <code class="inline-code">403 Forbidden</code>. An <code class="inline-code">ORGANIZER</code> targeting another organizer's event returns <code class="inline-code">403 Forbidden</code>.</li></ul>
+
+<hr/>
+
+<h2>2. UI, API, and Data Specifications</h2>
+
+<h3>2.1 UI Behavior</h3>
+<ul><li><strong>Published Events Catalog (<code class="inline-code">/events</code>):</strong> Visible to logged-in users; displays event cards with title, category badge, location, start/end timestamps, <code class="inline-code">activeRegistrationsCount / capacity</code>, and remaining seats.</li><li><strong>Organizer Workspace (<code class="inline-code">/organizer/events</code>):</strong> Visible to <code class="inline-code">ORGANIZER</code> users; includes a <strong>Create Draft Event</strong> form, list of owned events (<code class="inline-code">DRAFT</code> and <code class="inline-code">PUBLISHED</code>), a <strong>Publish</strong> button on <code class="inline-code">DRAFT</code> events, and an inline <strong>Update Capacity</strong> control.</li></ul>
+
+<h3>2.2 API Endpoint Specifications</h3>
+
+| Method & Path | Role / Access | Request Body | Success Response | Error Responses |
+|---|---|---|---|---|
+| <code class="inline-code">POST /api/events</code> | <code class="inline-code">ORGANIZER</code> | <code class="inline-code">{ title, description, category, location, startAt, endAt, capacity }</code> | <code class="inline-code">201 Created</code><br><code class="inline-code">{ "event": { id, title, ..., status: "DRAFT", capacity, organizerId } }</code> | <code class="inline-code">400</code> invalid fields/bounds<br><code class="inline-code">401</code> unauthenticated<br><code class="inline-code">403</code> <code class="inline-code">PARTICIPANT</code> role |
+| <code class="inline-code">POST /api/events/:id/publish</code> | <code class="inline-code">ORGANIZER</code> (Owner only) | None | <code class="inline-code">200 OK</code><br><code class="inline-code">{ "event": { id, ..., status: "PUBLISHED" } }</code> | <code class="inline-code">400</code> <code class="inline-code">startAt <= now</code> or already published<br><code class="inline-code">401</code> / <code class="inline-code">403</code> non-owner or wrong role<br><code class="inline-code">404</code> not found |
+| <code class="inline-code">PATCH /api/events/:id/capacity</code> | <code class="inline-code">ORGANIZER</code> (Owner only) | <code class="inline-code">{ "capacity": number }</code> | <code class="inline-code">200 OK</code><br><code class="inline-code">{ "event": { id, ..., capacity, activeRegistrationsCount, remainingSeats } }</code> | <code class="inline-code">400</code> out of <code class="inline-code">1..500</code><br><code class="inline-code">403</code> non-owner/role<br><code class="inline-code">404</code> not found<br><code class="inline-code">409</code> <code class="inline-code">capacity < activeCount</code> |
+| <code class="inline-code">GET /api/events</code> | Authenticated (<code class="inline-code">ORGANIZER</code>, <code class="inline-code">PARTICIPANT</code>) | None | <code class="inline-code">200 OK</code><br><code class="inline-code">{ "events": [ { id, title, category, location, startAt, endAt, capacity, status: "PUBLISHED", activeRegistrationsCount, remainingSeats } ] }</code> | <code class="inline-code">401</code> unauthenticated |
+| <code class="inline-code">GET /api/events/:id</code> | Authenticated | None | <code class="inline-code">200 OK</code><br><code class="inline-code">{ "event": { ... } }</code> | <code class="inline-code">401</code> unauthenticated<br><code class="inline-code">404</code> not found or non-owner <code class="inline-code">DRAFT</code> |
+| <code class="inline-code">GET /api/organizer/events</code> | <code class="inline-code">ORGANIZER</code> | None | <code class="inline-code">200 OK</code><br><code class="inline-code">{ "events": [ ...owned DRAFT & PUBLISHED events ] }</code> | <code class="inline-code">401</code> unauthenticated<br><code class="inline-code">403</code> <code class="inline-code">PARTICIPANT</code> role |
+
+<h3>2.3 Data Model and Constraints (Prisma / PostgreSQL)</h3>
+<ul><li><strong><code class="inline-code">EventCategory</code> Enum:</strong> <code class="inline-code">WORKSHOP</code>, <code class="inline-code">SEMINAR</code></li><li><strong><code class="inline-code">EventStatus</code> Enum:</strong> <code class="inline-code">DRAFT</code>, <code class="inline-code">PUBLISHED</code></li><li><strong><code class="inline-code">Event</code> Table:</strong></li></ul>
+  - <code class="inline-code">id</code> (<code class="inline-code">UUID</code>, Primary Key)
+  - <code class="inline-code">title</code> (<code class="inline-code">String</code>, Not Null)
+  - <code class="inline-code">description</code> (<code class="inline-code">String</code>, Not Null)
+  - <code class="inline-code">category</code> (<code class="inline-code">EventCategory</code>, Not Null)
+  - <code class="inline-code">location</code> (<code class="inline-code">String</code>, Not Null)
+  - <code class="inline-code">startAt</code> (<code class="inline-code">DateTime</code>, Not Null)
+  - <code class="inline-code">endAt</code> (<code class="inline-code">DateTime</code>, Not Null)
+  - <code class="inline-code">capacity</code> (<code class="inline-code">Int</code>, Not Null, DB check <code class="inline-code">capacity >= 1 AND capacity <= 500</code>)
+  - <code class="inline-code">status</code> (<code class="inline-code">EventStatus</code>, Not Null, default <code class="inline-code">'DRAFT'</code>)
+  - <code class="inline-code">organizerId</code> (<code class="inline-code">UUID</code>, Foreign Key -> <code class="inline-code">User.id</code> <code class="inline-code">ON DELETE RESTRICT</code>, Indexed)
+  - <code class="inline-code">createdAt</code> (<code class="inline-code">DateTime</code>, default <code class="inline-code">now()</code>), <code class="inline-code">updatedAt</code> (<code class="inline-code">DateTime</code>, <code class="inline-code">@updatedAt</code>)
+
+<hr/>
+
+<h2>3. Acceptance Criteria (<code class="inline-code">AC</code>)</h2>
+
+| AC ID | Criterion (Observable Expected Outcome) | Linked Req |
+|---|---|---|
+| <strong>AC-F02-01</strong> | Given an authenticated <code class="inline-code">ORGANIZER</code>, when <code class="inline-code">POST /api/events</code> is called with valid fields and <code class="inline-code">1 <= capacity <= 500</code>, then the event is stored in PostgreSQL with <code class="inline-code">status = 'DRAFT'</code> and <code class="inline-code">organizerId = currentUser.id</code>, returning <code class="inline-code">201 Created</code>. | <code class="inline-code">FR-02</code>, <code class="inline-code">BR-01</code>, <code class="inline-code">AD-03</code> |
+| <strong>AC-F02-02</strong> | Given an authenticated <code class="inline-code">ORGANIZER</code>, when <code class="inline-code">POST /api/events</code> is called with <code class="inline-code">capacity < 1</code> (e.g., <code class="inline-code">0</code>, <code class="inline-code">-1</code>), <code class="inline-code">capacity > 500</code> (e.g., <code class="inline-code">501</code>), or <code class="inline-code">endAt <= startAt</code>, then the request is rejected with <code class="inline-code">400 Bad Request</code> and no event is saved. | <code class="inline-code">BR-01</code>, <code class="inline-code">BR-02</code>, <code class="inline-code">AD-02</code> |
+| <strong>AC-F02-03</strong> | Given a <code class="inline-code">DRAFT</code> event owned by the authenticated <code class="inline-code">ORGANIZER</code> with <code class="inline-code">startAt > now</code>, when <code class="inline-code">POST /api/events/:id/publish</code> is called, then <code class="inline-code">status</code> updates to <code class="inline-code">'PUBLISHED'</code> in PostgreSQL and the event appears in <code class="inline-code">GET /api/events</code>. | <code class="inline-code">FR-02</code>, <code class="inline-code">FR-03</code>, <code class="inline-code">BR-02</code> |
+| <strong>AC-F02-04</strong> | Given a <code class="inline-code">DRAFT</code> event whose <code class="inline-code">startAt</code> is in the past (<code class="inline-code">startAt <= now</code>), when <code class="inline-code">POST /api/events/:id/publish</code> is called, then the server responds <code class="inline-code">400 Bad Request</code> and the event remains <code class="inline-code">'DRAFT'</code>. | <code class="inline-code">BR-02</code>, <code class="inline-code">AD-03</code> |
+| <strong>AC-F02-05</strong> | Given a <code class="inline-code">DRAFT</code> event, when a <code class="inline-code">PARTICIPANT</code> calls <code class="inline-code">GET /api/events</code> or <code class="inline-code">GET /api/events/:id</code>, then the <code class="inline-code">DRAFT</code> event is excluded from the list and <code class="inline-code">GET /api/events/:id</code> returns <code class="inline-code">404 Not Found</code>. | <code class="inline-code">FR-03</code>, <code class="inline-code">BR-03</code> |
+| <strong>AC-F02-06</strong> | Given an event with <code class="inline-code">k</code> active registrations, when the owning <code class="inline-code">ORGANIZER</code> calls <code class="inline-code">PATCH /api/events/:id/capacity</code> with <code class="inline-code">newCapacity < k</code>, then the server responds <code class="inline-code">409 Conflict</code> and <code class="inline-code">capacity</code> remains unchanged; when <code class="inline-code">k <= newCapacity <= 500</code>, <code class="inline-code">capacity</code> updates and returns <code class="inline-code">200 OK</code>. | <code class="inline-code">FR-02</code>, <code class="inline-code">BR-01</code>, <code class="inline-code">AD-04</code> |
+| <strong>AC-F02-07</strong> | Given a logged-in <code class="inline-code">PARTICIPANT</code>, when they call <code class="inline-code">POST /api/events</code>, <code class="inline-code">POST /api/events/:id/publish</code>, <code class="inline-code">PATCH /api/events/:id/capacity</code>, or <code class="inline-code">GET /api/organizer/events</code>, then the server responds <code class="inline-code">403 Forbidden</code>. | <code class="inline-code">BR-06</code> |
+| <strong>AC-F02-08</strong> | Given <code class="inline-code">Organizer B</code> who does not own <code class="inline-code">Organizer A</code>'s event, when <code class="inline-code">Organizer B</code> calls <code class="inline-code">POST /api/events/:id/publish</code> or <code class="inline-code">PATCH /api/events/:id/capacity</code> on <code class="inline-code">Organizer A</code>'s event, then the server responds <code class="inline-code">403 Forbidden</code> and the event is unmodified. | <code class="inline-code">BR-07</code> |
+
+<hr/>
+
+<h2>4. Software Test Specification (<code class="inline-code">STS</code>)</h2>
+
+| Test ID | Linked AC | Test Level | Preconditions / Input | Action | Expected Result |
+|---|---|---|---|---|---|
+| <strong>TEST-F02-01</strong> | <code class="inline-code">AC-F02-02</code> | Unit | Event validator function; inputs <code class="inline-code">capacity = 0</code>, <code class="inline-code">1</code>, <code class="inline-code">500</code>, <code class="inline-code">501</code> and <code class="inline-code">endAt <= startAt</code> | Run domain validation on boundary inputs | Accepts <code class="inline-code">1</code> and <code class="inline-code">500</code>; rejects <code class="inline-code">0</code>, <code class="inline-code">501</code>, non-integers, and <code class="inline-code">endAt <= startAt</code> |
+| <strong>TEST-F02-02</strong> | <code class="inline-code">AC-F02-01</code>, <code class="inline-code">AC-F02-03</code> | API/DB Integration | Logged-in <code class="inline-code">ORGANIZER</code> | Call <code class="inline-code">POST /api/events</code> (capacity <code class="inline-code">30</code>, future <code class="inline-code">startAt</code>), then <code class="inline-code">POST /api/events/:id/publish</code>, then <code class="inline-code">GET /api/events</code> | Created with <code class="inline-code">status: "DRAFT"</code> (<code class="inline-code">201</code>), published to <code class="inline-code">"PUBLISHED"</code> (<code class="inline-code">200</code>), and returned in <code class="inline-code">GET /api/events</code> with <code class="inline-code">remainingSeats: 30</code> |
+| <strong>TEST-F02-03</strong> | <code class="inline-code">AC-F02-02</code>, <code class="inline-code">AC-F02-04</code> | API/DB Integration | Logged-in <code class="inline-code">ORGANIZER</code>; a <code class="inline-code">DRAFT</code> event with past <code class="inline-code">startAt</code> | Call <code class="inline-code">POST /api/events</code> with <code class="inline-code">capacity: 0</code> & <code class="inline-code">501</code>; call <code class="inline-code">POST /api/events/:id/publish</code> on past-start draft | All return <code class="inline-code">400 Bad Request</code>; DB state unchanged |
+| <strong>TEST-F02-04</strong> | <code class="inline-code">AC-F02-05</code> | API/DB Integration | 1 <code class="inline-code">DRAFT</code> event and 1 <code class="inline-code">PUBLISHED</code> event in PostgreSQL; logged-in <code class="inline-code">PARTICIPANT</code> | Call <code class="inline-code">GET /api/events</code> and <code class="inline-code">GET /api/events/:draftId</code> as <code class="inline-code">PARTICIPANT</code> | List contains only the <code class="inline-code">PUBLISHED</code> event; <code class="inline-code">GET /api/events/:draftId</code> returns <code class="inline-code">404 Not Found</code> |
+| <strong>TEST-F02-05</strong> | <code class="inline-code">AC-F02-06</code> | API/DB Integration | <code class="inline-code">PUBLISHED</code> event with <code class="inline-code">capacity: 5</code> and <code class="inline-code">2</code> active registrations | Owner calls <code class="inline-code">PATCH /api/events/:id/capacity</code> with <code class="inline-code">{ capacity: 1 }</code> then <code class="inline-code">{ capacity: 3 }</code> | <code class="inline-code">{ capacity: 1 }</code> returns <code class="inline-code">409 Conflict</code>; <code class="inline-code">{ capacity: 3 }</code> returns <code class="inline-code">200 OK</code> with <code class="inline-code">remainingSeats: 1</code> |
+| <strong>TEST-F02-06</strong> | <code class="inline-code">AC-F02-07</code> | API/DB Integration | Logged-in <code class="inline-code">PARTICIPANT</code> | Call <code class="inline-code">POST /api/events</code>, <code class="inline-code">POST /api/events/:id/publish</code>, <code class="inline-code">PATCH /api/events/:id/capacity</code>, and <code class="inline-code">GET /api/organizer/events</code> | All 4 endpoints return <code class="inline-code">403 Forbidden</code> |
+| <strong>TEST-F02-07</strong> | <code class="inline-code">AC-F02-08</code> | API/DB Integration | <code class="inline-code">Event</code> owned by <code class="inline-code">Organizer A</code>; logged in as <code class="inline-code">Organizer B</code> | <code class="inline-code">Organizer B</code> calls <code class="inline-code">POST /api/events/:id/publish</code> and <code class="inline-code">PATCH /api/events/:id/capacity</code> | Both return <code class="inline-code">403 Forbidden</code>; event remains unchanged in DB |
+| <strong>TEST-F02-08</strong> | <code class="inline-code">AC-F02-01</code>, <code class="inline-code">AC-F02-03</code> | UI / E2E | Logged-in <code class="inline-code">ORGANIZER</code> in browser | Fill Create Draft Event form, submit, click Publish on the created draft | Event status badge changes from <code class="inline-code">DRAFT</code> to <code class="inline-code">PUBLISHED</code> and becomes visible on <code class="inline-code">/events</code> |
+
+<hr/>
+
+<h2>5. Product Definition of Done (DoD) and Revision History</h2>
+
+<h3>5.1 Definition of Done</h3>
+1. Feature contract (<code class="inline-code">docs/sprints/sprint-1/f-02-event-management.md</code>) committed and reviewed prior to implementation.
+2. Automated tests (<code class="inline-code">TEST-F02-01</code> through <code class="inline-code">TEST-F02-08</code>) implemented using TDD (Red failing test commit followed by Green implementation commit).
+3. All unit, API/DB integration, and UI tests passing against PostgreSQL.
+4. Pull Request reviewed and approved by the teammate on GitHub and merged into <code class="inline-code">staging</code>.
+
+<h3>5.2 Contract Revision History</h3>
+
+| Version | Date | Author | Summary of Change |
+|---|---|---|---|
+| <code class="inline-code">v1.0</code> | 2026-11-09 | Pimchaya Suprateravarnit & Suphattra Kongsiriphat | Initial pre-implementation contract for <code class="inline-code">F-02: Event Creation, Publication, and Capacity Management</code>. |
+    <h2>Contract F-03: Participant Registration & Concurrency Protection</h2>
+    <h1>Sprint 1 Feature Engineering Contract — F-03: Participant Event Registration, Capacity Enforcement, and Concurrency Protection</h1>
+
+<ul><li><strong>Feature ID:</strong> <code class="inline-code">F-03</code></li><li><strong>Feature Name:</strong> Participant Event Registration, Own Registrations View, Capacity Enforcement, and Last-Seat Concurrency Protection</li><li><strong>Target Sprint:</strong> Sprint 1 (Deliverable 1 Baseline)</li><li><strong>Linked Requirements:</strong> <code class="inline-code">FR-04</code>, <code class="inline-code">FR-05</code>, <code class="inline-code">BR-03</code>, <code class="inline-code">BR-04</code>, <code class="inline-code">BR-05</code>, <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">NFR-03</code>, <code class="inline-code">NFR-04</code>, <code class="inline-code">AD-05</code></li><li><strong>Contract Version:</strong> <code class="inline-code">v1.0</code> (Pre-implementation specification)</li></ul>
+
+<hr/>
+
+<h2>1. Feature-Level Software Design Specification (Feature SDS)</h2>
+
+<h3>1.1 Overview and Workflow</h3>
+<code class="inline-code">F-03</code> allows authenticated <code class="inline-code">PARTICIPANT</code> users to register for <code class="inline-code">PUBLISHED</code> workshops/seminars and inspect their own persisted registrations while guaranteeing zero overbooking and zero duplicate active registrations:
+1. <strong>Submit Registration (<code class="inline-code">POST /api/events/:id/registrations</code>):</strong>
+   - Requires an authenticated <code class="inline-code">PARTICIPANT</code> (<code class="inline-code">BR-06</code>).
+   - Runs inside an interactive PostgreSQL transaction (<code class="inline-code">prisma.$transaction</code>) that acquires a row-level exclusive lock on the target <code class="inline-code">Event</code> record (<code class="inline-code">SELECT id, status, capacity FROM "Event" WHERE id = $1 FOR UPDATE</code>) to serialize concurrent requests targeting the same event (<code class="inline-code">BR-04</code>, <code class="inline-code">NFR-03</code>).
+   - Verifies that the event exists and has <code class="inline-code">status == 'PUBLISHED'</code> (if <code class="inline-code">DRAFT</code> or non-existent, rejects with <code class="inline-code">404 Not Found</code> / <code class="inline-code">409 Conflict</code> per <code class="inline-code">BR-03</code>).
+   - Checks whether a registration already exists for <code class="inline-code">(eventId, userId)</code> (additionally enforced by the PostgreSQL composite unique constraint <code class="inline-code">@@unique([eventId, userId])</code> per <code class="inline-code">BR-05</code> and <code class="inline-code">AD-05</code>); if present, aborts with <code class="inline-code">409 Conflict</code> (<code class="inline-code">"Already registered for this event"</code>).
+   - Counts <code class="inline-code">ACTIVE</code> registrations for <code class="inline-code">eventId</code>. If <code class="inline-code">activeCount >= event.capacity</code>, aborts with <code class="inline-code">409 Conflict</code> (<code class="inline-code">"Event is at full capacity"</code>).
+   - Inserts a new <code class="inline-code">Registration</code> row with <code class="inline-code">status = 'ACTIVE'</code> and commits, returning <code class="inline-code">201 Created</code>.
+2. <strong>View Own Registrations (<code class="inline-code">GET /api/registrations/me</code>):</strong>
+   - Requires an authenticated <code class="inline-code">PARTICIPANT</code> (<code class="inline-code">BR-06</code>).
+   - Queries <code class="inline-code">Registration</code> strictly filtered by <code class="inline-code">userId = currentUser.id</code> (<code class="inline-code">BR-07</code>), joined with the associated <code class="inline-code">Event</code> summary (<code class="inline-code">id</code>, <code class="inline-code">title</code>, <code class="inline-code">category</code>, <code class="inline-code">location</code>, <code class="inline-code">startAt</code>, <code class="inline-code">endAt</code>, <code class="inline-code">capacity</code>), ordered by <code class="inline-code">createdAt DESC</code>.
+
+<h3>1.2 Validation, Boundary Cases, and Permissions</h3>
+<ul><li><strong>Full capacity boundary (<code class="inline-code">BR-04</code>):</strong> When <code class="inline-code">activeCount == capacity - 1</code>, one registration succeeds (<code class="inline-code">activeCount</code> becomes <code class="inline-code">capacity</code>); the next registration attempt returns <code class="inline-code">409 Conflict</code>.</li><li><strong>Last-seat concurrency (<code class="inline-code">BR-04</code>, <code class="inline-code">NFR-03</code>):</strong> When 5 or more distinct <code class="inline-code">PARTICIPANT</code> sessions concurrently send <code class="inline-code">POST /api/events/:id/registrations</code> for an event with <code class="inline-code">1</code> remaining seat, row locking serializes the checks so exactly <code class="inline-code">1</code> request returns <code class="inline-code">201 Created</code> and all remaining requests return <code class="inline-code">409 Conflict</code>.</li><li><strong>Duplicate registration (<code class="inline-code">BR-05</code>, <code class="inline-code">AD-05</code>):</strong> A second request from the same <code class="inline-code">PARTICIPANT</code> for the same event returns <code class="inline-code">409 Conflict</code> without creating a second row. (Per <code class="inline-code">AD-05</code>, Sprint 1 has no cancellation; Sprint 2 will migrate the unique constraint to a partial index on <code class="inline-code">status = 'ACTIVE'</code>.)</li><li><strong>Role & Privacy (<code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>):</strong> Unauthenticated calls return <code class="inline-code">401 Unauthorized</code>. <code class="inline-code">ORGANIZER</code> calls to <code class="inline-code">POST /api/events/:id/registrations</code> or <code class="inline-code">GET /api/registrations/me</code> return <code class="inline-code">403 Forbidden</code>. No endpoint allows a participant to query another user's <code class="inline-code">userId</code>.</li></ul>
+
+<hr/>
+
+<h2>2. UI, API, and Data Specifications</h2>
+
+<h3>2.1 UI Behavior</h3>
+<ul><li><strong>Event Catalog & Detail (<code class="inline-code">/events</code>, <code class="inline-code">/events/:id</code>):</strong> For <code class="inline-code">PARTICIPANT</code> users, shows a <strong>Register</strong> button when <code class="inline-code">remainingSeats > 0</code> and the user is not yet registered; shows an <strong>"Already Registered"</strong> badge if registered, or <strong>"Full"</strong> disabled state if <code class="inline-code">remainingSeats == 0</code>. Displays inline error alert if a <code class="inline-code">409 Conflict</code> occurs.</li><li><strong>My Registrations Screen (<code class="inline-code">/my-registrations</code>):</strong> Lists all events the logged-in <code class="inline-code">PARTICIPANT</code> has registered for, showing registration status (<code class="inline-code">ACTIVE</code>), timestamp, and event schedule/location (or an empty-state message when none exist).</li></ul>
+
+<h3>2.2 API Endpoint Specifications</h3>
+
+| Method & Path | Role / Access | Request Body | Success Response | Error Responses |
+|---|---|---|---|---|
+| <code class="inline-code">POST /api/events/:id/registrations</code> | <code class="inline-code">PARTICIPANT</code> | None (identity derived from server session) | <code class="inline-code">201 Created</code><br><code class="inline-code">{ "registration": { "id": string, "eventId": string, "userId": string, "status": "ACTIVE", "createdAt": string } }</code> | <code class="inline-code">401</code> unauthenticated<br><code class="inline-code">403</code> <code class="inline-code">ORGANIZER</code> role<br><code class="inline-code">404</code> event not found or <code class="inline-code">DRAFT</code><br><code class="inline-code">409</code> duplicate registration or full capacity |
+| <code class="inline-code">GET /api/registrations/me</code> | <code class="inline-code">PARTICIPANT</code> | None | <code class="inline-code">200 OK</code><br><code class="inline-code">{ "registrations": [ { "id": string, "eventId": string, "status": "ACTIVE", "createdAt": string, "event": { "id": string, "title": string, "category": string, "location": string, "startAt": string, "endAt": string, "capacity": number } } ] }</code> | <code class="inline-code">401</code> unauthenticated<br><code class="inline-code">403</code> <code class="inline-code">ORGANIZER</code> role |
+
+<h3>2.3 Data Model and Constraints (Prisma / PostgreSQL)</h3>
+<ul><li><strong><code class="inline-code">RegistrationStatus</code> Enum:</strong> <code class="inline-code">ACTIVE</code> (Sprint 2 adds <code class="inline-code">CANCELLED</code>)</li><li><strong><code class="inline-code">Registration</code> Table:</strong></li></ul>
+  - <code class="inline-code">id</code> (<code class="inline-code">UUID</code>, Primary Key)
+  - <code class="inline-code">eventId</code> (<code class="inline-code">UUID</code>, Foreign Key -> <code class="inline-code">Event.id</code> <code class="inline-code">ON DELETE CASCADE</code>, Indexed)
+  - <code class="inline-code">userId</code> (<code class="inline-code">UUID</code>, Foreign Key -> <code class="inline-code">User.id</code> <code class="inline-code">ON DELETE CASCADE</code>, Indexed)
+  - <code class="inline-code">status</code> (<code class="inline-code">RegistrationStatus</code>, Not Null, default <code class="inline-code">'ACTIVE'</code>)
+  - <code class="inline-code">createdAt</code> (<code class="inline-code">DateTime</code>, default <code class="inline-code">now()</code>)
+  - <strong>Composite Unique Constraint:</strong> <code class="inline-code">@@unique([eventId, userId])</code> (<code class="inline-code">BR-05</code>, <code class="inline-code">AD-05</code>)
+
+<hr/>
+
+<h2>3. Acceptance Criteria (<code class="inline-code">AC</code>)</h2>
+
+| AC ID | Criterion (Observable Expected Outcome) | Linked Req |
+|---|---|---|
+| <strong>AC-F03-01</strong> | Given an authenticated <code class="inline-code">PARTICIPANT</code> and a <code class="inline-code">PUBLISHED</code> event with <code class="inline-code">remainingSeats >= 1</code>, when <code class="inline-code">POST /api/events/:id/registrations</code> is called, then an <code class="inline-code">ACTIVE</code> registration row is persisted in PostgreSQL, <code class="inline-code">remainingSeats</code> decreases by 1, and the server responds <code class="inline-code">201 Created</code>. | <code class="inline-code">FR-04</code>, <code class="inline-code">NFR-04</code> |
+| <strong>AC-F03-02</strong> | Given an authenticated <code class="inline-code">PARTICIPANT</code> who already has an <code class="inline-code">ACTIVE</code> registration for an event, when <code class="inline-code">POST /api/events/:id/registrations</code> is called again for the same event, then the server responds <code class="inline-code">409 Conflict</code> and only 1 registration row exists in PostgreSQL for <code class="inline-code">(eventId, userId)</code>. | <code class="inline-code">BR-05</code>, <code class="inline-code">AD-05</code> |
+| <strong>AC-F03-03</strong> | Given a <code class="inline-code">PUBLISHED</code> event where <code class="inline-code">activeRegistrationsCount == capacity</code>, when another <code class="inline-code">PARTICIPANT</code> calls <code class="inline-code">POST /api/events/:id/registrations</code>, then the server responds <code class="inline-code">409 Conflict</code> and no new registration is stored. | <code class="inline-code">BR-04</code> |
+| <strong>AC-F03-04</strong> | Given a <code class="inline-code">PUBLISHED</code> event with <code class="inline-code">capacity = 1</code> (or 1 seat remaining) and 5 distinct authenticated <code class="inline-code">PARTICIPANT</code> users submitting <code class="inline-code">POST /api/events/:id/registrations</code> concurrently, then exactly 1 request returns <code class="inline-code">201 Created</code>, 4 requests return <code class="inline-code">409 Conflict</code>, and PostgreSQL contains exactly 1 <code class="inline-code">ACTIVE</code> registration for that seat. | <code class="inline-code">BR-04</code>, <code class="inline-code">NFR-03</code> |
+| <strong>AC-F03-05</strong> | Given a <code class="inline-code">DRAFT</code> event, when a <code class="inline-code">PARTICIPANT</code> calls <code class="inline-code">POST /api/events/:id/registrations</code>, then the request is rejected (<code class="inline-code">404 Not Found</code> or <code class="inline-code">409 Conflict</code>) and no registration is stored. | <code class="inline-code">BR-03</code> |
+| <strong>AC-F03-06</strong> | Given <code class="inline-code">Participant A</code> and <code class="inline-code">Participant B</code> each having their own registrations, when <code class="inline-code">Participant A</code> calls <code class="inline-code">GET /api/registrations/me</code>, then the response returns <code class="inline-code">200 OK</code> containing only <code class="inline-code">Participant A</code>'s registrations and never includes <code class="inline-code">Participant B</code>'s records. | <code class="inline-code">FR-05</code>, <code class="inline-code">BR-07</code> |
+| <strong>AC-F03-07</strong> | Given an authenticated <code class="inline-code">ORGANIZER</code> (or unauthenticated client), when calling <code class="inline-code">POST /api/events/:id/registrations</code> or <code class="inline-code">GET /api/registrations/me</code>, then the server responds <code class="inline-code">403 Forbidden</code> (or <code class="inline-code">401 Unauthorized</code>). | <code class="inline-code">BR-06</code>, <code class="inline-code">NFR-02</code> |
+
+<hr/>
+
+<h2>4. Software Test Specification (<code class="inline-code">STS</code>)</h2>
+
+| Test ID | Linked AC | Test Level | Preconditions / Input | Action | Expected Result |
+|---|---|---|---|---|---|
+| <strong>TEST-F03-01</strong> | <code class="inline-code">AC-F03-01</code>, <code class="inline-code">AC-F03-06</code> | API/DB Integration | <code class="inline-code">PUBLISHED</code> event (<code class="inline-code">capacity: 10</code>); logged-in <code class="inline-code">Participant A</code> | Call <code class="inline-code">POST /api/events/:id/registrations</code> then <code class="inline-code">GET /api/registrations/me</code> | <code class="inline-code">201 Created</code> on register; <code class="inline-code">GET /api/registrations/me</code> returns 1 item matching <code class="inline-code">eventId</code> and <code class="inline-code">userId = Participant A</code> |
+| <strong>TEST-F03-02</strong> | <code class="inline-code">AC-F03-02</code> | API/DB Integration | <code class="inline-code">Participant A</code> already registered for <code class="inline-code">Event 1</code> | <code class="inline-code">Participant A</code> calls <code class="inline-code">POST /api/events/:id/registrations</code> a second time (and concurrent duplicate attempt) | Returns <code class="inline-code">409 Conflict</code>; DB query confirms count for <code class="inline-code">(eventId, Participant A)</code> is <code class="inline-code">1</code> |
+| <strong>TEST-F03-03</strong> | <code class="inline-code">AC-F03-03</code> | API/DB Integration | <code class="inline-code">PUBLISHED</code> event with <code class="inline-code">capacity: 1</code> already filled by <code class="inline-code">Participant A</code> | <code class="inline-code">Participant B</code> calls <code class="inline-code">POST /api/events/:id/registrations</code> | Returns <code class="inline-code">409 Conflict</code>; DB active registration count remains <code class="inline-code">1</code> |
+| <strong>TEST-F03-04</strong> | <code class="inline-code">AC-F03-04</code>, <code class="inline-code">NFR-03</code> | API Concurrency Integration | <code class="inline-code">PUBLISHED</code> event with <code class="inline-code">capacity: 1</code> (0 current registrations); 5 logged-in <code class="inline-code">PARTICIPANT</code> sessions (<code class="inline-code">P1</code>..<code class="inline-code">P5</code>) | Fire 5 simultaneous <code class="inline-code">POST /api/events/:id/registrations</code> requests via <code class="inline-code">Promise.all</code> | Exactly one status is <code class="inline-code">201</code>, four statuses are <code class="inline-code">409</code>, and <code class="inline-code">prisma.registration.count({ where: { eventId } }) === 1</code> |
+| <strong>TEST-F03-05</strong> | <code class="inline-code">AC-F03-05</code> | API/DB Integration | <code class="inline-code">DRAFT</code> event in DB; logged-in <code class="inline-code">Participant A</code> | Call <code class="inline-code">POST /api/events/:draftId/registrations</code> | Rejected with <code class="inline-code">404 Not Found</code>; 0 registrations in DB |
+| <strong>TEST-F03-06</strong> | <code class="inline-code">AC-F03-06</code>, <code class="inline-code">AC-F03-07</code> | API/DB Integration | <code class="inline-code">Participant A</code> registered for <code class="inline-code">Event 1</code>; <code class="inline-code">Participant B</code> registered for <code class="inline-code">Event 2</code>; logged-in <code class="inline-code">ORGANIZER</code> | <code class="inline-code">Participant A</code> calls <code class="inline-code">GET /api/registrations/me</code>; <code class="inline-code">ORGANIZER</code> calls <code class="inline-code">POST /api/events/:id/registrations</code> and <code class="inline-code">GET /api/registrations/me</code> | <code class="inline-code">Participant A</code> receives only <code class="inline-code">Event 1</code> registration; <code class="inline-code">ORGANIZER</code> receives <code class="inline-code">403 Forbidden</code> on both calls |
+| <strong>TEST-F03-07</strong> | <code class="inline-code">AC-F03-01</code>, <code class="inline-code">AC-F03-06</code> | UI / E2E | Logged-in <code class="inline-code">PARTICIPANT</code> in browser; <code class="inline-code">PUBLISHED</code> event available | Click <strong>Register</strong> on event card, then navigate to <strong>My Registrations</strong> | Remaining seats decrement by 1, badge changes to <strong>Registered</strong>, and event appears in <strong>My Registrations</strong> |
+
+<hr/>
+
+<h2>5. Product Definition of Done (DoD) and Revision History</h2>
+
+<h3>5.1 Definition of Done</h3>
+1. Feature contract (<code class="inline-code">docs/sprints/sprint-1/f-03-registration-concurrency.md</code>) committed and reviewed prior to implementation.
+2. Automated tests (<code class="inline-code">TEST-F03-01</code> through <code class="inline-code">TEST-F03-07</code>, including the parallel concurrency test <code class="inline-code">TEST-F03-04</code>) implemented using TDD (Red failing test commit followed by Green implementation commit).
+3. All integration, concurrency, and UI tests passing against PostgreSQL.
+4. Pull Request reviewed and approved by the teammate on GitHub and merged into <code class="inline-code">staging</code>.
+
+<h3>5.2 Contract Revision History</h3>
+
+| Version | Date | Author | Summary of Change |
+|---|---|---|---|
+| <code class="inline-code">v1.0</code> | 2026-11-09 | Pimchaya Suprateravarnit | Initial pre-implementation contract for <code class="inline-code">F-03: Participant Event Registration, Capacity Enforcement, and Concurrency Protection</code>. |
+    <h2>Contract F-04: Organizer Roster & Health Probes</h2>
+    <h1>Sprint 1 Feature Engineering Contract — F-04: Organizer Event Registrant Roster, Ownership Enforcement, and Runtime Readiness</h1>
+
+<ul><li><strong>Feature ID:</strong> <code class="inline-code">F-04</code></li><li><strong>Feature Name:</strong> Organizer Event Registrant Roster, Ownership Enforcement, and Runtime Readiness Probes</li><li><strong>Target Sprint:</strong> Sprint 1 (Deliverable 1 Baseline)</li><li><strong>Linked Requirements:</strong> <code class="inline-code">FR-06</code>, <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">NFR-01</code>, <code class="inline-code">NFR-02</code>, <code class="inline-code">NFR-04</code>, <code class="inline-code">NFR-05</code></li><li><strong>Contract Version:</strong> <code class="inline-code">v1.0</code> (Pre-implementation specification)</li></ul>
+
+<hr/>
+
+<h2>1. Feature-Level Software Design Specification (Feature SDS)</h2>
+
+<h3>1.1 Overview and Workflow</h3>
+<code class="inline-code">F-04</code> allows an <code class="inline-code">ORGANIZER</code> to inspect the participant registrant roster exclusively for events they own, enforces strict role and ownership boundaries on the backend, and exposes cloud-ready health/readiness probes:
+1. <strong>Retrieve Owned Event Registrant Roster (<code class="inline-code">GET /api/events/:id/registrations</code>):</strong>
+   - Requires an authenticated <code class="inline-code">ORGANIZER</code> (<code class="inline-code">BR-06</code>).
+   - Looks up the target <code class="inline-code">Event</code> by <code class="inline-code">id</code>. If not found, returns <code class="inline-code">404 Not Found</code>.
+   - Verifies strict ownership: <code class="inline-code">event.organizerId === currentUser.id</code> (<code class="inline-code">BR-07</code>). If the authenticated <code class="inline-code">ORGANIZER</code> does not own the event, rejects immediately with <code class="inline-code">403 Forbidden</code> without querying or returning any registration rows.
+   - Queries <code class="inline-code">Registration</code> where <code class="inline-code">eventId = id</code> and <code class="inline-code">status = 'ACTIVE'</code>, joined with sanitized <code class="inline-code">User</code> fields (<code class="inline-code">id</code>, <code class="inline-code">name</code>, <code class="inline-code">email</code> — never <code class="inline-code">passwordHash</code> per <code class="inline-code">NFR-01</code>), ordered by <code class="inline-code">createdAt ASC</code>, and returns the event summary alongside the registrant list (<code class="inline-code">FR-06</code>).
+2. <strong>Runtime Liveness and Readiness Probes (<code class="inline-code">GET /api/health</code>, <code class="inline-code">GET /api/ready</code>):</strong>
+   - <code class="inline-code">GET /api/health</code>: Lightweight liveness probe returning <code class="inline-code">200 OK</code> (<code class="inline-code">{ "status": "ok" }</code>).
+   - <code class="inline-code">GET /api/ready</code>: Executes <code class="inline-code"> prisma.$queryRaw\</code>SELECT 1\<code class="inline-code"> </code> against PostgreSQL; returns <code class="inline-code">200 OK</code> (<code class="inline-code">{ "status": "ready", "database": "connected" }</code>) when reachable, or <code class="inline-code">503 Service Unavailable</code> (<code class="inline-code">{ "status": "not_ready", "error": "Database unavailable" }</code>) when the database check fails (<code class="inline-code">NFR-05</code>).
+
+<h3>1.2 Validation, Boundary Cases, and Permissions</h3>
+<ul><li><strong>Empty roster boundary:</strong> If an owned event has <code class="inline-code">0</code> registrations, <code class="inline-code">GET /api/events/:id/registrations</code> returns <code class="inline-code">200 OK</code> with <code class="inline-code">"registrations": []</code> and <code class="inline-code">"activeRegistrationsCount": 0</code>.</li><li><strong>Unauthenticated access (<code class="inline-code">NFR-02</code>):</strong> Missing/expired session cookie on <code class="inline-code">GET /api/events/:id/registrations</code> returns <code class="inline-code">401 Unauthorized</code> with no private data.</li><li><strong>Role restriction (<code class="inline-code">BR-06</code>):</strong> A <code class="inline-code">PARTICIPANT</code> calling <code class="inline-code">GET /api/events/:id/registrations</code> receives <code class="inline-code">403 Forbidden</code> even if they are registered for that event.</li><li><strong>Cross-organizer ownership restriction (<code class="inline-code">BR-07</code>):</strong> <code class="inline-code">Organizer B</code> calling <code class="inline-code">GET /api/events/:id/registrations</code> on <code class="inline-code">Organizer A</code>'s event receives <code class="inline-code">403 Forbidden</code> with zero leaked registrant data.</li></ul>
+
+<hr/>
+
+<h2>2. UI, API, and Data Specifications</h2>
+
+<h3>2.1 UI Behavior</h3>
+<ul><li><strong>Organizer Event Roster Modal / View (<code class="inline-code">/organizer/events/:id/registrations</code>):</strong> Accessible from the Organizer Workspace for owned events; displays event title, capacity utilization (<code class="inline-code">activeRegistrationsCount / capacity</code>), and a table of registered participants (<code class="inline-code">#</code>, <code class="inline-code">Name</code>, <code class="inline-code">Email</code>, <code class="inline-code">Status</code>, <code class="inline-code">Registered At</code>), or an empty state (<code class="inline-code">"No participants registered yet"</code>).</li><li><strong>Access Guard:</strong> Frontend hides organizer roster links from <code class="inline-code">PARTICIPANT</code> users, and backend independently enforces <code class="inline-code">401</code>/<code class="inline-code">403</code> on the API endpoint.</li></ul>
+
+<h3>2.2 API Endpoint Specifications</h3>
+
+| Method & Path | Role / Access | Request Params | Success Response | Error Responses |
+|---|---|---|---|---|
+| <code class="inline-code">GET /api/events/:id/registrations</code> | <code class="inline-code">ORGANIZER</code> (Owner only) | <code class="inline-code">:id</code> (Event UUID) | <code class="inline-code">200 OK</code><br><code class="inline-code">{ "event": { "id": string, "title": string, "capacity": number, "status": string, "activeRegistrationsCount": number }, "registrations": [ { "id": string, "status": "ACTIVE", "createdAt": string, "participant": { "id": string, "name": string, "email": string } } ] }</code> | <code class="inline-code">401</code> unauthenticated<br><code class="inline-code">403</code> <code class="inline-code">PARTICIPANT</code> or non-owner <code class="inline-code">ORGANIZER</code><br><code class="inline-code">404</code> event not found |
+| <code class="inline-code">GET /api/health</code> | Public | None | <code class="inline-code">200 OK</code> <code class="inline-code">{ "status": "ok" }</code> | — |
+| <code class="inline-code">GET /api/ready</code> | Public | None | <code class="inline-code">200 OK</code> <code class="inline-code">{ "status": "ready", "database": "connected" }</code> | <code class="inline-code">503 { "status": "not_ready", "error": "Database unavailable" }</code> |
+
+<h3>2.3 Data Model and Constraints</h3>
+<ul><li>Uses existing <code class="inline-code">User</code>, <code class="inline-code">Event</code> (<code class="inline-code">organizerId</code> FK), and <code class="inline-code">Registration</code> (<code class="inline-code">eventId</code> FK, <code class="inline-code">userId</code> FK) tables defined in <code class="inline-code">F-01</code>–<code class="inline-code">F-03</code>. No additional schema migration is required for <code class="inline-code">F-04</code>.</li></ul>
+
+<hr/>
+
+<h2>3. Acceptance Criteria (<code class="inline-code">AC</code>)</h2>
+
+| AC ID | Criterion (Observable Expected Outcome) | Linked Req |
+|---|---|---|
+| <strong>AC-F04-01</strong> | Given an authenticated <code class="inline-code">ORGANIZER</code> who owns <code class="inline-code">Event A</code> having registered participants, when <code class="inline-code">GET /api/events/:id/registrations</code> is called, then the server responds <code class="inline-code">200 OK</code> with the list of active registrations including each participant's <code class="inline-code">{ id, name, email }</code> (and omitting <code class="inline-code">passwordHash</code>). | <code class="inline-code">FR-06</code>, <code class="inline-code">NFR-01</code>, <code class="inline-code">NFR-04</code> |
+| <strong>AC-F04-02</strong> | Given an authenticated <code class="inline-code">ORGANIZER</code> who owns <code class="inline-code">Event A</code> with <code class="inline-code">0</code> registrations, when <code class="inline-code">GET /api/events/:id/registrations</code> is called, then the server responds <code class="inline-code">200 OK</code> with <code class="inline-code">"registrations": []</code> and <code class="inline-code">"activeRegistrationsCount": 0</code>. | <code class="inline-code">FR-06</code> |
+| <strong>AC-F04-03</strong> | Given <code class="inline-code">Organizer B</code> who does not own <code class="inline-code">Organizer A</code>'s <code class="inline-code">Event A</code>, when <code class="inline-code">Organizer B</code> calls <code class="inline-code">GET /api/events/:id/registrations</code> for <code class="inline-code">Event A</code>, then the server responds <code class="inline-code">403 Forbidden</code> without returning any registrant records. | <code class="inline-code">BR-07</code> |
+| <strong>AC-F04-04</strong> | Given a logged-in <code class="inline-code">PARTICIPANT</code> (or unauthenticated user), when calling <code class="inline-code">GET /api/events/:id/registrations</code>, then the server responds <code class="inline-code">403 Forbidden</code> (or <code class="inline-code">401 Unauthorized</code>) without returning any registrant records. | <code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">NFR-02</code> |
+| <strong>AC-F04-05</strong> | Given a running backend with a reachable PostgreSQL database, when <code class="inline-code">GET /api/health</code> and <code class="inline-code">GET /api/ready</code> are called, then both respond <code class="inline-code">200 OK</code>. | <code class="inline-code">NFR-05</code> |
+| <strong>AC-F04-06</strong> | Given a database connectivity failure during readiness check, when <code class="inline-code">GET /api/ready</code> is called, then the server responds <code class="inline-code">503 Service Unavailable</code>. | <code class="inline-code">NFR-05</code> |
+
+<hr/>
+
+<h2>4. Software Test Specification (<code class="inline-code">STS</code>)</h2>
+
+| Test ID | Linked AC | Test Level | Preconditions / Input | Action | Expected Result |
+|---|---|---|---|---|---|
+| <strong>TEST-F04-01</strong> | <code class="inline-code">AC-F04-01</code>, <code class="inline-code">AC-F04-02</code> | API/DB Integration | <code class="inline-code">Organizer A</code> owns <code class="inline-code">Event A</code>; initially 0 registrants, then <code class="inline-code">Participant 1</code> & <code class="inline-code">Participant 2</code> register | <code class="inline-code">Organizer A</code> calls <code class="inline-code">GET /api/events/:id/registrations</code> before and after registrations | First call returns <code class="inline-code">200</code> with <code class="inline-code">registrations: []</code>; second call returns <code class="inline-code">200</code> with 2 participants (<code class="inline-code">id, name, email</code>, no <code class="inline-code">passwordHash</code>) |
+| <strong>TEST-F04-02</strong> | <code class="inline-code">AC-F04-03</code> | API/DB Integration | <code class="inline-code">Event A</code> (owned by <code class="inline-code">Organizer A</code>) has 2 registrants; logged in as <code class="inline-code">Organizer B</code> | <code class="inline-code">Organizer B</code> calls <code class="inline-code">GET /api/events/:id/registrations</code> for <code class="inline-code">Event A</code> | Returns <code class="inline-code">403 Forbidden</code>; response body contains no participant names or emails |
+| <strong>TEST-F04-03</strong> | <code class="inline-code">AC-F04-04</code> | API/DB Integration | <code class="inline-code">Event A</code> has registrants; client is logged in as <code class="inline-code">Participant 1</code> (and unauthenticated) | Call <code class="inline-code">GET /api/events/:id/registrations</code> as <code class="inline-code">Participant 1</code> and without cookie | Returns <code class="inline-code">403 Forbidden</code> for <code class="inline-code">Participant 1</code> and <code class="inline-code">401 Unauthorized</code> without cookie |
+| <strong>TEST-F04-04</strong> | <code class="inline-code">AC-F04-05</code> | API/DB Integration | Running server connected to PostgreSQL | Call <code class="inline-code">GET /api/health</code> and <code class="inline-code">GET /api/ready</code> | Both return <code class="inline-code">200 OK</code> with expected JSON status fields |
+| <strong>TEST-F04-05</strong> | <code class="inline-code">AC-F04-06</code> | Unit / API Integration | Database probe dependency throws connection error | Call <code class="inline-code">GET /api/ready</code> when DB query fails | Returns <code class="inline-code">503 Service Unavailable</code> with <code class="inline-code">{ status: "not_ready" }</code> |
+| <strong>TEST-F04-06</strong> | <code class="inline-code">AC-F04-01</code> | UI / E2E | <code class="inline-code">Organizer A</code> logged in via browser; <code class="inline-code">Participant 1</code> registered for <code class="inline-code">Event A</code> | Open Organizer Workspace and click <strong>View Registrants</strong> on <code class="inline-code">Event A</code> | Roster table renders <code class="inline-code">Participant 1</code>'s name, email, and <code class="inline-code">ACTIVE</code> status |
+
+<hr/>
+
+<h2>5. Product Definition of Done (Sprint 1 Overall & F-04)</h2>
+
+<h3>5.1 Sprint 1 Product Definition of Done (DoD)</h3>
+1. <strong>Pre-Implementation Contracts:</strong> All Sprint 1 feature contracts (<code class="inline-code">F-01</code> through <code class="inline-code">F-04</code>) are recorded in <code class="inline-code">docs/sprints/sprint-1/</code> and committed prior to feature implementation.
+2. <strong>TDD Evidence:</strong> Meaningful domain rules and access restrictions have failing test commits (Red) recorded prior to implementation commits (Green).
+3. <strong>Complete Vertical Slice:</strong> <code class="inline-code">ORGANIZER</code> and <code class="inline-code">PARTICIPANT</code> end-to-end journeys operate across the React/Vite UI, Express/TypeScript API, and PostgreSQL database via Prisma migrations and reproducible environment-driven seed data.
+4. <strong>Automated Verification:</strong> All planned unit, API/DB integration, concurrency (<code class="inline-code">TEST-F03-04</code>), and selected UI/E2E tests execute and pass on the release commit; any failed/skipped tests or known limitations are disclosed honestly.
+5. <strong>Security & Cloud Readiness:</strong> Zero secrets or <code class="inline-code">.env</code> files committed; passwords hashed with <code class="inline-code">bcryptjs</code>; sessions stored in PostgreSQL; <code class="inline-code">/api/health</code> and <code class="inline-code">/api/ready</code> (<code class="inline-code">503</code> on DB failure) verified.
+6. <strong>Reviewed Git Workflow:</strong> Every Issue is implemented on a branch from <code class="inline-code">staging</code>, reviewed and approved by the teammate on a PR into <code class="inline-code">staging</code>, and released to <code class="inline-code">main</code> via a reviewed release PR.
+
+<h3>5.2 Contract Revision History</h3>
+
+| Version | Date | Author | Summary of Change |
+|---|---|---|---|
+| <code class="inline-code">v1.0</code> | 2026-11-09 | Pimchaya Suprateravarnit & Suphattra Kongsiriphat | Initial pre-implementation contract for <code class="inline-code">F-04: Organizer Event Registrant Roster, Ownership Enforcement, and Runtime Readiness</code>. |
+
+    <!-- PART F -->
+    <div class="section-divider"></div>
+    <h1>Part F: Working Sprint 1 Verification and Execution Evidence</h1>
+    <h1>CPE 334 Project Deliverable 1 — Engineering Baseline and Working Sprint 1</h1>
+
+<ul><li><strong>Course:</strong> CPE 334 Introduction to Software Engineering in the Age of AI Agents (Semester 1/2026)</li><li><strong>Theme:</strong> Theme 3 — Event Registration and Attendance System</li><li><strong>Chosen Context:</strong> Faculty and University Academic Workshops & Seminars</li><li><strong>Repository URL:</strong> <code class="inline-code">https://github.com/pimchayasupr-hash/cpe334-event-registration</code></li><li><strong>Submitted Release Tag:</strong> <code class="inline-code">v1.0.0-sprint1</code> (Release Commit: <code class="inline-code">10834da</code>)</li><li><strong>Team Members:</strong></li></ul>
+  1. <strong>Suphattra Kongsiriphat</strong> (<code class="inline-code">67070505228</code>, GitHub: <code class="inline-code">@supa-gif173</code>)
+  2. <strong>Pimchaya Suprateravarnit</strong> (<code class="inline-code">67070505223</code>, GitHub: <code class="inline-code">@pimchayasupr-hash</code>)
+<ul><li><strong>Submission Date:</strong> November 2026</li></ul>
+
+<hr/>
+
+<h2>Short Navigation Table (Table of Contents)</h2>
+
+<div class="table-container"><table><thead><tr><th>Part</th><th>Section Heading</th><th>Direct Repository Document Reference</th><th>Key Artifact IDs / Scope</th></tr></thead><tbody><tr><td><strong>A</strong></td></tr></tbody></table></div>
+ <strong>SRS and Product Scope</strong> | <code class="inline-code">docs/srs.md</code> | Problem statement, Actors, <code class="inline-code">FR-01</code>–<code class="inline-code">FR-11</code>, <code class="inline-code">BR-01</code>–<code class="inline-code">BR-07</code>, <code class="inline-code">NFR-01</code>–<code class="inline-code">NFR-05</code>, <code class="inline-code">AD-01</code>–<code class="inline-code">AD-06</code> |
+| <strong>B</strong> | <strong>Feature Inventory & Traceability</strong> | <code class="inline-code">docs/features.md</code><br><code class="inline-code">docs/traceability.md</code> | Feature breakdown <code class="inline-code">F-01</code>–<code class="inline-code">F-09</code>, Requirements-to-Feature-to-Sprint Traceability Matrix |
+| <strong>C</strong> | <strong>System-Level Software Design (SDS)</strong> | <code class="inline-code">docs/system-sds.md</code> | 3-tier architecture, PostgreSQL schema, Pessimistic row locking, Session lifecycle, Cloud Run & Cloud SQL topology |
+| <strong>D</strong> | <strong>Three-Sprint Plan</strong> | <code class="inline-code">docs/sprints/plan.md</code> | Goals, dependencies, Sprint 1 vertical slice feasibility explanation, and deferred sprint roadmap |
+| <strong>E</strong> | <strong>Sprint 1 Engineering Contracts</strong> | <code class="inline-code">docs/sprints/sprint-1/</code> | Pre-implementation contracts for <code class="inline-code">F-01</code>, <code class="inline-code">F-02</code>, <code class="inline-code">F-03</code>, <code class="inline-code">F-04</code> with AC, STS, and Definition of Done |
+| <strong>F</strong> | <strong>Working Sprint 1 and Verification</strong> | <code class="inline-code">server/</code>, <code class="inline-code">client/</code>, <code class="inline-code">server/tests/</code> | 26 automated tests execution output, AC-to-Test mapping, Test code excerpts (<code class="inline-code">TEST-F03-04</code>, <code class="inline-code">TEST-F04-03</code>), Workflow evidence, and Team contributions |
+
+<hr/>
+
+<h1>Part F: Working Sprint 1 and Verification Evidence</h1>
+
+<h2>1. Local Application Setup and Reproduction Instructions</h2>
+
+<h3>1.1 Prerequisites</h3>
+<ul><li>Node.js <code class="inline-code">v20+</code> or <code class="inline-code">v24 LTS</code></li><li>Docker & Docker Compose (or local PostgreSQL 16)</li><li>Git</li></ul>
+
+<h3>1.2 Step-by-Step Setup</h3>
+<pre class="code-block"><code class="language-bash"># 1. Clone repository
+git clone https://github.com/pimchayasupr-hash/cpe334-event-registration.git
+cd cpe334-event-registration
+git checkout v1.0.0-sprint1
+
+<h1>2. Start PostgreSQL container</h1>
+docker compose up -d db
+
+<h1>3. Setup Backend, run migrations and seed reproducible demo accounts</h1>
+cd server
+npm ci
+npx prisma migrate deploy
+npm run prisma:seed
+
+<h1>4. Run automated test suite (26 passing tests)</h1>
+npm test
+
+<h1>5. Build and run Frontend client</h1>
+cd ../client
+npm ci
+npm test
+npm run build
+</code></pre>
+
+<hr/>
+
+<h2>2. Automated Test Execution Output</h2>
+
+<p>All 26 automated tests across 4 test suites pass with zero failures:</p>
+
+<pre class="code-block"><code class="language-text"> ✓ tests/auth.test.ts (8 tests) 420ms
+   ✓ TEST-F01-01: stores passwords as salted bcrypt hashes and never matches plaintext
+   ✓ TEST-F01-02: logs in with valid credentials, sets sid cookie, creates session row, and accesses /api/auth/me
+   ✓ TEST-F01-03: rejects invalid password with 401 Unauthorized
+   ✓ TEST-F01-04: rejects non-existent email with 401 Unauthorized
+   ✓ TEST-F01-05: unauthenticated request to /api/auth/me rejected with 401 Unauthorized
+   ✓ TEST-F01-06: logs out by deleting session row and invalidating cookie; subsequent request rejected
+   ✓ TEST-F01-07: rejects expired session token with 401 Unauthorized
+   ✓ TEST-F01-08: rejects missing or empty email/password with 400 Bad Request
+
+<p>✓ tests/events.test.ts (7 tests) 512ms
+   ✓ TEST-F02-01: rejects invalid capacity bounds (&lt; 1, &gt; 500, non-integer) and inverted schedule (endAt &lt;= startAt)
+   ✓ TEST-F02-02: creates DRAFT event, publishes it, and exposes it in GET /api/events
+   ✓ TEST-F02-03: rejects boundary violations (capacity 0, 501, inverted dates) and past startAt publish
+   ✓ TEST-F02-04: hides DRAFT events from participant event listing
+   ✓ TEST-F02-05: prevents Organizer B from modifying or publishing Organizer A's event (403 Forbidden)
+   ✓ TEST-F02-06: rejects non-organizer role attempts to create, publish, or adjust capacity (403 Forbidden)
+   ✓ TEST-F02-07: prevents reducing capacity below current active registrations count</p>
+
+<p>✓ tests/registrations.test.ts (6 tests) 640ms
+   ✓ TEST-F03-01: registers successfully, creates ACTIVE record, and retrieves via GET /api/registrations/me
+   ✓ TEST-F03-02: rejects duplicate registration attempt for the same event with 409 Conflict
+   ✓ TEST-F03-03: capacity enforcement rejects registration when event capacity is reached (409 Conflict)
+   ✓ TEST-F03-04: serializes 5 concurrent requests on a 1-seat event (exactly 1 succeeds, 4 fail with 409)
+   ✓ TEST-F03-05: rejects registration on DRAFT events with 404 Not Found
+   ✓ TEST-F03-06: prevents cross-participant private registration inspection (privacy isolation)</p>
+
+<p>✓ tests/roster-and-health.test.ts (5 tests) 310ms
+   ✓ TEST-F04-01: allows event owner organizer to inspect attendee roster with sanitized participant data
+   ✓ TEST-F04-02: returns empty roster with 0 active count when no participants registered
+   ✓ TEST-F04-03: prevents non-owner organizer from accessing event registrant roster (403 Forbidden)
+   ✓ TEST-F04-04: GET /api/health returns 200 OK with status ok
+   ✓ TEST-F04-05: GET /api/ready returns 200 OK when DB is healthy and 503 when DB is disconnected</p>
+
+<p>Test Files  4 passed (4)
+     Tests  26 passed (26)
+  Duration  2.45s
+</code></pre></p>
+
+<hr/>
+
+<h2>3. Acceptance Criteria to Automated Test Mapping Table</h2>
+
+<div class="table-container"><table><thead><tr><th>AC ID</th><th>Acceptance Criteria Summary</th><th>Test ID</th><th>Test File</th><th>Result</th></tr></thead><tbody><tr><td><code class="inline-code">AC-F01-01</code></td></tr></tbody></table></div>
+ Passwords hashed with salted bcrypt (cost >= 10); no plaintext stored | <code class="inline-code">TEST-F01-01</code> | <code class="inline-code">server/tests/auth.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F01-02</code> | Valid login returns 200, sets 64-hex sid cookie with 8h TTL, creates DB session | <code class="inline-code">TEST-F01-02</code> | <code class="inline-code">server/tests/auth.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F01-03</code> | Invalid password or non-existent email returns 401 Unauthorized | <code class="inline-code">TEST-F01-03</code>, <code class="inline-code">04</code> | <code class="inline-code">server/tests/auth.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F01-04</code> | Unauthenticated request to protected endpoint returns 401 without private data | <code class="inline-code">TEST-F01-05</code> | <code class="inline-code">server/tests/auth.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F01-05</code> | Logout immediately invalidates session row in DB and clears cookie | <code class="inline-code">TEST-F01-06</code> | <code class="inline-code">server/tests/auth.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F01-06</code> | Expired session timestamp (> 8 hours) is rejected with 401 Unauthorized | <code class="inline-code">TEST-F01-07</code> | <code class="inline-code">server/tests/auth.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F01-07</code> | Missing or blank email/password returns 400 Bad Request | <code class="inline-code">TEST-F01-08</code> | <code class="inline-code">server/tests/auth.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F02-01</code> | Organizer creates event exclusively in DRAFT status with capacity 1..500 | <code class="inline-code">TEST-F02-01</code> | <code class="inline-code">server/tests/events.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F02-02</code> | End time must be strictly after start time (<code class="inline-code">endAt > startAt</code>) | <code class="inline-code">TEST-F02-01</code>, <code class="inline-code">03</code> | <code class="inline-code">server/tests/events.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F02-03</code> | Separate publication transitions DRAFT to PUBLISHED only if <code class="inline-code">startAt > now</code> | <code class="inline-code">TEST-F02-02</code>, <code class="inline-code">03</code> | <code class="inline-code">server/tests/events.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F02-04</code> | DRAFT events hidden from participant catalog and cannot be booked | <code class="inline-code">TEST-F02-04</code> | <code class="inline-code">server/tests/events.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F02-05</code> | Organizer can only publish or edit capacity of events they own | <code class="inline-code">TEST-F02-05</code> | <code class="inline-code">server/tests/events.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F02-06</code> | Participant cannot create, publish, or edit events (403 Forbidden) | <code class="inline-code">TEST-F02-06</code> | <code class="inline-code">server/tests/events.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F02-07</code> | Capacity cannot be reduced below current active registrations count | <code class="inline-code">TEST-F02-07</code> | <code class="inline-code">server/tests/events.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F03-01</code> | Participant registers for PUBLISHED event; persists ACTIVE record | <code class="inline-code">TEST-F03-01</code> | <code class="inline-code">server/tests/registrations.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F03-02</code> | Duplicate registration by same participant returns 409 Conflict | <code class="inline-code">TEST-F03-02</code> | <code class="inline-code">server/tests/registrations.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F03-03</code> | Registration rejected with 409 Conflict when event is at full capacity | <code class="inline-code">TEST-F03-03</code> | <code class="inline-code">server/tests/registrations.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F03-04</code> | 5 concurrent requests on 1-seat event: exactly 1 succeeds, 4 fail (Pessimistic Lock) | <code class="inline-code">TEST-F03-04</code> | <code class="inline-code">server/tests/registrations.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F03-05</code> | Registration on DRAFT or CANCELLED event rejected with 404/409 | <code class="inline-code">TEST-F03-05</code> | <code class="inline-code">server/tests/registrations.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F03-06</code> | Participant retrieves own registrations; cannot view other users' records | <code class="inline-code">TEST-F03-06</code> | <code class="inline-code">server/tests/registrations.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F04-01</code> | Organizer retrieves attendee roster for owned event (sanitized user data) | <code class="inline-code">TEST-F04-01</code> | <code class="inline-code">server/tests/roster-and-health.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F04-02</code> | Non-owner organizer or participant cannot view event roster (403 Forbidden) | <code class="inline-code">TEST-F04-03</code> | <code class="inline-code">server/tests/roster-and-health.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F04-03</code> | Operational probe <code class="inline-code">/api/health</code> returns 200 OK | <code class="inline-code">TEST-F04-04</code> | <code class="inline-code">server/tests/roster-and-health.test.ts</code> | <strong>PASS</strong> |
+| <code class="inline-code">AC-F04-04</code> | Operational probe <code class="inline-code">/api/ready</code> returns 200 when DB healthy, 503 when disconnected | <code class="inline-code">TEST-F04-05</code> | <code class="inline-code">server/tests/roster-and-health.test.ts</code> | <strong>PASS</strong> |
+
+<hr/>
+
+<h2>4. Test Code Excerpts (Per Deliverable 1 Section 4.2)</h2>
+
+<h3>Excerpt 1: Important Domain Rule & Concurrency Protection (<code class="inline-code">TEST-F03-04</code>)</h3>
+<em>Proves that competing requests for the last remaining seat are serialized via PostgreSQL row-level pessimistic locking (<code class="inline-code">SELECT ... FOR UPDATE</code>), guaranteeing zero overbooking:</em>
+
+<pre class="code-block"><code class="language-typescript">// server/tests/registrations.test.ts
+it('TEST-F03-04: serializes 5 concurrent requests on a 1-seat event (exactly 1 succeeds, 4 fail with 409)', async () =&gt; {
+  // 1. Create a 1-seat event
+  const concurrencyEvent = await prisma.event.create({
+    data: {
+      title: 'Extreme Concurrency Test Workshop',
+      description: 'Race condition simulation',
+      category: EventCategory.WORKSHOP,
+      location: 'Room 101',
+      startAt: new Date(Date.now() + 48 <em> 3600 </em> 1000),
+      endAt: new Date(Date.now() + 50 <em> 3600 </em> 1000),
+      capacity: 1,
+      status: EventStatus.PUBLISHED,
+      organizerId,
+    },
+  });
+
+<p>// 2. Prepare 5 distinct participant accounts and sessions
+  const participantSids: string[] = [];
+  for (let i = 1; i &lt;= 5; i++) {
+    const user = await prisma.user.create({
+      data: {
+        email: <code class="inline-code">race.student.${i}@kmutt.ac.th</code>,
+        name: <code class="inline-code">Race Participant ${i}</code>,
+        passwordHash: 'hash',
+        role: Role.PARTICIPANT,
+      },
+    });
+    const sid = crypto.randomBytes(32).toString('hex');
+    await prisma.session.create({
+      data: { id: sid, userId: user.id, expiresAt: new Date(Date.now() + 3600 <em> 1000) },
+    });
+    participantSids.push(sid);
+  }</p>
+
+<p>// 3. Fire 5 simultaneous requests via Promise.all
+  const promises = participantSids.map((sid) =&gt;
+    request(app)
+      .post(<code class="inline-code">/api/events/${concurrencyEvent.id}/registrations</code>)
+      .set('Cookie', <code class="inline-code">sid=${sid}</code>)
+  );</p>
+
+<p>const responses = await Promise.all(promises);
+  const statuses = responses.map((r) =&gt; r.status);</p>
+
+<p>// Assertions: Exactly 1 receives 201 Created, remaining 4 receive 409 Conflict
+  expect(statuses.filter((s) =&gt; s === 201).length).toBe(1);
+  expect(statuses.filter((s) =&gt; s === 409).length).toBe(4);</p>
+
+<p>// Assert persisted rows in PostgreSQL is strictly 1 (Zero Overbooking)
+  const finalCount = await prisma.registration.count({
+    where: { eventId: concurrencyEvent.id, status: RegistrationStatus.ACTIVE },
+  });
+  expect(finalCount).toBe(1);
+});
+</code></pre></p>
+
+<hr/>
+
+<h3>Excerpt 2: Role and Event Ownership Restriction (<code class="inline-code">TEST-F04-03</code>)</h3>
+</em>Proves that an Organizer cannot inspect the registrant roster of an event owned by another Organizer:*
+
+<pre class="code-block"><code class="language-typescript">// server/tests/roster-and-health.test.ts
+it('TEST-F04-03: prevents non-owner organizer and participant from accessing event registrant roster (403 Forbidden)', async () =&gt; {
+  // Organizer B attempts to view Organizer A's event roster
+  const crossOrgRes = await request(app)
+    .get(<code class="inline-code">/api/events/${eventAId}/registrations</code>)
+    .set('Cookie', <code class="inline-code">sid=${organizerBSid}</code>);
+
+<p>expect(crossOrgRes.status).toBe(403);
+  expect(crossOrgRes.body.error).toContain('Forbidden');
+  expect(crossOrgRes.body.registrations).toBeUndefined();</p>
+
+<p>// Participant attempts to view event roster
+  const partRes = await request(app)
+    .get(<code class="inline-code">/api/events/${eventAId}/registrations</code>)
+    .set('Cookie', <code class="inline-code">sid=${participantSid}</code>);</p>
+
+<p>expect(partRes.status).toBe(403);
+  expect(partRes.body.error).toContain('Forbidden');
+});
+</code></pre></p>
+
+<hr/>
+
+<h2>5. Engineering Workflow and GitHub Traceability Evidence</h2>
+
+<h3>5.1 Sampled Issues and Pull Requests</h3>
+
+<div class="table-container"><table><thead><tr><th>Issue ID</th><th>Feature / Contract</th><th>PR #</th><th>Author</th><th>Reviewer</th><th>Substantive Review Finding / Rationale</th><th>Merged Commit</th></tr></thead><tbody><tr><td><strong>#15</strong></td></tr></tbody></table></div>
+ <code class="inline-code">C</code> (System SDS) | <strong>#16</strong> | Suphattra (<code class="inline-code">@supa-gif173</code>) | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Verified 3-tier architecture, Prisma PostgreSQL schema, <code class="inline-code">SELECT ... FOR UPDATE</code> locking mechanism, and Session 8h TTL. | <code class="inline-code">9b4d59e</code> |
+| <strong>#16</strong> | <code class="inline-code">F</code> (Core App & CI) | <strong>#17</strong> | Suphattra (<code class="inline-code">@supa-gif173</code>) | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Verified fullstack React SPA, 26 Vitest test cases passing, Dockerfile multi-stage build, and CI green checkmark. | <code class="inline-code">e78b973</code> |
+| <strong>#17</strong> | Release Baseline | <strong>#18</strong> | Suphattra (<code class="inline-code">@supa-gif173</code>) | Pimchaya (<code class="inline-code">@pimchayasupr-hash</code>) | Sprint 1 release baseline merge from <code class="inline-code">staging</code> to <code class="inline-code">main</code>, tagged <code class="inline-code">v1.0.0-sprint1</code>. | <code class="inline-code">10834da</code> |
+
+<hr/>
+
+<h2>6. Team Contribution Matrix</h2>
+
+<div class="table-container"><table><thead><tr><th>Team Member</th><th>Student ID</th><th>GitHub Username</th><th>Key Contributions across Sprint 1</th></tr></thead><tbody><tr><td><strong>Suphattra Kongsiriphat</strong></td></tr></tbody></table></div>
+ <code class="inline-code">67070505228</code> | <code class="inline-code">@supa-gif173</code> | • Author of System-Level SDS (Part C, PR #16)<br>• Full-stack backend API implementation (<code class="inline-code">/api/auth</code>, <code class="inline-code">/api/events</code>, <code class="inline-code">/api/registrations</code>, <code class="inline-code">/api/health</code>)<br>• Concurrency row-locking transaction logic & Vitest test suite (26 tests)<br>• Frontend React SPA development (Catalog, Modal, Workspace, Roster)<br>• Multi-stage Dockerfile and GitHub Actions CI/CD pipeline |
+| <strong>Pimchaya Suprateravarnit</strong> | <code class="inline-code">67070505223</code> | <code class="inline-code">@pimchayasupr-hash</code> | • Author of SRS & Scope (Part A, PR #4)<br>• Author of Feature Inventory & Traceability Matrix (Part B, PR #14)<br>• Author of Three-Sprint Plan (Part D, PR #14)<br>• Author of Feature Engineering Contracts F-01 to F-04 (Part E, PRs #6, #8, #10, #12)<br>• Code Reviewer & Approver for PR #16, #17, and Release PR #18<br>• GCP Project Administrator (Lab 5) |
+
+<hr/>
+
+<h2>7. AI-Use Declaration</h2>
+
+<ul><li><strong>Tools Assisted:</strong> Google Antigravity / Gemini CLI coding assistant.</li><li><strong>Tasks Assisted:</strong></li></ul>
+  - Generating initial architectural diagrams in Mermaid syntax.
+  - Scaffolding repetitive Express TypeScript route controllers and Vitest test stubs.
+  - Assisting in debugging Vitest single-fork execution configuration to resolve concurrent test database collisions.
+<ul><li><strong>Verification:</strong> Both students reviewed, inspected, executed, and understand all submitted code, design models, and test assertions. No unverified AI output is present.</li></ul>
+
+<hr/>
+
+<h2>8. Disclosed Known Limitations and Deferred Work</h2>
+
+<p>In strict accordance with the Deliverable 1 Rubric, the following secondary workflows are deliberately deferred to future sprints under pre-implementation contracts:
+<ul><li><strong>Sprint 2:</strong> Participant registration cancellation (<code class="inline-code">F-05</code>), registration deadline cutoff enforcement (<code class="inline-code">F-06</code>), event metadata editing & category search/filtering (<code class="inline-code">F-07</code>).</li><li><strong>Sprint 3:</strong> On-site attendee check-in and attendance status marking (<code class="inline-code">F-08</code>), and event attendance summary analytics (<code class="inline-code">F-09</code>).</li></ul></p>
+
+  </div>
+</body>
+</html>
