@@ -83,6 +83,8 @@ docker run -p 3000:3000 --env-file server/.env eventreg:latest
 
 ## 4. Google Cloud Platform Resource Names & Topology
 
+> **Note:** The `toktickit*` resource identifiers below are Starter Kit template defaults and have not been provisioned on GCP yet (no GCP Free Trial / billing account).
+
 | Resource | Resource Name / Identifier | Region / Spec |
 |---|---|---|
 | **Artifact Registry** | `toktickit` | `asia-southeast1` (Docker format) |
@@ -123,3 +125,11 @@ docker run -p 3000:3000 --env-file server/.env eventreg:latest
    ```bash
    gcloud run services describe toktickit --region asia-southeast1 --format='value(spec.template.spec.containers[0].image)'
    ```
+
+---
+
+## 6. Known Limitations (Documentation Disclosure)
+
+1. **Client-Embedded Demo Credentials:** `client/src/App.tsx` (`handleQuickLogin`, lines 96–113) calls `/api/auth/login`, but embeds demo passwords in the client bundle.
+2. **Seed Environment Variable Mismatch:** `deploy/deploy.sh` passes `ADMIN_PASSWORD` / `DEMO_USER_PASSWORD`, whereas `server/prisma/seed.ts` reads `SEED_ORGANIZER_PASSWORD` / `SEED_PARTICIPANT_PASSWORD`; a real deploy would fall back to the default passwords committed in the repository.
+3. **Self-Merged Approved PRs:** PR #16 and PR #17 were merged by their author (`@supa-gif173`) after receiving approval from `@pimchayasupr-hash`.

@@ -337,3 +337,8 @@ Both team members contributed equitably across all requirements engineering, sys
 In strict accordance with the Deliverable 1 Rubric, the following secondary workflows are deliberately deferred to future sprints under pre-implementation contracts:
 - **Sprint 2:** Participant registration cancellation (`F-05`), registration deadline cutoff enforcement (`F-06`), event metadata editing & category search/filtering (`F-07`).
 - **Sprint 3:** On-site attendee check-in and attendance status marking (`F-08`), and event attendance summary analytics (`F-09`).
+
+### Disclosed Implementation & Workflow Limitations
+- **Client-Embedded Demo Credentials:** `client/src/App.tsx` (`handleQuickLogin`, lines 96–113) calls the real `/api/auth/login` endpoint, but embeds demo passwords in the client bundle.
+- **Seed Environment Variable Mismatch:** `deploy/deploy.sh` passes `ADMIN_PASSWORD` / `DEMO_USER_PASSWORD`, while `server/prisma/seed.ts` reads `SEED_ORGANIZER_PASSWORD` / `SEED_PARTICIPANT_PASSWORD`; a real deploy would fall back to the default passwords committed in the repository.
+- **PR Merge Attribution:** PR #16 and PR #17 were merged by their author (`@supa-gif173`) after receiving approval from `@pimchayasupr-hash`.
