@@ -686,8 +686,8 @@ async function generateDeliverable1Docx() {
 
 async function generateLab5Docx() {
   console.log('Generating Lab 5 DOCX...');
-  const reportMd = readDoc('docs/labs/lab-05/report.md');
-  const c02ImagePath = path.join(repoRoot, 'docs/labs/lab-05/screenshots/c02_failing_check.png');
+  const reportMd = readDoc('docs/labs/lab05/report.md');
+  const c02ImagePath = path.join(repoRoot, 'docs/labs/lab05/screenshots/c02_failing_check.png');
 
   const children = [];
 
@@ -841,7 +841,7 @@ async function generateLab5Docx() {
   });
 
   const buffer = await Packer.toBuffer(doc);
-  const outPath = path.join(repoRoot, 'docs/labs/lab-05/lab5_submission.docx');
+  const outPath = path.join(repoRoot, 'docs/labs/lab05/lab5_submission.docx');
   fs.writeFileSync(outPath, buffer);
   console.log('Successfully written Lab 5 DOCX:', outPath, `(${buffer.length} bytes)`);
 }

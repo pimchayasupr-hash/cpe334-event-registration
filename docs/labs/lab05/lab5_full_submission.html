@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CPE 334 - Lab 5 Submission Report</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    @page {
+      size: A4;
+      margin: 18mm 15mm 20mm 15mm;
+      @bottom-right {
+        content: counter(page) " / " counter(pages);
+        font-family: 'Inter', sans-serif;
+        font-size: 8pt;
+        color: #64748b;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      color: #1e293b;
+      background: #f8fafc;
+      margin: 0;
+      padding: 24px;
+    }
+
+    .report-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 40px 48px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+    }
+
+    .header-banner {
+      border-left: 6px solid #FA4616;
+      padding-left: 20px;
+      margin-bottom: 24px;
+    }
+
+    .header-banner h1 {
+      font-size: 18pt;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 6px 0;
+    }
+
+    .header-banner p {
+      font-size: 10pt;
+      color: #64748b;
+      margin: 0;
+    }
+
+    .meta-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      font-size: 9pt;
+    }
+
+    .meta-row {
+      display: flex;
+      margin-bottom: 6px;
+    }
+    .meta-row:last-child { margin-bottom: 0; }
+    .meta-label {
+      width: 170px;
+      font-weight: 600;
+      color: #475569;
+    }
+    .meta-val {
+      flex: 1;
+      color: #0f172a;
+    }
+
+    h2 {
+      font-size: 13pt;
+      font-weight: 700;
+      color: #0f172a;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-top: 28px;
+      margin-bottom: 14px;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-size: 10.5pt;
+      font-weight: 600;
+      color: #1e293b;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+
+    p {
+      margin: 0 0 10px 0;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+
+    .table-container {
+      margin: 12px 0 18px 0;
+      overflow-x: auto;
+      page-break-inside: avoid;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    code.inline-code {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 8.5pt;
+      background: #f1f5f9;
+      padding: 1px 4px;
+      border-radius: 4px;
+      color: #0f172a;
+      border: 1px solid #e2e8f0;
+    }
+
+    pre.code-block {
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 8pt;
+      padding: 12px 14px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 10px 0 16px 0;
+      line-height: 1.4;
+      page-break-inside: avoid;
+    }
+
+    .figure-container {
+      margin: 16px 0;
+      text-align: center;
+      page-break-inside: avoid;
+    }
+
+    .figure-container img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .caption {
+      font-size: 8pt;
+      color: #475569;
+      margin-top: 6px;
+      font-style: italic;
+      text-align: left;
+    }
+
+    .checklist-item {
+      list-style-type: none;
+      margin-bottom: 4px;
+      font-size: 9pt;
+    }
+
+    .check-box {
+      font-weight: bold;
+      color: #16a34a;
+      margin-right: 6px;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+        font-size: 9pt;
+      }
+      .report-card {
+        padding: 0;
+        box-shadow: none;
+        max-width: 100%;
+      }
+      h2 {
+        page-break-before: auto;
+      }
+      pre.code-block, .table-container, .figure-container {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-card">
+    <div class="header-banner">
+      <h1>CPE 334 Introduction to Software Engineering in the Age of AI Agents</h1>
+      <p>Lab 5: Cloud Deployment and CI/CD Pipeline on Google Cloud Platform (GCP)</p>
+    </div>
+
+    <h1>Lab 5 Submission Report — CPE 334 Event Registration & Attendance System</h1>
+
+<h2>Answer Part 0 — Release Metadata & Evidence Index</h2>
+
+<h3>0.1 Project & Team Identification</h3>
+<li><strong>Course / Lab:</strong> CPE 334 Software Engineering — Lab 5 (CI/CD, Containerization & Deployment Verification)</li>
+<li><strong>Team / Section:</strong> ยอดนักบิด (<code class="inline-code">sec131</code>)</li>
+<li><strong>Members:</strong></li>
+  - Pimchaya Suprateravarnit (<code class="inline-code">@pimchayasupr-hash</code>)
+  - Suphattra Kongsiriphat (<code class="inline-code">@supa-gif173</code>)
+<li><strong>Submission PDF:</strong> <code class="inline-code">lab5_sec131_ยอดนักบิด.pdf</code> <em>(Draft — awaiting GitHub Ruleset / C-02 redo in Issue #22 and PR merges)</em></li>
+<li><strong>Repository:</strong> <code class="inline-code">https://github.com/pimchayasupr-hash/cpe334-event-registration</code> (Visibility: <code class="inline-code">PUBLIC</code>, Secret Scanning: <code class="inline-code">enabled</code>, Push Protection: <code class="inline-code">enabled</code>)</li>
+<li><strong>Branching & Tag State:</strong></li>
+  - <code class="inline-code">main</code> latest commit (at verification time): <code class="inline-code">12d04b9</code> (<code class="inline-code">fix(docs): fix Part E contract file paths and embed full engineering contracts</code>)
+  - Release PR #18 (<code class="inline-code">staging</code> -> <code class="inline-code">main</code>) merge commit: <code class="inline-code">10834da</code>
+  - Git tag <code class="inline-code">v1.0.0-sprint1</code>: points to <code class="inline-code">2d36196</code> (one of 7 direct commits pushed to <code class="inline-code">main</code> after <code class="inline-code">10834da</code>; see Known Limitations)
+  - Sync PR #24 (<code class="inline-code">main</code> -> <code class="inline-code">staging</code>): open, awaiting review/merge to align <code class="inline-code">staging</code> with <code class="inline-code">main</code>
+<li><strong>Production Live URL:</strong> ยังไม่ได้ทำ (No GCP Free Trial / billing account)</li>
+<li><strong>Running Commit on GCP:</strong> ยังไม่ได้ทำ (No GCP deployment yet)</li>
+
+<h3>0.2 Pull Request, Review & Merge Audit</h3>
+
+<div class="table-container"><table><thead><tr><th>PR Range / #</th><th>Branch Flow</th><th>Author</th><th>Reviewer / Approver</th><th>Merger</th><th>Notes</th></tr></thead><tbody><tr><td>PR #2 – #14</td></tr></tbody></table></div>
+ feature -> <code class="inline-code">staging</code> | <code class="inline-code">@pimchayasupr-hash</code> | <code class="inline-code">@supa-gif173</code> | <code class="inline-code">@pimchayasupr-hash</code> | Author and approver are distinct GitHub accounts |
+| PR #16 – #17 | feature -> <code class="inline-code">staging</code> | <code class="inline-code">@supa-gif173</code> | <code class="inline-code">@pimchayasupr-hash</code> | <code class="inline-code">@supa-gif173</code> | Approved by <code class="inline-code">@pimchayasupr-hash</code>, merged by PR author (<code class="inline-code">@supa-gif173</code>) |
+| PR #18 | <code class="inline-code">staging</code> -> <code class="inline-code">main</code> | <code class="inline-code">@supa-gif173</code> | <code class="inline-code">@pimchayasupr-hash</code> | <code class="inline-code">@pimchayasupr-hash</code> | Merge commit <code class="inline-code">10834da</code> |
+| PR #19 | <code class="inline-code">test/c02-failing-check</code> -> <code class="inline-code">main</code> | <code class="inline-code">@supa-gif173</code> | None (0 reviews) | Closed unmerged | Opened <code class="inline-code">2026-11-12T12:35:49Z</code> before any ruleset existed; kept intact per R-10 |
+| Direct pushes (<code class="inline-code">2d36196</code>..<code class="inline-code">12d04b9</code>) | direct to <code class="inline-code">main</code> | <code class="inline-code">@supa-gif173</code> | None (bypassed PR) | N/A (direct push) | 7 commits pushed directly to <code class="inline-code">main</code> while no branch protection / ruleset was active |
+| PR #24 | <code class="inline-code">main</code> -> <code class="inline-code">staging</code> | <code class="inline-code">@pimchayasupr-hash</code> | Requested: <code class="inline-code">@supa-gif173</code> | Open | Syncs <code class="inline-code">10834da</code> and <code class="inline-code">2d36196</code>..<code class="inline-code">12d04b9</code> back into <code class="inline-code">staging</code>; CI <code class="inline-code">test-and-docker</code> run <code class="inline-code">43440605771</code> passed in 1m7s |
+
+<h3>0.3 Evidence Index (Check C-01 – C-06)</h3>
+
+<div class="table-container"><table><thead><tr><th>Check</th><th>Scope</th><th>Status</th><th>Verified Evidence</th></tr></thead><tbody><tr><td><strong>C-01</strong></td></tr></tbody></table></div>
+ PR CI (<code class="inline-code">test-and-docker</code> on PR) | <strong>Done</strong> | PR #17, commit <code class="inline-code">aa0fd04</code>, GitHub Actions run <code class="inline-code">42981092219</code> (passed in 1m6s): 26/26 tests passed (Server 24, Client 2) + Docker build passed |
+| <strong>C-02</strong> | Ruleset / Branch Protection blocks failing PR | <strong>Pending (Issue #22)</strong> | <code class="inline-code">gh api .../rulesets</code> currently returns <code class="inline-code">[]</code>. PR #19 (<code class="inline-code">screenshots/c02_failing_check.png</code>) shows <code class="inline-code">Able to merge</code> / <code class="inline-code">Some non-required checks are failing</code>. Kept PR #19 per R-10; will re-run C-02 after ruleset is configured |
+| <strong>C-03</strong> | Clean-clone Docker build, migrate/seed & API probes | <strong>Done</strong> | Verified locally from clean clone of <code class="inline-code">main</code> (<code class="inline-code">12d04b9</code>): root <code class="inline-code">Dockerfile</code> built in 64.7s, <code class="inline-code">prisma migrate deploy</code> + <code class="inline-code">prisma:seed</code> succeeded, <code class="inline-code">/api/health</code> 200, <code class="inline-code">/api/ready</code> 200, <code class="inline-code">/api/events</code> 401 (unauthenticated), <code class="inline-code">/</code> 200 |
+| <strong>C-04</strong> | Staging / Production Cloud Run deployment | <strong>ยังไม่ได้ทำ</strong> | No GCP Free Trial / billing account; <code class="inline-code">deploy-cloudrun.yml</code> run <code class="inline-code">43237080737</code> failed at <code class="inline-code">google-github-actions/auth</code> (<code class="inline-code">WIF_PROVIDER</code> / <code class="inline-code">credentials_json</code> not configured) |
+| <strong>C-05</strong> | Production Cloud SQL + persistent data verification | <strong>ยังไม่ได้ทำ</strong> | Requires GCP Cloud Run + Cloud SQL |
+| <strong>C-06</strong> | End-to-end pipeline & GCP revision matching commit | <strong>ยังไม่ได้ทำ</strong> | Requires GCP Cloud Run revision |
+
+<p>---</p>
+
+<h2>Answer Part 1 — CI Pipeline & Branch Protection (C-01, C-02)</h2>
+
+<h3>C-01: Automated CI on Pull Request (<code class="inline-code">test-and-docker</code>)</h3>
+<li><strong>Workflow:</strong> <code class="inline-code">.github/workflows/ci.yml</code></li>
+  - <strong>Triggers:</strong> <code class="inline-code">pull_request</code> targeting <code class="inline-code">main</code> and <code class="inline-code">staging</code>
+  - <strong>Job ID:</strong> <code class="inline-code">test-and-docker</code>
+<li><strong>Verified Run:</strong> GitHub Actions Run <code class="inline-code">42981092219</code> on <strong>PR #17</strong> (commit <code class="inline-code">aa0fd04</code>, duration <code class="inline-code">1m6s</code>, approved by <code class="inline-code">@pimchayasupr-hash</code> on the same commit <code class="inline-code">aa0fd04</code>):</li>
+  - <strong>Server (Vitest):</strong> 4 test files, <strong>24 tests passed</strong> (0 failed, 0 skipped):
+    - <code class="inline-code">events.test.ts</code>: 6 tests
+    - <code class="inline-code">registrations.test.ts</code>: 6 tests
+    - <code class="inline-code">auth.test.ts</code>: 7 tests
+    - <code class="inline-code">roster-and-health.test.ts</code>: 5 tests
+  - <strong>Client (Vitest):</strong> 1 test file, <strong>2 tests passed</strong> (0 failed, 0 skipped):
+    - <code class="inline-code">src/App.test.tsx</code>: 2 tests
+  - <strong>Total:</strong> <strong>26 tests passed</strong> (0 failed, 0 skipped), followed by Docker image build verification.
+<li><strong>Additional Sync PR Check:</strong> PR #24 (<code class="inline-code">main</code> -> <code class="inline-code">staging</code>, commit <code class="inline-code">12d04b9</code>) also passed <code class="inline-code">test-and-docker</code> in Run <code class="inline-code">43440605771</code> (<code class="inline-code">1m7s</code>).</li>
+
+<h3>C-02: Branch Protection / Ruleset Enforcement (Pending — Issue #22)</h3>
+<li><strong>Current Repository State:</strong></li>
+  - <code class="inline-code">gh api repos/pimchayasupr-hash/cpe334-event-registration/rulesets</code> returns <code class="inline-code">[]</code> (no active GitHub Ruleset or branch protection on <code class="inline-code">main</code> or <code class="inline-code">staging</code>).
+<li><strong>Existing PR #19 Observation (<code class="inline-code">screenshots/c02_failing_check.png</code>):</strong></li>
+  - PR #19 (<code class="inline-code">test/c02-failing-check</code> -> <code class="inline-code">main</code>, opened <code class="inline-code">2026-11-12T12:35:49Z</code> by <code class="inline-code">@supa-gif173</code>, 0 reviews, closed unmerged) shows GitHub merge status <strong><code class="inline-code">Able to merge</code></strong> with <strong><code class="inline-code">Some non-required checks are failing</code></strong>.
+  - This confirms that <code class="inline-code">test-and-docker</code> was not enforced as a required status check at that time, so C-02 is <strong>not yet satisfied</strong>.
+<li><strong>Remediation Plan (R-10 Compliant):</strong></li>
+  - PR #19 and branch <code class="inline-code">test/c02-failing-check</code> are preserved untouched per rule R-10.
+  - After configuring a GitHub Ruleset on <code class="inline-code">main</code> (requiring PR, at least 1 approval, and required status check <code class="inline-code">test-and-docker</code>), a new failing-check test PR will be opened to capture verified C-02 evidence (tracked in <strong>Issue #22</strong>).
+
+<p>![PR #19 Screenshot — C-02 Pre-Ruleset State](screenshots/c02_failing_check.png)</p>
+
+<p>---</p>
+
+<h2>Answer Part 2 — Containerization & Deployment Runbook (C-03)</h2>
+
+<h3>C-03: Clean-Clone Docker Build, Migration, Seed & Runtime Probes</h3>
+Executed from a fresh <code class="inline-code">git clone --branch main --single-branch</code> at commit <code class="inline-code">12d04b9</code> using an isolated Docker network (<code class="inline-code">c03-net</code>) with <code class="inline-code">postgres:16-alpine</code>:
+
+<p>1. <strong>Docker Build (root <code class="inline-code">Dockerfile</code>):</strong><br/>   - Multi-stage build (<code class="inline-code">client-builder</code>, <code class="inline-code">server-builder</code>, <code class="inline-code">production</code> on <code class="inline-code">node:24-alpine</code>, non-root <code class="inline-code">USER node</code>, port <code class="inline-code">3000</code>):<br/>   - Result: <code class="inline-code">[+] Building 64.7s (25/25) FINISHED</code>, tagged <code class="inline-code">eventreg-c03:test</code>.<br/>2. <strong>Database Migration & Seed Inside Container:</strong><br/>   - <code class="inline-code">npx prisma migrate deploy</code>: Applied <code class="inline-code">20261111000000_init</code> (<code class="inline-code">All migrations have been successfully applied.</code>).<br/>   - <code class="inline-code">npm run prisma:seed</code>:<br/>     <pre class="code-block"><code class="language-text">     Seeding database...<br/>     Seeded users: Organizer (organizer@kmutt.ac.th), Participant (participant@kmutt.ac.th)<br/>     Seeded initial draft &amp; published events.<br/>     Seeding completed successfully.<br/>     </code></pre><br/>3. <strong>Runtime HTTP Probes (<code class="inline-code">http://127.0.0.1:3001</code> -> container port <code class="inline-code">3000</code>):</strong><br/>   - <code class="inline-code">GET /api/health</code> -> <code class="inline-code">{"status":"ok"}</code> (<code class="inline-code">HTTP 200</code>)<br/>   - <code class="inline-code">GET /api/ready</code> -> <code class="inline-code">{"status":"ready","database":"connected","db":"connected"}</code> (<code class="inline-code">HTTP 200</code>)<br/>   - <code class="inline-code">GET /api/events</code> (unauthenticated) -> <code class="inline-code">{"error":"Authentication required"}</code> (<code class="inline-code">HTTP 401</code>)<br/>   - <code class="inline-code">GET /</code> -> <code class="inline-code">HTTP 200</code> (SPA served by Express static middleware)</p>
+
+<h3>Deployment Runbook</h3>
+<li>Full local & template deployment instructions are maintained in [docs/labs/lab05/deployment.md](deployment.md).</li>
+<li>Note: Resource names using <code class="inline-code">toktickit</code> in <code class="inline-code">docs/labs/lab05/deployment.md</code> (such as <code class="inline-code">toktickit-pg</code> or <code class="inline-code">toktickit-app</code>) are <strong>Starter Kit template example names</strong>, not provisioned GCP resources.</li>
+
+<p>---</p>
+
+<h2>Answer Part 3 — Cloud Run & Cloud SQL Deployment (C-04, C-05)</h2>
+
+<li><strong>Status:</strong> <strong>ยังไม่ได้ทำ (No GCP Free Trial / billing account)</strong></li>
+<li><strong>Observed Workflow Failure:</strong> <code class="inline-code">.github/workflows/deploy-cloudrun.yml</code> (Run <code class="inline-code">43237080737</code>) failed at <code class="inline-code">google-github-actions/auth</code> because <code class="inline-code">WIF_PROVIDER</code> / <code class="inline-code">credentials_json</code> secrets are not configured in the repository.</li>
+<li><strong>C-04 (Cloud Run Deployment & Live Endpoints):</strong> ยังไม่ได้ทำ</li>
+<li><strong>C-05 (Cloud SQL Persistence & Seed Verification):</strong> ยังไม่ได้ทำ</li>
+
+<p>---</p>
+
+<h2>Answer Part 4 — End-to-End Pipeline & Revision Traceability (C-06)</h2>
+
+<li><strong>Status:</strong> <strong>ยังไม่ได้ทำ (No GCP Free Trial / billing account)</strong></li>
+<li><strong>C-06 (Deployed GCP Revision matching Git Commit & Pipeline Run):</strong> ยังไม่ได้ทำ (requires live Cloud Run revision from Part 3).</li>
+
+<p>---</p>
+
+<h2>Definition of Done (DoD)</h2>
+
+<p><li class="checklist-item checked"><span class="check-box">☑</span> Repository is <code class="inline-code">PUBLIC</code> with Secret Scanning and Push Protection enabled (R-12)</li><br/><li class="checklist-item checked"><span class="check-box">☑</span> No secrets, private keys, or API tokens committed in Git history</li><br/><li class="checklist-item checked"><span class="check-box">☑</span> C-01 verified via CI Run <code class="inline-code">42981092219</code> on PR #17 (<code class="inline-code">aa0fd04</code>, 26/26 tests passed)</li><br/><li class="checklist-item checked"><span class="check-box">☑</span> C-03 verified via clean-clone Docker build, <code class="inline-code">prisma migrate deploy</code>, <code class="inline-code">prisma:seed</code>, and HTTP probes (<code class="inline-code">12d04b9</code>)</li><br/><li class="checklist-item checked"><span class="check-box">☑</span> Submission directory standardized to <code class="inline-code">docs/labs/lab05/</code></li><br/><li class="checklist-item unchecked"><span class="check-box">☐</span> GitHub Ruleset configured on <code class="inline-code">main</code> & <code class="inline-code">staging</code>, and C-02 re-verified with failing PR (Issue #22)</li><br/><li class="checklist-item unchecked"><span class="check-box">☐</span> Part 3 (C-04, C-05) & Part 4 (C-06) deployed and verified on GCP Cloud Run + Cloud SQL</li><br/><li class="checklist-item unchecked"><span class="check-box">☐</span> Open Lab 5 PRs (#24, #20, #21, #22, #23) reviewed and merged by teammates</li><br/><li class="checklist-item unchecked"><span class="check-box">☐</span> Final <code class="inline-code">lab5_sec131_ยอดนักบิด.pdf</code> regenerated after all checks and merges</li></p>
+
+<p>---</p>
+
+<h2>Known Limitations</h2>
+
+<p>1. <strong>No GCP Account / Billing:</strong> Part 3 (C-04, C-05) and Part 4 (C-06) have not been executed because no GCP Free Trial / billing account is available yet. The <code class="inline-code">toktickit</code> names in <code class="inline-code">docs/labs/lab05/deployment.md</code> are Starter Kit template defaults, not live GCP resources.<br/>2. <strong>Missing GitHub Ruleset (C-02 Pending):</strong> No GitHub Ruleset is currently active (<code class="inline-code">rulesets</code> = <code class="inline-code">[]</code>). PR #19 was opened prior to ruleset setup and shows <code class="inline-code">Able to merge</code> despite failing checks; it is preserved per R-10, and C-02 will be re-run in Issue #22 after configuring the ruleset.<br/>3. <strong>Direct Pushes & Tag Alignment:</strong> 7 commits (<code class="inline-code">2d36196</code>..<code class="inline-code">12d04b9</code>) by <code class="inline-code">@supa-gif173</code> were pushed directly to <code class="inline-code">main</code> without a PR/review, and <code class="inline-code">v1.0.0-sprint1</code> points to <code class="inline-code">2d36196</code> rather than Release PR #18 (<code class="inline-code">10834da</code>). Additionally, PRs #16 and #17 were merged by their author (<code class="inline-code">@supa-gif173</code>) after receiving approval from <code class="inline-code">@pimchayasupr-hash</code>.<br/>4. <strong>Demo Credential & Seed Env Mismatch (Tracked in Issue #21):</strong> <code class="inline-code">deploy/deploy.sh</code> passes <code class="inline-code">ADMIN_PASSWORD</code> / <code class="inline-code">DEMO_USER_PASSWORD</code>, whereas <code class="inline-code">server/prisma/seed.ts</code> reads <code class="inline-code">SEED_ORGANIZER_PASSWORD</code> / <code class="inline-code">SEED_PARTICIPANT_PASSWORD</code>, and <code class="inline-code">client/src/App.tsx</code> embeds demo login defaults (<code class="inline-code">AdminInitial123!</code> / <code class="inline-code">Participant123!</code>). Disclosed as a known limitation for documentation only.</p>
+  </div>
+</body>
+</html>
