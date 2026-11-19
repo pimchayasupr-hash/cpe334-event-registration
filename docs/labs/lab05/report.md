@@ -14,8 +14,17 @@
   - `main` latest commit (at verification time): `12d04b9` (`fix(docs): fix Part E contract file paths and embed full engineering contracts`)
   - Release PR #18 (`staging` -> `main`) merge commit: `10834da`
   - Git tag `v1.0.0-sprint1`: points to `2d36196` (one of 7 direct commits pushed to `main` after `10834da`; see Known Limitations)
+
+**Version table (Sprint 1 baseline):**
+
+| Role | Commit | Evidence |
+| :--- | :--- | :--- |
+| Release PR #18 head tested by CI | `e2846b8` (`staging`) | CI run `43210196284` (`pull_request`, success) |
+| Release PR #18 merge commit on `main` | `10834da` | PR #18 merged by `@pimchayasupr-hash` |
+| Tag `v1.0.0-sprint1` | `2d36196` | `git diff --stat 10834da 2d36196` → only `docs/deliverable-1-report.md` (270 insertions); application code identical to `10834da` |
+| `main` head at verification time | `12d04b9` | `10834da..12d04b9` changes `docs/`, report-generation `scripts/`, and root `package.json` / `package-lock.json` only; no files under `server/` or `client/` |
   - Sync PR #24 (`main` -> `staging`): open, awaiting review/merge to align `staging` with `main`
-- **Production Live URL:** ยังไม่ได้ทำ (No GCP Free Trial / billing account)
+- **Production Live URL:** ยังไม่ได้ทำ (course Google Cloud resources not yet activated)
 - **Running Commit on GCP:** ยังไม่ได้ทำ (No GCP deployment yet)
 
 ### 0.2 Pull Request, Review & Merge Audit
@@ -27,7 +36,7 @@
 | PR #18 | `staging` -> `main` | `@supa-gif173` | `@pimchayasupr-hash` | `@pimchayasupr-hash` | Merge commit `10834da` |
 | PR #19 | `test/c02-failing-check` -> `main` | `@supa-gif173` | None (0 reviews) | Closed unmerged | Opened `2026-11-12T12:35:49Z` before any ruleset existed; kept intact per R-10 |
 | Direct pushes (`2d36196`..`12d04b9`) | direct to `main` | `@supa-gif173` | None (bypassed PR) | N/A (direct push) | 7 commits pushed directly to `main` while no branch protection / ruleset was active |
-| PR #24 | `main` -> `staging` | `@pimchayasupr-hash` | Requested: `@supa-gif173` | Open | Syncs `10834da` and `2d36196`..`12d04b9` back into `staging`; CI `test-and-docker` run `43440605771` passed in 1m7s |
+| PR #24 | `main` -> `staging` | `@pimchayasupr-hash` | Requested: `@supa-gif173` (author of all 7 synced commits) | Open | Sync of work already pushed directly to `main`; approval by the commit author is **not an independent review**. CI `test-and-docker` run `43440605771` passed in 1m7s |
 
 ### 0.3 Evidence Index (Check C-01 – C-06)
 
@@ -36,7 +45,7 @@
 | **C-01** | PR CI (`test-and-docker` on PR) | **Done** | PR #17, commit `aa0fd04`, GitHub Actions run `42981092219` (passed in 1m6s): 26/26 tests passed (Server 24, Client 2) + Docker build passed |
 | **C-02** | Ruleset / Branch Protection blocks failing PR | **Pending (Issue #22)** | `gh api .../rulesets` currently returns `[]`. PR #19 (`screenshots/c02_failing_check.png`) shows `Able to merge` / `Some non-required checks are failing`. Kept PR #19 per R-10; will re-run C-02 after ruleset is configured |
 | **C-03** | Clean-clone Docker build, migrate/seed & API probes | **Done** | Verified locally from clean clone of `main` (`12d04b9`): root `Dockerfile` built in 64.7s, `prisma migrate deploy` + `prisma:seed` succeeded, `/api/health` 200, `/api/ready` 200, `/api/events` 401 (unauthenticated), `/` 200 |
-| **C-04** | Staging / Production Cloud Run deployment | **ยังไม่ได้ทำ** | No GCP Free Trial / billing account; `deploy-cloudrun.yml` run `43237080737` failed at `google-github-actions/auth` (`WIF_PROVIDER` / `credentials_json` not configured) |
+| **C-04** | Staging / Production Cloud Run deployment | **ยังไม่ได้ทำ** | Course Google Cloud resources not yet activated; `deploy.yml` ("Deploy demo") run `43237080737` (`push` to `main` at `12d04b9`) failed at `google-github-actions/auth` because `WIF_PROVIDER` is not yet set |
 | **C-05** | Production Cloud SQL + persistent data verification | **ยังไม่ได้ทำ** | Requires GCP Cloud Run + Cloud SQL |
 | **C-06** | End-to-end pipeline & GCP revision matching commit | **ยังไม่ได้ทำ** | Requires GCP Cloud Run revision |
 
@@ -98,14 +107,14 @@ Executed from a fresh `git clone --branch main --single-branch` at commit `12d04
 
 ### Deployment Runbook
 - Full local & template deployment instructions are maintained in [docs/labs/lab05/deployment.md](deployment.md).
-- Note: Resource names using `toktickit` in `docs/labs/lab05/deployment.md` (such as `toktickit-pg` or `toktickit-app`) are **Starter Kit template example names**, not provisioned GCP resources.
+- Note: Resource names using `toktickit` in `docs/labs/lab05/deployment.md` (`toktickit`, `toktickit-pg`, `toktickit-migrate`, `toktickit-runner`) are **Starter Kit template example names**, not provisioned GCP resources.
 
 ---
 
 ## Answer Part 3 — Cloud Run & Cloud SQL Deployment (C-04, C-05)
 
-- **Status:** **ยังไม่ได้ทำ (No GCP Free Trial / billing account)**
-- **Observed Workflow Failure:** `.github/workflows/deploy-cloudrun.yml` (Run `43237080737`) failed at `google-github-actions/auth` because `WIF_PROVIDER` / `credentials_json` secrets are not configured in the repository.
+- **Status:** **ยังไม่ได้ทำ (course Google Cloud resources not yet activated)**
+- **Observed Workflow Failure:** `.github/workflows/deploy.yml` ("Deploy demo", Run `43237080737`, `push` to `main` at `12d04b9`) failed at `google-github-actions/auth` because the `WIF_PROVIDER` repository variable is not yet set.
 - **C-04 (Cloud Run Deployment & Live Endpoints):** ยังไม่ได้ทำ
 - **C-05 (Cloud SQL Persistence & Seed Verification):** ยังไม่ได้ทำ
 
@@ -113,7 +122,7 @@ Executed from a fresh `git clone --branch main --single-branch` at commit `12d04
 
 ## Answer Part 4 — End-to-End Pipeline & Revision Traceability (C-06)
 
-- **Status:** **ยังไม่ได้ทำ (No GCP Free Trial / billing account)**
+- **Status:** **ยังไม่ได้ทำ (course Google Cloud resources not yet activated)**
 - **C-06 (Deployed GCP Revision matching Git Commit & Pipeline Run):** ยังไม่ได้ทำ (requires live Cloud Run revision from Part 3).
 
 ---
@@ -134,7 +143,9 @@ Executed from a fresh `git clone --branch main --single-branch` at commit `12d04
 
 ## Known Limitations
 
-1. **No GCP Account / Billing:** Part 3 (C-04, C-05) and Part 4 (C-06) have not been executed because no GCP Free Trial / billing account is available yet. The `toktickit` names in `docs/labs/lab05/deployment.md` are Starter Kit template defaults, not live GCP resources.
+1. **Course Google Cloud Not Yet Activated:** Part 3 (C-04, C-05) and Part 4 (C-06) have not been executed because the team has not yet activated its resources in the course Google Cloud system. The `toktickit` names in `docs/labs/lab05/deployment.md` are Starter Kit template defaults, not live GCP resources.
 2. **Missing GitHub Ruleset (C-02 Pending):** No GitHub Ruleset is currently active (`rulesets` = `[]`). PR #19 was opened prior to ruleset setup and shows `Able to merge` despite failing checks; it is preserved per R-10, and C-02 will be re-run in Issue #22 after configuring the ruleset.
 3. **Direct Pushes & Tag Alignment:** 7 commits (`2d36196`..`12d04b9`) by `@supa-gif173` were pushed directly to `main` without a PR/review, and `v1.0.0-sprint1` points to `2d36196` rather than Release PR #18 (`10834da`). Additionally, PRs #16 and #17 were merged by their author (`@supa-gif173`) after receiving approval from `@pimchayasupr-hash`.
+5. **Sync PR #24 Is Not an Independent Review:** PR #24 (`main` -> `staging`) is opened by `@pimchayasupr-hash`, but all 7 synced commits were authored by `@supa-gif173`, who is the only teammate able to approve it. Its approval only confirms the sync content, not an independent review of those commits.
+6. **Failing `Deploy demo` Runs Before Activation:** `deploy.yml` runs on every push to `main`; run `43237080737` failed because `WIF_PROVIDER` was not yet set (before course Google Cloud activation). Run history is kept (R-10). `Deploy demo` is not used as a required check; after activation, the first merge of `staging` into `main` will deploy immediately, so it will be done deliberately after confirming the GitHub variables match what `deploy.yml` reads.
 4. **Demo Credential & Seed Env Mismatch (Tracked in Issue #21):** `deploy/deploy.sh` passes `ADMIN_PASSWORD` / `DEMO_USER_PASSWORD`, whereas `server/prisma/seed.ts` reads `SEED_ORGANIZER_PASSWORD` / `SEED_PARTICIPANT_PASSWORD`, and `client/src/App.tsx` embeds demo login defaults (`AdminInitial123!` / `Participant123!`). Disclosed as a known limitation for documentation only.
