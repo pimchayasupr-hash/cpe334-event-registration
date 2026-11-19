@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { api } from './api';
 import { User, EventItem, RegistrationItem, RosterResponse } from './types';
+import { getDemoCredentials, DemoRole } from './demoLogin';
+
+// null in production builds and when demo passwords are not set locally.
+const demoCredentials = getDemoCredentials(import.meta.env);
 
 export function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -14,7 +18,7 @@ export function App() {
   // Modals state
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [loginEmail, setLoginEmail] = useState<string>('participant@kmutt.ac.th');
-  const [loginPassword, setLoginPassword] = useState<string>('Participant123!');
+  const [loginPassword, setLoginPassword] = useState<string>('');
 
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
   const [newEventTitle, setNewEventTitle] = useState('');
@@ -93,10 +97,10 @@ export function App() {
     }
   };
 
-  const handleQuickLogin = async (role: 'PARTICIPANT' | 'ORGANIZER') => {
+  const handleQuickLogin = async (role: DemoRole) => {
     setErrorMsg(null);
-    const email = role === 'ORGANIZER' ? 'organizer@kmutt.ac.th' : 'participant@kmutt.ac.th';
-    const password = role === 'ORGANIZER' ? 'AdminInitial123!' : 'Participant123!';
+    if (!demoCredentials) return;
+    const { email, password } = demoCredentials[role];
     try {
       const res = await api.login(email, password);
       setCurrentUser(res.user);
@@ -281,7 +285,8 @@ export function App() {
         </div>
       </header>
 
-      {/* Demo Switcher Banner */}
+      {/* Demo Switcher Banner (dev server only, passwords from client/.env.local) */}
+      {demoCredentials && (
       <div className="demo-banner">
         <div className="container demo-banner-content">
           <div style={{ color: 'var(--text-muted)' }}>
@@ -303,6 +308,7 @@ export function App() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Main Content */}
       <main className="container" style={{ flexGrow: 1, paddingBottom: '3rem' }}>

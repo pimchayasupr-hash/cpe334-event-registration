@@ -126,6 +126,9 @@ jobs:
         working-directory: ./server
         env:
           DATABASE_URL: postgresql://toktickit:toktickit@localhost:5432/toktickit?schema=public
+          # Throwaway values for the ephemeral CI database only (seed has no fallback).
+          SEED_ORGANIZER_PASSWORD: ci-only-organizer
+          SEED_PARTICIPANT_PASSWORD: ci-only-participant
         run: |
           npm ci
           npx prisma migrate deploy
