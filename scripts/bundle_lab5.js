@@ -93,14 +93,14 @@ function mdToHtml(md) {
 }
 
 // Read C-02 screenshot and encode base64
-const c02ImagePath = path.join(repoRoot, 'docs/labs/lab-05/screenshots/c02_failing_check.png');
+const c02ImagePath = path.join(repoRoot, 'docs/labs/lab05/screenshots/c02_failing_check.png');
 let c02Base64 = '';
 if (fs.existsSync(c02ImagePath)) {
   const imgBuffer = fs.readFileSync(c02ImagePath);
   c02Base64 = `data:image/png;base64,${imgBuffer.toString('base64')}`;
 }
 
-const reportMd = readDoc('docs/labs/lab-05/report.md');
+const reportMd = readDoc('docs/labs/lab05/report.md');
 let reportHtml = mdToHtml(reportMd);
 
 // Replace the relative screenshot path with embedded base64
@@ -339,6 +339,6 @@ const fullHtml = `<!DOCTYPE html>
 </html>
 `;
 
-const outputPath = path.join(repoRoot, 'docs/labs/lab-05/lab5_full_submission.html');
+const outputPath = path.join(repoRoot, 'docs/labs/lab05/lab5_full_submission.html');
 fs.writeFileSync(outputPath, fullHtml, 'utf8');
 console.log('Successfully generated Lab 5 HTML report:', outputPath);
