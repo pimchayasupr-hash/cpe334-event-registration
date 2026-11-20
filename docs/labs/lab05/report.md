@@ -8,7 +8,7 @@
 - **Members:**
   - Pimchaya Suprateravarnit (`@pimchayasupr-hash`)
   - Suphattra Kongsiriphat (`@supa-gif173`)
-- **Submission PDF:** `lab5_sec131_ยอดนักบิด.pdf` *(Draft — awaiting GitHub Ruleset / C-02 redo in Issue #22 and PR merges)*
+- **Submission PDF:** `lab5_sec131_ยอดนักบิด.pdf` *(Draft — C-01, C-02, C-03 verified; awaiting course GCP activation / H1 for Part 3–4)*
 - **Repository:** `https://github.com/pimchayasupr-hash/cpe334-event-registration` (Visibility: `PUBLIC`, Secret Scanning: `enabled`, Push Protection: `enabled`)
 - **Branching & Tag State:**
   - `main` latest commit (at verification time): `12d04b9` (`fix(docs): fix Part E contract file paths and embed full engineering contracts`)
@@ -23,7 +23,7 @@
 | Release PR #18 merge commit on `main` | `10834da` | PR #18 merged by `@pimchayasupr-hash` |
 | Tag `v1.0.0-sprint1` | `2d36196` | `git diff --stat 10834da 2d36196` → only `docs/deliverable-1-report.md` (270 insertions); application code identical to `10834da` |
 | `main` head at verification time | `12d04b9` | `10834da..12d04b9` changes `docs/`, report-generation `scripts/`, and root `package.json` / `package-lock.json` only; no files under `server/` or `client/` |
-  - Sync PR #24 (`main` -> `staging`): open, awaiting review/merge to align `staging` with `main`
+| `staging` head after Lab 5 doc merges | `edfc143` | PR #24 (`main` -> `staging`), PR #26 (`lab5/21` -> `lab5/20`), and PR #25 (`lab5/20` -> `staging`) merged |
 - **Production Live URL:** ยังไม่ได้ทำ (course Google Cloud resources not yet activated)
 - **Running Commit on GCP:** ยังไม่ได้ทำ (No GCP deployment yet)
 
@@ -36,14 +36,19 @@
 | PR #18 | `staging` -> `main` | `@supa-gif173` | `@pimchayasupr-hash` | `@pimchayasupr-hash` | Merge commit `10834da` |
 | PR #19 | `test/c02-failing-check` -> `main` | `@supa-gif173` | None (0 reviews) | Closed unmerged | Opened `2026-11-12T12:35:49Z` before any ruleset existed; kept intact per R-10 |
 | Direct pushes (`2d36196`..`12d04b9`) | direct to `main` | `@supa-gif173` | None (bypassed PR) | N/A (direct push) | 7 commits pushed directly to `main` while no branch protection / ruleset was active |
-| PR #24 | `main` -> `staging` | `@pimchayasupr-hash` | Requested: `@supa-gif173` (author of all 7 synced commits) | Open | Sync of work already pushed directly to `main`; approval by the commit author is **not an independent review**. CI `test-and-docker` run `43440605771` passed in 1m7s |
+| PR #24 | `main` -> `staging` | `@pimchayasupr-hash` | `@supa-gif173` (commit `12d04b9`) | `@supa-gif173` (`2026-11-20T03:45:56Z`) | Sync of 7 commits already pushed directly to `main`; `@supa-gif173` authored those 7 commits, approved, and merged (not an independent review — disclosed per R-09). Required CI `test-and-docker` run `43440605771` passed in 1m7s |
+| PR #26 | `lab5/21-known-limitations` -> `lab5/20-report-evidence` | `@pimchayasupr-hash` | `@supa-gif173` (commit `08186ae`) | `@supa-gif173` (`2026-11-20T03:43:26Z`) | Docs-only limitation disclosures merged into PR #25 branch |
+| PR #25 | `lab5/20-report-evidence` -> `staging` | `@pimchayasupr-hash` | `@supa-gif173` (re-approved on commit `32e546e`) | `@pimchayasupr-hash` (`2026-11-20T05:11:41Z`) | Standardized `docs/labs/lab05/` and aligned evidence; required CI `test-and-docker` run `44676516719` passed |
+| PR #34 | `test/22-c02-ruleset-check` -> `staging` | `@pimchayasupr-hash` | `@supa-gif173` (commit `4d68bfb`) | Closed unmerged (`2026-11-20`) | C-02 active ruleset verification (Issue #22); `test-and-docker` run `44535404522` failed intentionally and ruleset `protect-main-staging` (`27641965`) blocked merge (`BLOCKED`) even after approval |
+| PR #32 | `lab5/27-seed-secrets` -> `staging` | `@pimchayasupr-hash` | `@supa-gif173` (commit `0b3eaae`) | Open (Draft) | Held in Draft pending course GCP secret-name verification (H1) |
+| PR #33 | `lab6/28-uat-plan` -> `staging` | `@pimchayasupr-hash` | Pending (Draft) | Open (Draft) | Lab 6 Sprint 1 UAT plan and templates (held in Draft) |
 
 ### 0.3 Evidence Index (Check C-01 – C-06)
 
 | Check | Scope | Status | Verified Evidence |
 | :--- | :--- | :--- | :--- |
 | **C-01** | PR CI (`test-and-docker` on PR) | **Done** | PR #17, commit `aa0fd04`, GitHub Actions run `42981092219` (passed in 1m6s): 26/26 tests passed (Server 24, Client 2) + Docker build passed |
-| **C-02** | Ruleset / Branch Protection blocks failing PR | **Pending (Issue #22)** | `gh api .../rulesets` currently returns `[]`. PR #19 (`screenshots/c02_failing_check.png`) shows `Able to merge` / `Some non-required checks are failing`. Kept PR #19 per R-10; will re-run C-02 after ruleset is configured |
+| **C-02** | Ruleset / Branch Protection blocks failing PR | **Done** | Active GitHub Ruleset `protect-main-staging` (ID `27641965`, `enforcement: active` on `main` & `staging`, `bypass_actors: []`). Verified on **PR #34** (commit `4d68bfb`, CI run `44535404522` failed intentionally): merge remained **`BLOCKED`** with disabled `Merge pull request` button even after `@supa-gif173` approved (`screenshots/c02_pr34_blocked_merge.png`); closed unmerged. Pre-ruleset PR #19 preserved untouched per R-10 |
 | **C-03** | Clean-clone Docker build, migrate/seed & API probes | **Done** | Verified locally from clean clone of `main` (`12d04b9`): root `Dockerfile` built in 64.7s, `prisma migrate deploy` + `prisma:seed` succeeded, `/api/health` 200, `/api/ready` 200, `/api/events` 401 (unauthenticated), `/` 200 |
 | **C-04** | Staging / Production Cloud Run deployment | **ยังไม่ได้ทำ** | Course Google Cloud resources not yet activated; `deploy.yml` ("Deploy demo") run `43237080737` (`push` to `main` at `12d04b9`) failed at `google-github-actions/auth` because `WIF_PROVIDER` is not yet set |
 | **C-05** | Production Cloud SQL + persistent data verification | **ยังไม่ได้ทำ** | Requires GCP Cloud Run + Cloud SQL |
@@ -68,17 +73,27 @@
   - **Total:** **26 tests passed** (0 failed, 0 skipped), followed by Docker image build verification.
 - **Additional Sync PR Check:** PR #24 (`main` -> `staging`, commit `12d04b9`) also passed `test-and-docker` in Run `43440605771` (`1m7s`).
 
-### C-02: Branch Protection / Ruleset Enforcement (Pending — Issue #22)
-- **Current Repository State:**
-  - `gh api repos/pimchayasupr-hash/cpe334-event-registration/rulesets` returns `[]` (no active GitHub Ruleset or branch protection on `main` or `staging`).
-- **Existing PR #19 Observation (`screenshots/c02_failing_check.png`):**
-  - PR #19 (`test/c02-failing-check` -> `main`, opened `2026-11-12T12:35:49Z` by `@supa-gif173`, 0 reviews, closed unmerged) shows GitHub merge status **`Able to merge`** with **`Some non-required checks are failing`**.
-  - This confirms that `test-and-docker` was not enforced as a required status check at that time, so C-02 is **not yet satisfied**.
-- **Remediation Plan (R-10 Compliant):**
-  - PR #19 and branch `test/c02-failing-check` are preserved untouched per rule R-10.
-  - After configuring a GitHub Ruleset on `main` (requiring PR, at least 1 approval, and required status check `test-and-docker`), a new failing-check test PR will be opened to capture verified C-02 evidence (tracked in **Issue #22**).
+### C-02: Branch Protection / Ruleset Enforcement (Verified — Issue #22, PR #34)
+- **Active GitHub Ruleset:**
+  - `gh api repos/pimchayasupr-hash/cpe334-event-registration/rulesets` returns **`protect-main-staging`** (Ruleset ID: `27641965`, `enforcement: active`, created `2026-11-19T20:36:04+07:00`).
+  - **Protected Branches:** `refs/heads/main`, `refs/heads/staging`.
+  - **Enforced Rules:** block deletion, block non-fast-forward, require PR with `required_approving_review_count: 1` and `dismiss_stale_reviews_on_push: true`, require status check `test-and-docker` (`integration_id: 15368`), and `bypass_actors: []` (`current_user_can_bypass: never`).
+- **Verified Failing-Check PR (PR #34):**
+  - **PR:** `#34` (`test/22-c02-ruleset-check` -> `staging`, opened by `@pimchayasupr-hash`, linked to Issue #22)
+  - **Commit:** `4d68bfbc6beba36635626a6a6e9bf25172655744` (`4d68bfb`) — adds a deliberate failing Vitest test (`client/src/c02-failing-check.test.ts`).
+  - **CI Run:** GitHub Actions Run `44535404522` (`CI & Docker Build / test-and-docker`, `pull_request` event) — **FAILURE** after `44s`.
+  - **Peer Review:** Reviewed and approved by `@supa-gif173` on commit `4d68bfb` (`2026-11-20T02:48:24Z`; review text updated to match `BLOCKED` state).
+  - **Observed Merge Box:** Even with `Changes approved` (1 approving review), GitHub displays **`All checks have failed`** on **`CI & Docker Build / test-and-docker (pull_request)`** marked **`Required`**, reports `mergeStateStatus: BLOCKED`, and disables (greys out) the **`Merge pull request`** button.
+  - **Disposition:** Closed without merging on `2026-11-20` after capturing evidence screenshots (`DO NOT MERGE` protocol).
 
-![PR #19 Screenshot — C-02 Pre-Ruleset State](screenshots/c02_failing_check.png)
+![PR #34 Screenshot — Blocked Merge Box with Required Check Failing After Approval](screenshots/c02_pr34_blocked_merge.png)
+
+![PR #34 Screenshot — Header, Branch Target & Approved Reviewer (@supa-gif173)](screenshots/c02_pr34_header_reviewer.jpg)
+
+- **Historical Pre-Ruleset Baseline (PR #19, Preserved per R-10):**
+  - PR #19 (`test/c02-failing-check` -> `main`, opened `2026-11-12T12:35:49Z` by `@supa-gif173`, 0 reviews, closed unmerged) was run before any ruleset existed and showed `Able to merge` / `Some non-required checks are failing`. Both PR #19 and its branch are preserved untouched per rule R-10.
+
+![PR #19 Screenshot — Historical C-02 Pre-Ruleset State (Preserved per R-10)](screenshots/c02_failing_check.png)
 
 ---
 
@@ -134,18 +149,18 @@ Executed from a fresh `git clone --branch main --single-branch` at commit `12d04
 - [x] C-01 verified via CI Run `42981092219` on PR #17 (`aa0fd04`, 26/26 tests passed)
 - [x] C-03 verified via clean-clone Docker build, `prisma migrate deploy`, `prisma:seed`, and HTTP probes (`12d04b9`)
 - [x] Submission directory standardized to `docs/labs/lab05/`
-- [ ] GitHub Ruleset configured on `main` & `staging`, and C-02 re-verified with failing PR (Issue #22)
-- [ ] Part 3 (C-04, C-05) & Part 4 (C-06) deployed and verified on GCP Cloud Run + Cloud SQL
-- [ ] Open Lab 5 PRs (#24, #20, #21, #22, #23) reviewed and merged by teammates
+- [x] GitHub Ruleset `protect-main-staging` (`27641965`) configured on `main` & `staging`, and C-02 re-verified with failing PR #34 (Issue #22, commit `4d68bfb`, run `44535404522`, closed unmerged)
+- [ ] Part 3 (C-04, C-05) & Part 4 (C-06) deployed and verified on GCP Cloud Run + Cloud SQL (pending course GCP activation / H1)
+- [ ] Remaining Lab 5 PRs reviewed and merged (#24, #25, #26 merged; #34 closed unmerged; #32 held in Draft pending H1; #35 evidence update PR pending review)
 - [ ] Final `lab5_sec131_ยอดนักบิด.pdf` regenerated after all checks and merges
 
 ---
 
 ## Known Limitations
 
-1. **Course Google Cloud Not Yet Activated:** Part 3 (C-04, C-05) and Part 4 (C-06) have not been executed because the team has not yet activated its resources in the course Google Cloud system. The `toktickit` names in `docs/labs/lab05/deployment.md` are Starter Kit template defaults, not live GCP resources.
-2. **Missing GitHub Ruleset (C-02 Pending):** No GitHub Ruleset is currently active (`rulesets` = `[]`). PR #19 was opened prior to ruleset setup and shows `Able to merge` despite failing checks; it is preserved per R-10, and C-02 will be re-run in Issue #22 after configuring the ruleset.
+1. **Course Google Cloud Not Yet Activated (Pending H1):** Part 3 (C-04, C-05) and Part 4 (C-06) have not been executed because the team has not yet activated its resources in the course Google Cloud system. The `toktickit` names in `docs/labs/lab05/deployment.md` are Starter Kit template defaults, not live GCP resources.
+2. **Historical Pre-Ruleset PR #19 (Preserved per R-10):** PR #19 was opened prior to configuring ruleset `protect-main-staging` (ID `27641965`) and showed `Able to merge` despite failing checks; it is preserved untouched per R-10, while active C-02 enforcement has been verified in PR #34.
 3. **Direct Pushes & Tag Alignment:** 7 commits (`2d36196`..`12d04b9`) by `@supa-gif173` were pushed directly to `main` without a PR/review, and `v1.0.0-sprint1` points to `2d36196` rather than Release PR #18 (`10834da`). Additionally, PRs #16 and #17 were merged by their author (`@supa-gif173`) after receiving approval from `@pimchayasupr-hash`.
-5. **Sync PR #24 Is Not an Independent Review:** PR #24 (`main` -> `staging`) is opened by `@pimchayasupr-hash`, but all 7 synced commits were authored by `@supa-gif173`, who is the only teammate able to approve it. Its approval only confirms the sync content, not an independent review of those commits.
+4. **Demo Credential & Seed Env Mismatch (Tracked in Issue #21 / PR #32 Draft):** `deploy/deploy.sh` passes `ADMIN_PASSWORD` / `DEMO_USER_PASSWORD`, whereas `server/prisma/seed.ts` reads `SEED_ORGANIZER_PASSWORD` / `SEED_PARTICIPANT_PASSWORD`, and `client/src/App.tsx` embeds demo login defaults (`AdminInitial123!` / `Participant123!`). Remediation in PR #32 is held in Draft pending H1 secret-name verification.
+5. **Sync PR #24 Is Not an Independent Review (Disclosed per R-09):** PR #24 (`main` -> `staging`) was opened by `@pimchayasupr-hash`, but all 7 synced commits were authored by `@supa-gif173`, who also approved and merged PR #24 (`2026-11-20T03:45:56Z`). Its approval only confirms the branch sync content, not an independent review of those commits.
 6. **Failing `Deploy demo` Runs Before Activation:** `deploy.yml` runs on every push to `main`; run `43237080737` failed because `WIF_PROVIDER` was not yet set (before course Google Cloud activation). Run history is kept (R-10). `Deploy demo` is not used as a required check; after activation, the first merge of `staging` into `main` will deploy immediately, so it will be done deliberately after confirming the GitHub variables match what `deploy.yml` reads.
-4. **Demo Credential & Seed Env Mismatch (Tracked in Issue #21):** `deploy/deploy.sh` passes `ADMIN_PASSWORD` / `DEMO_USER_PASSWORD`, whereas `server/prisma/seed.ts` reads `SEED_ORGANIZER_PASSWORD` / `SEED_PARTICIPANT_PASSWORD`, and `client/src/App.tsx` embeds demo login defaults (`AdminInitial123!` / `Participant123!`). Disclosed as a known limitation for documentation only.
