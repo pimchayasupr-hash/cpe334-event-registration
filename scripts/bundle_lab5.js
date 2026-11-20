@@ -260,11 +260,15 @@ const fullHtml = `<!DOCTYPE html>
 
     th, td {
       border: 1px solid #cbd5e1;
-      padding: 5px 8px;
+      padding: 5px 7px;
       text-align: left;
       vertical-align: top;
-      word-break: break-word;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
+      word-break: normal;
+    }
+
+    table .inline-code {
+      white-space: nowrap;
     }
 
     tr {
