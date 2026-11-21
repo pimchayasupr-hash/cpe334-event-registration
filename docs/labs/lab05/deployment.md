@@ -83,6 +83,8 @@ docker run -p 3000:3000 --env-file server/.env eventreg:latest
 
 ## 4. Google Cloud Platform Resource Names & Topology
 
+> **Note:** The `toktickit*` resource identifiers below are Starter Kit template defaults and have not been provisioned on GCP yet (course Google Cloud resources not yet activated). They will be replaced with the names assigned by the course system after activation.
+
 | Resource | Resource Name / Identifier | Region / Spec |
 |---|---|---|
 | **Artifact Registry** | `toktickit` | `asia-southeast1` (Docker format) |
@@ -123,3 +125,12 @@ docker run -p 3000:3000 --env-file server/.env eventreg:latest
    ```bash
    gcloud run services describe toktickit --region asia-southeast1 --format='value(spec.template.spec.containers[0].image)'
    ```
+
+---
+
+## 6. Known Limitations (Documentation Disclosure)
+
+1. **Client-Embedded Demo Credentials:** `client/src/App.tsx` (`handleQuickLogin`, lines 96–113) calls `/api/auth/login`, but embeds demo passwords in the client bundle.
+2. **Seed Environment Variable Mismatch:** `deploy/deploy.sh` passes `ADMIN_PASSWORD` / `DEMO_USER_PASSWORD`, whereas `server/prisma/seed.ts` reads `SEED_ORGANIZER_PASSWORD` / `SEED_PARTICIPANT_PASSWORD`; a real deploy would fall back to the default passwords committed in the repository.
+3. **Self-Merged Approved PRs:** PR #16 and PR #17 were merged by their author (`@supa-gif173`) after receiving approval from `@pimchayasupr-hash`.
+4. **Failing `Deploy demo` Runs Before Activation:** `deploy.yml` runs on every push to `main`; run `43237080737` failed at `google-github-actions/auth` because `WIF_PROVIDER` was not yet set. Run history is kept (R-10). `Deploy demo` must not be configured as a required check. After activation, merging `staging` into `main` deploys immediately, so the first release must be done deliberately after confirming the GitHub variables (`GCP_PROJECT_ID`, `GCP_REGION`, `WIF_PROVIDER`, `WIF_SERVICE_ACCOUNT`) match what `deploy.yml` reads.

@@ -1,15 +1,14 @@
 import { PrismaClient, Role, EventCategory, EventStatus } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import { resolveSeedCredentials } from './seed-config';
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log('Seeding database...');
 
-  const organizerEmail = process.env.SEED_ORGANIZER_EMAIL || 'organizer@kmutt.ac.th';
-  const organizerPassword = process.env.SEED_ORGANIZER_PASSWORD || 'AdminInitial123!';
-  const participantEmail = process.env.SEED_PARTICIPANT_EMAIL || 'participant@kmutt.ac.th';
-  const participantPassword = process.env.SEED_PARTICIPANT_PASSWORD || 'Participant123!';
+  const { organizerEmail, organizerPassword, participantEmail, participantPassword } =
+    resolveSeedCredentials(process.env);
 
   const salt = await bcrypt.genSalt(10);
   const organizerHash = await bcrypt.hash(organizerPassword, salt);

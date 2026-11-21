@@ -9,34 +9,71 @@ function readDoc(relPath) {
   return fs.readFileSync(fullPath, 'utf8');
 }
 
+function embedImage(relPath) {
+  const fullPath = path.join(repoRoot, 'docs/labs/lab05', relPath);
+  if (!fs.existsSync(fullPath)) return null;
+  const ext = path.extname(fullPath).toLowerCase();
+  const mime = ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' : 'image/png';
+  const b64 = fs.readFileSync(fullPath).toString('base64');
+  return `data:${mime};base64,${b64}`;
+}
+
 // Convert markdown to clean HTML
 function mdToHtml(md) {
-  let html = md
-    // Escape HTML special characters inside code blocks first
-    .replace(/```([a-z]*)\n([\s\S]*?)```/g, (_m, lang, code) => {
-      const escaped = code
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-      return `<pre class="code-block"><code class="language-${lang}">${escaped}</code></pre>`;
-    })
-    .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
-    // Headers
+  const normalized = md.replace(/\r\n/g, '\n');
+
+  // Protect fenced code blocks and inline code from markdown regexes
+  const codeBlocks = [];
+  let html = normalized.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (_m, lang, code) => {
+    const escaped = code
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    const idx = codeBlocks.length;
+    codeBlocks.push(`<pre class="code-block"><code class="language-${lang}">${escaped}</code></pre>`);
+    return `@@CODEBLOCK_${idx}@@`;
+  });
+
+  const inlineCodes = [];
+  html = html.replace(/`([^`\n]+)`/g, (_m, code) => {
+    const escaped = code
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    const idx = inlineCodes.length;
+    inlineCodes.push(`<code class="inline-code">${escaped}</code>`);
+    return `@@INLINECODE_${idx}@@`;
+  });
+
+  // Images -> embedded base64 figure containers
+  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_m, alt, src) => {
+    const dataUri = embedImage(src.trim());
+    if (!dataUri) {
+      return `<div class="figure-container"><div class="caption">${alt} (missing file: ${src})</div></div>`;
+    }
+    return `<div class="figure-container"><img src="${dataUri}" alt="${alt}"/><div class="caption">${alt}</div></div>`;
+  });
+
+  // Links -> clickable anchors
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+  // Headers
+  html = html
     .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
     .replace(/^### (.*$)/gim, '<h3>$1</h3>')
     .replace(/^## (.*$)/gim, '<h2>$1</h2>')
     .replace(/^# (.*$)/gim, '<h1>$1</h1>')
     // Bold / Italic
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>')
     // Blockquotes
-    .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
+    .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
     // Horizontal Rule
-    .replace(/^\\-\\-\\-$/gim, '<hr/>');
+    .replace(/^---$/gm, '<hr/>');
 
-  // Tables
-  html = html.replace(/\n(\|.+?\|\n\|[-:| ]+?\|\n(?:\|.+?\|\n?)+)/g, (match) => {
-    const lines = match.trim().split('\n');
+  // Tables (supports CRLF-normalized input and tables at start/end of file)
+  html = html.replace(/(?:^|\n)(\|.+\|\n\|[-:| ]+\|\n(?:\|.+\|(?:\n|$))+)/g, (_match, tableBlock) => {
+    const lines = tableBlock.trim().split('\n');
     const headerLine = lines[0];
     const rowLines = lines.slice(2);
 
@@ -60,12 +97,10 @@ function mdToHtml(md) {
     return `\n<div class="table-container"><table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div>\n`;
   });
 
-  // Checkboxes
-  html = html.replace(/- \[x\] (.*$)/gim, '<li class="checklist-item checked"><span class="check-box">☑</span> $1</li>');
-  html = html.replace(/- \[ \] (.*$)/gim, '<li class="checklist-item unchecked"><span class="check-box">☐</span> $1</li>');
-
-  // Lists
-  html = html.replace(/^- (.*$)/gim, '<li>$1</li>');
+  // Checkboxes & Lists (including indented sub-items)
+  html = html.replace(/^\s*- \[x\] (.*$)/gim, '<li class="checklist-item checked"><span class="check-box">☑</span> $1</li>');
+  html = html.replace(/^\s*- \[ \] (.*$)/gim, '<li class="checklist-item unchecked"><span class="check-box">☐</span> $1</li>');
+  html = html.replace(/^\s*- (.*$)/gim, '<li>$1</li>');
 
   // Paragraphs
   html = html
@@ -81,7 +116,8 @@ function mdToHtml(md) {
         block.startsWith('<hr') ||
         block.startsWith('<ul>') ||
         block.startsWith('<li>') ||
-        block.startsWith('<table')
+        block.startsWith('<table') ||
+        block.startsWith('@@CODEBLOCK_')
       ) {
         return block;
       }
@@ -89,24 +125,15 @@ function mdToHtml(md) {
     })
     .join('\n\n');
 
+  // Restore inline code and fenced code blocks
+  html = html.replace(/@@INLINECODE_(\d+)@@/g, (_m, i) => inlineCodes[Number(i)]);
+  html = html.replace(/@@CODEBLOCK_(\d+)@@/g, (_m, i) => codeBlocks[Number(i)]);
+
   return html;
 }
 
-// Read C-02 screenshot and encode base64
-const c02ImagePath = path.join(repoRoot, 'docs/labs/lab-05/screenshots/c02_failing_check.png');
-let c02Base64 = '';
-if (fs.existsSync(c02ImagePath)) {
-  const imgBuffer = fs.readFileSync(c02ImagePath);
-  c02Base64 = `data:image/png;base64,${imgBuffer.toString('base64')}`;
-}
-
-const reportMd = readDoc('docs/labs/lab-05/report.md');
-let reportHtml = mdToHtml(reportMd);
-
-// Replace the relative screenshot path with embedded base64
-if (c02Base64) {
-  reportHtml = reportHtml.replace('src="screenshots/c02_failing_check.png"', `src="${c02Base64}"`);
-}
+const reportMd = readDoc('docs/labs/lab05/report.md');
+const reportHtml = mdToHtml(reportMd);
 
 const fullHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -129,7 +156,7 @@ const fullHtml = `<!DOCTYPE html>
 
     * { box-sizing: border-box; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Inter', 'Sarabun', 'Noto Sans Thai', 'Thonburi', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 9.5pt;
       line-height: 1.5;
       color: #1e293b;
@@ -222,27 +249,37 @@ const fullHtml = `<!DOCTYPE html>
 
     .table-container {
       margin: 12px 0 18px 0;
-      overflow-x: auto;
-      page-break-inside: avoid;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 8.5pt;
+      font-size: 8pt;
+      table-layout: auto;
     }
 
     th, td {
       border: 1px solid #cbd5e1;
-      padding: 6px 10px;
+      padding: 5px 7px;
       text-align: left;
       vertical-align: top;
+      overflow-wrap: break-word;
+      word-break: normal;
+    }
+
+    table .inline-code {
+      white-space: nowrap;
+    }
+
+    tr {
+      page-break-inside: avoid;
     }
 
     th {
       background-color: #f1f5f9;
       font-weight: 600;
       color: #334155;
+      white-space: nowrap;
     }
 
     tr:nth-child(even) td {
@@ -339,6 +376,6 @@ const fullHtml = `<!DOCTYPE html>
 </html>
 `;
 
-const outputPath = path.join(repoRoot, 'docs/labs/lab-05/lab5_full_submission.html');
+const outputPath = path.join(repoRoot, 'docs/labs/lab05/lab5_full_submission.html');
 fs.writeFileSync(outputPath, fullHtml, 'utf8');
 console.log('Successfully generated Lab 5 HTML report:', outputPath);
