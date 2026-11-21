@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CPE 334 - Lab 6 Submission Report</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 15mm 20mm 15mm;
+      @bottom-right {
+        content: counter(page) " / " counter(pages);
+        font-family: 'Inter', 'Sarabun', sans-serif;
+        font-size: 8pt;
+        color: #64748b;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', 'Sarabun', 'Noto Sans Thai', 'Thonburi', -apple-system, sans-serif;
+      font-size: 9pt;
+      line-height: 1.5;
+      color: #1e293b;
+      margin: 0;
+      padding: 20px;
+    }
+    .header-banner {
+      border-left: 6px solid #FA4616;
+      padding-left: 16px;
+      margin-bottom: 20px;
+    }
+    .header-banner h1 { font-size: 16pt; margin: 0 0 4px 0; color: #0f172a; }
+    .header-banner p { font-size: 9.5pt; color: #64748b; margin: 0; }
+    h1 { font-size: 14pt; color: #0f172a; }
+    h2 { font-size: 12pt; color: #0f172a; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; margin-top: 18px; }
+    h3 { font-size: 10.5pt; color: #1e293b; margin-top: 14px; }
+    a { color: #2563eb; text-decoration: none; }
+    code.inline-code { background: #f1f5f9; padding: 1px 4px; border-radius: 3px; font-family: monospace; font-size: 8.5pt; }
+    pre.code-block { background: #0f172a; color: #f8fafc; padding: 10px 12px; border-radius: 6px; font-size: 8pt; overflow-x: auto; white-space: pre-wrap; }
+    blockquote { border-left: 3px solid #94a3b8; margin: 8px 0; padding: 4px 12px; color: #475569; background: #f8fafc; }
+    .table-container { margin: 10px 0 16px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 8pt; }
+    th, td { border: 1px solid #cbd5e1; padding: 5px 7px; text-align: left; vertical-align: top; overflow-wrap: break-word; }
+    th { background: #f1f5f9; font-weight: 600; white-space: nowrap; }
+    tr { page-break-inside: avoid; }
+    table .inline-code { white-space: nowrap; }
+    .figure-container { margin: 12px 0; text-align: center; page-break-inside: avoid; }
+    .figure-container img { max-width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; }
+    .caption { font-size: 8pt; color: #475569; margin-top: 4px; font-style: italic; text-align: left; }
+  </style>
+</head>
+<body>
+  <div class="header-banner">
+    <h1>CPE 334 Introduction to Software Engineering in the Age of AI Agents</h1>
+    <p>Lab 6: Independent User Acceptance Testing and Defect Management</p>
+  </div>
+  <h1>Lab 6 Submission Report — Independent User Acceptance Testing & Defect Management</h1>
+
+<blockquote><strong>Status:</strong> Draft preparation (awaiting Lab 5 GCP deployment URL/revision, partner UAT team assignment [H3], and real UAT execution). All unconfirmed fields are marked <code class="inline-code">[รอค่าหลัง deploy]</code> or <code class="inline-code">[รอข้อมูลจากผู้ใช้]</code>.</blockquote>
+
+<h2>Team, Scope & Version Overview</h2>
+<li><strong>Course / Lab:</strong> CPE 334 Software Engineering — Lab 6 (Independent UAT & Defect Management)</li>
+<li><strong>Product Team:</strong> ยอดนักบิด (<code class="inline-code">sec131</code>)</li>
+<li>Pimchaya Suprateravarnit — Student ID: <code class="inline-code">[รอผู้ใช้กรอก]</code> — GitHub: <code class="inline-code">@pimchayasupr-hash</code></li>
+<li>Suphattra Kongsiriphat — Student ID: <code class="inline-code">[รอผู้ใช้กรอก]</code> — GitHub: <code class="inline-code">@supa-gif173</code></li>
+<li><strong>Project Theme:</strong> Event Registration & Attendance System (KMUTT Academic Seminars & Workshops)</li>
+<li><strong>Sprint 1 Accepted-for-Test Scope:</strong> <code class="inline-code">F-01</code> (Authentication & Session), <code class="inline-code">F-02</code> (Event Creation, Publication & Capacity), <code class="inline-code">F-03</code> (Participant Registration & Row-Locking Concurrency), <code class="inline-code">F-04</code> (Organizer Roster & Health/Ready). Sprint 2 (<code class="inline-code">F-05..F-07</code>) and Sprint 3 (<code class="inline-code">F-08..F-09</code>) are out of scope.</li>
+<li><strong>Repository:</strong> <a href="https://github.com/pimchayasupr-hash/cpe334-event-registration" target="_blank" rel="noopener noreferrer">https://github.com/pimchayasupr-hash/cpe334-event-registration</a></li>
+<li><strong>Tested Release Tag / Commit (Our Product):</strong> <code class="inline-code">[รอค่าหลัง deploy]</code></li>
+<li><strong>Deployed Public URL & Cloud Run Revision:</strong> <code class="inline-code">[รอค่าหลัง deploy]</code> (Service <code class="inline-code">sdb3eb069</code>, <code class="inline-code">asia-southeast1</code>)</li>
+<li><strong>Partner UAT Team (Independent Testers):</strong> <code class="inline-code">[รอข้อมูลจากผู้ใช้ — H3]</code></li>
+<li><strong>Final Sprint 1 UAT Decision (Recorded by UAT Team Only):</strong> <code class="inline-code">[รอทีมคู่ตัดสินหลังทดสอบ]</code></li>
+
+<h3>Contents & Evidence Index (Parts A–D)</h3>
+
+<div class="table-container"><table><thead><tr><th>Part</th><th>Section</th><th>Evidence IDs</th><th>Status</th></tr></thead><tbody><tr><td><strong>Part A</strong></td><td>UAT Preparation & Safe Handoff (<code class="inline-code">F-01..F-04</code>, 6 cases)</td><td><code class="inline-code">UAT-01</code> – <code class="inline-code">UAT-06</code></td><td>Draft ready (<code class="inline-code">uat-plan.md</code>); awaiting URL/revision & partner team</td></tr><tr><td><strong>Part B</strong></td><td>Independent Execution on Partner Team's Release</td><td><code class="inline-code">EXEC-01</code> – <code class="inline-code">EXEC-0N</code></td><td><code class="inline-code">[รอทดสอบจริงกับทีมคู่]</code> (Actual Result left blank)</td></tr><tr><td><strong>Part C</strong></td><td>Defect Reporting & Triage Table</td><td><code class="inline-code">DEF-01</code> – <code class="inline-code">DEF-0N</code></td><td><code class="inline-code">[รอผลทดสอบจากทีมคู่]</code></td></tr><tr><td><strong>Part D</strong></td><td>Defect Resolution (RED/GREEN), Retest & Acceptance</td><td><code class="inline-code">FIX-01</code>, <code class="inline-code">RETEST-01</code></td><td><code class="inline-code">[รอผลหลัง Part B/C หรือ Controlled Exercise จาก TA]</code></td></tr></tbody></table></div>
+
+<h3>Version Traceability Table</h3>
+
+<div class="table-container"><table><thead><tr><th>Stage</th><th>Commit / Tag</th><th>GCP Revision</th><th>Notes</th></tr></thead><tbody><tr><td>Sprint 1 CI-tested <code class="inline-code">staging</code></td><td><code class="inline-code">e2846b8</code></td><td>—</td><td>Run <code class="inline-code">43210196284</code></td></tr><tr><td>PR #18 merge commit (<code class="inline-code">main</code>)</td><td><code class="inline-code">10834da</code></td><td>—</td><td>Release PR #18</td></tr><tr><td>Tag <code class="inline-code">v1.0.0-sprint1</code></td><td><code class="inline-code">2d36196</code></td><td>—</td><td>Diff vs <code class="inline-code">10834da</code>: <code class="inline-code">docs/deliverable-1-report.md</code> only</td></tr><tr><td>Pre-UAT <code class="inline-code">main</code> release (after PR #32, #37)</td><td><code class="inline-code">[รอค่าหลัง deploy]</code></td><td><code class="inline-code">[รอค่าหลัง deploy]</code></td><td>Baseline tested by Partner UAT Team</td></tr><tr><td>Fix commit / release (if accepted defect)</td><td><code class="inline-code">[รอค่าหลัง Part D]</code></td><td><code class="inline-code">[รอค่าหลัง Part D]</code></td><td>RED → GREEN → PR review → CI → <code class="inline-code">main</code></td></tr></tbody></table></div>
+
+<hr/>
+
+<h2>Part A — UAT Preparation & Handoff</h2>
+
+<blockquote>Full executable UAT plan is maintained in <code class="inline-code">docs/labs/lab06/uat-plan.md</code> and embedded below so this PDF is self-contained.</blockquote>
+
+<h3>A.1 Handoff Summary & Safe Accounts</h3>
+<li><strong>Roles & Account Labels (No Secrets in Repo/PDF):</strong> <code class="inline-code">ORG-A</code> (<code class="inline-code">ORGANIZER</code>), <code class="inline-code">ORG-B</code> (<code class="inline-code">ORGANIZER</code>, optional), <code class="inline-code">PART-1</code> (<code class="inline-code">PARTICIPANT</code>), <code class="inline-code">PART-2</code> (<code class="inline-code">PARTICIPANT</code>). Passwords are shared privately via the course-approved channel.</li>
+<li><strong>Seed Re-run Warning:</strong> <code class="inline-code">server/prisma/seed.ts</code> uses <code class="inline-code">upsert</code> (<code class="inline-code">update: { passwordHash }</code>), so re-running <code class="inline-code">sdb3eb069-migrate</code> overwrites seeded passwords with current Secret Manager values. <strong>Do not rotate secrets while the UAT Team is testing without prior notice.</strong></li>
+<li><strong>Setup & Reset:</strong> Verify <code class="inline-code">GET &lt;URL&gt;/api/health</code> and <code class="inline-code">GET &lt;URL&gt;/api/ready</code> return <code class="inline-code">200 OK</code>. Use unique synthetic titles per run (e.g., <code class="inline-code">UAT-01 Cloud Seminar &lt;timestamp&gt;</code>), since Sprint 1 does not include registration cancellation (<code class="inline-code">F-05</code>).</li>
+
+<h3>A.2 Summary of Sprint 1 UAT Cases (<code class="inline-code">UAT-01</code> – <code class="inline-code">UAT-06</code>)</h3>
+
+<div class="table-container"><table><thead><tr><th>Case ID</th><th>Category</th><th>Contract / AC Reference</th><th>Summary</th></tr></thead><tbody><tr><td><code class="inline-code">UAT-01</code></td><td>Normal Domain Journey</td><td><code class="inline-code">AC-F02-01</code>, <code class="inline-code">AC-F02-03</code>, <code class="inline-code">AC-F03-01</code>, <code class="inline-code">AC-F03-06</code>, <code class="inline-code">AC-F04-01</code></td><td>Organizer creates & publishes event → Participant registers → Roster shows participant</td></tr><tr><td><code class="inline-code">UAT-02</code></td><td>Business Rule / Boundary</td><td><code class="inline-code">AC-F03-02</code>, <code class="inline-code">AC-F03-03</code>, <code class="inline-code">AC-F02-06</code></td><td>Full capacity <code class="inline-code">409</code>, duplicate registration <code class="inline-code">409</code>, capacity floor <code class="inline-code">409</code></td></tr><tr><td><code class="inline-code">UAT-03</code></td><td>Business Rule / Boundary</td><td><code class="inline-code">AC-F02-04</code>, <code class="inline-code">AC-F02-05</code>, <code class="inline-code">AC-F03-05</code></td><td>Past <code class="inline-code">startAt</code> publish rejected (<code class="inline-code">400</code>); <code class="inline-code">DRAFT</code> hidden from participants</td></tr><tr><td><code class="inline-code">UAT-04</code></td><td>Forbidden Role / Ownership</td><td><code class="inline-code">AC-F01-01</code>, <code class="inline-code">AC-F02-07</code>, <code class="inline-code">AC-F02-08</code>, <code class="inline-code">AC-F03-07</code>, <code class="inline-code">AC-F04-03</code>, <code class="inline-code">AC-F04-04</code></td><td>Role separation (<code class="inline-code">403</code>), cross-organizer blocked (<code class="inline-code">403</code>), <code class="inline-code">passwordHash</code> omitted</td></tr><tr><td><code class="inline-code">UAT-05</code></td><td>State / Session / Persistence</td><td><code class="inline-code">AC-F01-03</code>, <code class="inline-code">AC-F01-05</code>, <code class="inline-code">AC-F03-01</code></td><td>Logout invalidates session (<code class="inline-code">401</code>); records persist across Cloud Run restart/redeploy</td></tr><tr><td><code class="inline-code">UAT-06</code></td><td>Operational Readiness</td><td><code class="inline-code">AC-F04-05</code></td><td><code class="inline-code">GET /api/health</code> and <code class="inline-code">GET /api/ready</code> return <code class="inline-code">200 OK</code></td></tr></tbody></table></div>
+
+<p><em>(Detailed numbered steps, preconditions, synthetic inputs, and expected results are in <code class="inline-code">docs/labs/lab06/uat-plan.md</code>.)</em></p>
+
+<hr/>
+
+<h2>Part B — Independent Execution (Testing Partner Team's Sprint 1 Release)</h2>
+<li><strong>UAT Testers (Our Team):</strong> Pimchaya Suprateravarnit (<code class="inline-code">@pimchayasupr-hash</code>), Suphattra Kongsiriphat (<code class="inline-code">@supa-gif173</code>)</li>
+<li><strong>Partner Product Team Tested:</strong> <code class="inline-code">[รอข้อมูลจากผู้ใช้ — H3]</code></li>
+<li><strong>Partner Tested URL / Tag / Commit:</strong> <code class="inline-code">[รอข้อมูลจากทีมคู่]</code></li>
+
+<div class="table-container"><table><thead><tr><th>Case ID</th><th>Tester(s)</th><th>Date & Time</th><th>Tested Version</th><th>Synthetic Inputs</th><th>Actual Result <em>(blank until executed)</em></th><th>Status (<code class="inline-code">PASS</code>/<code class="inline-code">FAIL</code>/<code class="inline-code">BLOCKED</code>)</th><th>Evidence ID</th></tr></thead><tbody><tr><td><code class="inline-code">PARTNER-01</code></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><code class="inline-code">PARTNER-02</code></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><code class="inline-code">PARTNER-03</code></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td><code class="inline-code">PARTNER-04</code></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+
+<hr/>
+
+<h2>Part C — Defect Reporting & Triage</h2>
+
+<h3>C.1 Outgoing Defect Reports (Sent to Partner Team)</h3>
+<li><code class="inline-code">[รอผลทดสอบจริงจาก Part B — หากไม่พบ defect ให้ระบุว่าไม่มี]</code></li>
+
+<h3>C.2 Incoming Findings Triage Table (Received on Our Product)</h3>
+
+<div class="table-container"><table><thead><tr><th>Finding / Issue ID</th><th>Reporter</th><th>Summary</th><th>Classification</th><th>Sprint 1 Contract Reason & Evidence</th><th>Duplicate Of</th><th>Severity</th><th>Owner</th><th>Fix Status & Disposition</th></tr></thead><tbody><tr><td><em>(รอผลทดสอบจากทีมคู่)</em></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div>
+
+<hr/>
+
+<h2>Part D — Defect Resolution (RED/GREEN), Independent Retest & Acceptance</h2>
+
+<h3>D.1 Accepted Defect Resolution Chain (or Controlled Defect Exercise from TA)</h3>
+<li><code class="inline-code">[รอผลจาก Part C — หากไม่มี accepted defect จริง จะขอ Controlled Defect Exercise จาก TA บน branch แยกตามกติกาข้อ 3.5]</code></li>
+<li>Required evidence per fix: Issue link (<code class="inline-code">lab6</code>) → failing regression test (<code class="inline-code">RED</code> command + raw output + commit) → code fix (<code class="inline-code">GREEN</code> command + raw output + full regression suite) → PR review & CI → <code class="inline-code">main</code> release & GCP revision → Partner retest.</li>
+
+<h3>D.2 Final Sprint 1 UAT Acceptance Decision (UAT Team Only)</h3>
+<li><strong>UAT Team / Independent Tester Name(s):</strong> <code class="inline-code">[รอทีมคู่กรอก]</code></li>
+<li><strong>Exact Tested Release (Tag / Commit / GCP Revision / URL):</strong> <code class="inline-code">[รอทีมคู่กรอก]</code></li>
+<li><strong>Date & Time:</strong> <code class="inline-code">[รอทีมคู่กรอก]</code></li>
+<li><strong>Decision:</strong> <code class="inline-code">[ ] Accepted</code> / <code class="inline-code">[ ] Accepted with minor limitations</code> / <code class="inline-code">[ ] Not Accepted</code></li>
+<li><strong>Conditions / Minor Limitations:</strong> <code class="inline-code">[รอทีมคู่กรอก]</code></li>
+
+<hr/>
+
+<h2>Team Contribution, AI-Use Declaration & Known Limitations</h2>
+<li><strong>Contributions:</strong> Both <code class="inline-code">@pimchayasupr-hash</code> and <code class="inline-code">@supa-gif173</code> collaborate on UAT preparation, independent testing of the partner team's release, PR reviews, and defect verification (<code class="inline-code">R-11</code>). <em>(Detailed Issue/PR links added after completion.)</em></li>
+<li><strong>AI-Use Declaration:</strong> Google Antigravity assisted with structuring <code class="inline-code">uat-plan.md</code>, <code class="inline-code">uat-templates.md</code>, <code class="inline-code">report.md</code>, and <code class="inline-code">scripts/bundle_lab6.js</code>. All UAT cases, contract mappings, and verification commands are reviewed by the team; no AI-generated test results or sign-offs are permitted.</li>
+<li><strong>Known Limitations:</strong></li>
+<li>Currently in Draft awaiting Lab 5 GCP deployment (<code class="inline-code">sdb3eb069</code>) and partner UAT team assignment (<code class="inline-code">H3</code>).</li>
+
+<hr/>
+
+<h2>Appendix A — Complete Sprint 1 UAT Plan</h2>
+
+<h1>Lab 6 Part A — Sprint 1 UAT Plan & Handoff</h1>
+
+<blockquote><strong>Status:</strong> Draft preparation (awaiting H1 GCP deployment URL/revision, H3 partner UAT team assignment, and Lab 5 PR merges). Fields marked <code class="inline-code">[รอค่าหลัง H1/Deploy]</code> or <code class="inline-code">[รอข้อมูลจากผู้ใช้]</code> will be filled after those gates complete.</blockquote>
+
+<h2>1. Release & Handoff Metadata</h2>
+
+<div class="table-container"><table><thead><tr><th>Item</th><th>Value</th></tr></thead><tbody><tr><td><strong>Product Team</strong></td><td>ยอดนักบิด (<code class="inline-code">sec131</code>) — Pimchaya Suprateravarnit (<code class="inline-code">@pimchayasupr-hash</code>), Suphattra Kongsiriphat (<code class="inline-code">@supa-gif173</code>)</td></tr><tr><td><strong>UAT Team (Partner)</strong></td><td><code class="inline-code">[รอข้อมูลจากผู้ใช้ — H3]</code></td></tr><tr><td><strong>Repository</strong></td><td><code class="inline-code">https://github.com/pimchayasupr-hash/cpe334-event-registration</code></td></tr><tr><td><strong>Tested Release Tag / Commit</strong></td><td><code class="inline-code">[รอค่าหลัง H1/Deploy]</code> <em>(Sprint 1 baseline: CI tested <code class="inline-code">e2846b8</code>, PR #18 merge <code class="inline-code">10834da</code>, tag <code class="inline-code">v1.0.0-sprint1</code> at <code class="inline-code">2d36196</code>)</em></td></tr><tr><td><strong>GCP Cloud Run Revision</strong></td><td><code class="inline-code">[รอค่าหลัง H1/Deploy]</code></td></tr><tr><td><strong>Public Application URL</strong></td><td><code class="inline-code">[รอค่าหลัง H1/Deploy]</code></td></tr><tr><td><strong>Accepted-for-Test Scope</strong></td><td><strong>Sprint 1 (<code class="inline-code">F-01</code> to <code class="inline-code">F-04</code>) ONLY:</strong> Authentication & Session (<code class="inline-code">F-01</code>), Event Creation/Publish/Capacity (<code class="inline-code">F-02</code>), Registration & Concurrency (<code class="inline-code">F-03</code>), Organizer Roster & Health/Ready (<code class="inline-code">F-04</code>).</td></tr><tr><td><strong>Out of Scope (Deferred)</strong></td><td>Sprint 2 (<code class="inline-code">F-05</code> cancellation, <code class="inline-code">F-06</code> deadline cutoff, <code class="inline-code">F-07</code> edit/filter) and Sprint 3 (<code class="inline-code">F-08</code> check-in, <code class="inline-code">F-09</code> analytics).</td></tr></tbody></table></div>
+
+<h2>2. Test Accounts & Roles (No Secrets in Repo/PDF)</h2>
+
+<p>Credentials are <strong>never</strong> stored in this document or Git; they will be delivered privately to the UAT Team via the course-approved private channel after <code class="inline-code">./kit.sh secrets add</code> (H1 / ชุด 3).</p>
+
+<div class="table-container"><table><thead><tr><th>Account Label</th><th>Role</th><th>Purpose</th></tr></thead><tbody><tr><td><code class="inline-code">ORG-A</code></td><td><code class="inline-code">ORGANIZER</code></td><td>Primary organizer for creating/publishing events and viewing own roster</td></tr><tr><td><code class="inline-code">ORG-B</code></td><td><code class="inline-code">ORGANIZER</code></td><td>Secondary organizer (if provisioned) for cross-organizer <code class="inline-code">403</code> ownership check</td></tr><tr><td><code class="inline-code">PART-1</code></td><td><code class="inline-code">PARTICIPANT</code></td><td>Primary participant for event browsing and registration</td></tr><tr><td><code class="inline-code">PART-2</code></td><td><code class="inline-code">PARTICIPANT</code></td><td>Secondary participant for full-capacity boundary check</td></tr></tbody></table></div>
+
+<h2>3. Setup, Execution Order & Reset Instructions</h2>
+
+<p>1. <strong>Independence & Sequence:</strong> Cases <code class="inline-code">UAT-01</code> through <code class="inline-code">UAT-06</code> are self-contained when using unique synthetic event titles (e.g., append timestamp or tester initials). Recommended order: <code class="inline-code">UAT-06</code> → <code class="inline-code">UAT-01</code> → <code class="inline-code">UAT-02</code> → <code class="inline-code">UAT-03</code> → <code class="inline-code">UAT-04</code> → <code class="inline-code">UAT-05</code>.<br/>2. <strong>Pre-Test Check:</strong> Verify <code class="inline-code">GET &lt;URL&gt;/api/health</code> and <code class="inline-code">GET &lt;URL&gt;/api/ready</code> return <code class="inline-code">200 OK</code> before starting.<br/>3. <strong>Synthetic Data Only:</strong> Use synthetic event titles/locations (e.g., <code class="inline-code">UAT-Workshop-01</code>) and never enter real personal data or real passwords.<br/>4. <strong>Reset / Cleanup:</strong> Because Sprint 1 does not include <code class="inline-code">F-05</code> (registration cancellation) or event deletion, use fresh synthetic events (<code class="inline-code">capacity</code> sized per case, e.g., <code class="inline-code">1</code> for <code class="inline-code">UAT-02</code>) for each run rather than reusing a full event.</p>
+
+<hr/>
+
+<h2>4. Executable UAT Cases (Sprint 1: F-01 – F-04)</h2>
+
+<h3><code class="inline-code">UAT-01</code> — Normal Domain Journey: Organizer Publishes Event & Participant Registers</h3>
+<li><strong>Category:</strong> Normal Domain Journey</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F02-01</code>, <code class="inline-code">AC-F02-03</code>, <code class="inline-code">AC-F03-01</code>, <code class="inline-code">AC-F03-06</code>, <code class="inline-code">AC-F04-01</code> (<code class="inline-code">FR-02</code>, <code class="inline-code">FR-03</code>, <code class="inline-code">FR-04</code>, <code class="inline-code">FR-05</code>, <code class="inline-code">FR-06</code>)</li>
+<li><strong>Objective:</strong> Verify end-to-end Sprint 1 flow from event creation and publication by an organizer to registration and roster verification.</li>
+<li><strong>Roles:</strong> <code class="inline-code">ORG-A</code> (<code class="inline-code">ORGANIZER</code>), <code class="inline-code">PART-1</code> (<code class="inline-code">PARTICIPANT</code>)</li>
+<li><strong>Preconditions:</strong> Application is reachable; <code class="inline-code">ORG-A</code> and <code class="inline-code">PART-1</code> accounts exist.</li>
+<li><strong>Synthetic Inputs:</strong></li>
+<li>Title: <code class="inline-code">UAT-01 Cloud Seminar &lt;timestamp&gt;</code></li>
+<li>Category: <code class="inline-code">SEMINAR</code>, Location: <code class="inline-code">Room CB4-101</code>, Capacity: <code class="inline-code">5</code></li>
+<li><code class="inline-code">startAt</code>: 7 days in the future; <code class="inline-code">endAt</code>: <code class="inline-code">startAt</code> + 2 hours</li>
+<li><strong>Steps:</strong></li>
+  1. Sign in as <code class="inline-code">ORG-A</code> via the UI login form.
+  2. Open <strong>Organizer Studio</strong> and create a new event with the synthetic inputs above.
+  3. Verify the event appears with status <code class="inline-code">DRAFT</code>, then click <strong>Publish</strong>.
+  4. Sign out (<code class="inline-code">Logout</code>).
+  5. Sign in as <code class="inline-code">PART-1</code> and open <strong>Event Catalog</strong>.
+  6. Locate <code class="inline-code">UAT-01 Cloud Seminar &lt;timestamp&gt;</code> and click <strong>Register</strong>.
+  7. Open <strong>My Registrations</strong>.
+  8. Sign out, sign in as <code class="inline-code">ORG-A</code>, and open <strong>View Registrants</strong> on <code class="inline-code">UAT-01 Cloud Seminar &lt;timestamp&gt;</code>.
+<li><strong>Expected Results:</strong></li>
+<li>Step 2–3: Event is created as <code class="inline-code">DRAFT</code> (<code class="inline-code">201</code>), then transitions to <code class="inline-code">PUBLISHED</code> (<code class="inline-code">200</code>) with <code class="inline-code">remainingSeats = 5</code>.</li>
+<li>Step 6: Registration succeeds (<code class="inline-code">201</code>), <code class="inline-code">remainingSeats</code> decrements to <code class="inline-code">4</code>, and card shows <strong>Registered</strong>.</li>
+<li>Step 7: <code class="inline-code">UAT-01 Cloud Seminar &lt;timestamp&gt;</code> appears in <strong>My Registrations</strong> with status <code class="inline-code">ACTIVE</code>.</li>
+<li>Step 8: Roster lists <code class="inline-code">PART-1</code> (<code class="inline-code">name</code>, <code class="inline-code">email</code>, <code class="inline-code">ACTIVE</code>) and never exposes <code class="inline-code">passwordHash</code>.</li>
+
+<hr/>
+
+<h3><code class="inline-code">UAT-02</code> — Business Rule & Boundary: Full Capacity, Duplicate Registration & Capacity Floor</h3>
+<li><strong>Category:</strong> Business Rule / Boundary</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F03-02</code>, <code class="inline-code">AC-F03-03</code>, <code class="inline-code">AC-F02-06</code> (<code class="inline-code">BR-04</code>, <code class="inline-code">BR-05</code>)</li>
+<li><strong>Objective:</strong> Verify capacity limits and duplicate-registration prevention.</li>
+<li><strong>Roles:</strong> <code class="inline-code">ORG-A</code>, <code class="inline-code">PART-1</code>, <code class="inline-code">PART-2</code></li>
+<li><strong>Preconditions:</strong> <code class="inline-code">UAT-01</code> passed or accounts active.</li>
+<li><strong>Synthetic Inputs:</strong> Event <code class="inline-code">UAT-02 Cap-1 Workshop &lt;timestamp&gt;</code>, Capacity: <code class="inline-code">1</code>, future <code class="inline-code">startAt</code> / <code class="inline-code">endAt</code>.</li>
+<li><strong>Steps:</strong></li>
+  1. As <code class="inline-code">ORG-A</code>, create and publish <code class="inline-code">UAT-02 Cap-1 Workshop &lt;timestamp&gt;</code> with <code class="inline-code">capacity = 1</code>.
+  2. As <code class="inline-code">PART-1</code>, register for <code class="inline-code">UAT-02 Cap-1 Workshop &lt;timestamp&gt;</code>.
+  3. As <code class="inline-code">PART-1</code>, attempt to register for the same event a second time (via UI or <code class="inline-code">POST /api/events/:id/registrations</code>).
+  4. Sign out, sign in as <code class="inline-code">PART-2</code>, and attempt to register for <code class="inline-code">UAT-02 Cap-1 Workshop &lt;timestamp&gt;</code>.
+  5. Sign out, sign in as <code class="inline-code">ORG-A</code>, and attempt to update capacity of <code class="inline-code">UAT-02 Cap-1 Workshop &lt;timestamp&gt;</code> from <code class="inline-code">1</code> to <code class="inline-code">0</code> (or create a capacity-2 event with 2 active registrations and attempt <code class="inline-code">capacity = 1</code>).
+<li><strong>Expected Results:</strong></li>
+<li>Step 2: <code class="inline-code">201 Created</code>, <code class="inline-code">remainingSeats</code> becomes <code class="inline-code">0</code>.</li>
+<li>Step 3: Rejected with <code class="inline-code">409 Conflict</code> (duplicate registration); active count remains <code class="inline-code">1</code>.</li>
+<li>Step 4: Rejected with <code class="inline-code">409 Conflict</code> (event full); active count remains <code class="inline-code">1</code>.</li>
+<li>Step 5: Rejected with <code class="inline-code">409 Conflict</code> / <code class="inline-code">400 Bad Request</code> (<code class="inline-code">capacity</code> cannot be below active registrations or <code class="inline-code">&lt; 1</code>); event capacity remains unchanged.</li>
+
+<hr/>
+
+<h3><code class="inline-code">UAT-03</code> — Business Rule & Boundary: Past-Start Publish Rejection & Draft Visibility</h3>
+<li><strong>Category:</strong> Business Rule / Boundary</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F02-04</code>, <code class="inline-code">AC-F02-05</code>, <code class="inline-code">AC-F03-05</code> (<code class="inline-code">BR-02</code>, <code class="inline-code">BR-03</code>)</li>
+<li><strong>Objective:</strong> Verify that events with a past <code class="inline-code">startAt</code> cannot be published and <code class="inline-code">DRAFT</code> events are hidden from participants.</li>
+<li><strong>Roles:</strong> <code class="inline-code">ORG-A</code>, <code class="inline-code">PART-1</code></li>
+<li><strong>Preconditions:</strong> <code class="inline-code">ORG-A</code> and <code class="inline-code">PART-1</code> logged in sequentially.</li>
+<li><strong>Synthetic Inputs:</strong></li>
+<li>Event A: <code class="inline-code">UAT-03 Past Draft &lt;timestamp&gt;</code>, <code class="inline-code">startAt</code> = yesterday, <code class="inline-code">endAt</code> = yesterday + 2h, <code class="inline-code">capacity = 10</code></li>
+<li>Event B: <code class="inline-code">UAT-03 Future Draft &lt;timestamp&gt;</code>, <code class="inline-code">startAt</code> = +10 days, <code class="inline-code">endAt</code> = +10 days + 2h, <code class="inline-code">capacity = 10</code> (kept in <code class="inline-code">DRAFT</code>)</li>
+<li><strong>Steps:</strong></li>
+  1. As <code class="inline-code">ORG-A</code>, create Event A with past <code class="inline-code">startAt</code> and attempt to click <strong>Publish</strong>.
+  2. As <code class="inline-code">ORG-A</code>, create Event B (future <code class="inline-code">startAt</code>) and leave it in <code class="inline-code">DRAFT</code>.
+  3. Sign out, sign in as <code class="inline-code">PART-1</code>, and inspect <strong>Event Catalog</strong>.
+  4. As <code class="inline-code">PART-1</code>, attempt <code class="inline-code">GET /api/events/&lt;Event-B-ID&gt;</code> and <code class="inline-code">POST /api/events/&lt;Event-B-ID&gt;/registrations</code>.
+<li><strong>Expected Results:</strong></li>
+<li>Step 1: Publish is rejected (<code class="inline-code">400 Bad Request</code>); Event A stays <code class="inline-code">DRAFT</code>.</li>
+<li>Step 3: Neither Event A nor Event B appears in <code class="inline-code">PART-1</code>'s Event Catalog.</li>
+<li>Step 4: Both requests are rejected (<code class="inline-code">404 Not Found</code> / <code class="inline-code">409 Conflict</code>); zero registrations are created.</li>
+
+<hr/>
+
+<h3><code class="inline-code">UAT-04</code> — Forbidden Role, Ownership & Sensitive Data Protection</h3>
+<li><strong>Category:</strong> Forbidden Role / Ownership</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F01-01</code>, <code class="inline-code">AC-F02-07</code>, <code class="inline-code">AC-F02-08</code>, <code class="inline-code">AC-F03-07</code>, <code class="inline-code">AC-F04-03</code>, <code class="inline-code">AC-F04-04</code> (<code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">NFR-01</code>, <code class="inline-code">NFR-02</code>)</li>
+<li><strong>Objective:</strong> Verify role separation, cross-organizer ownership enforcement, and omission of <code class="inline-code">passwordHash</code> from responses.</li>
+<li><strong>Roles:</strong> Unauthenticated client, <code class="inline-code">PART-1</code>, <code class="inline-code">ORG-A</code> (and <code class="inline-code">ORG-B</code> if provisioned)</li>
+<li><strong>Preconditions:</strong> An existing <code class="inline-code">PUBLISHED</code> event owned by <code class="inline-code">ORG-A</code> (e.g., from <code class="inline-code">UAT-01</code>).</li>
+<li><strong>Synthetic Inputs:</strong> None (read/attempt forbidden actions).</li>
+<li><strong>Steps:</strong></li>
+  1. Without logging in, call <code class="inline-code">GET /api/events</code> and <code class="inline-code">GET /api/events/&lt;ORG-A-Event-ID&gt;/registrations</code>.
+  2. Sign in as <code class="inline-code">PART-1</code> and inspect the <code class="inline-code">POST /api/auth/login</code> response / browser network tab.
+  3. As <code class="inline-code">PART-1</code>, confirm <strong>Organizer Studio</strong> actions are not permitted and attempt <code class="inline-code">POST /api/events</code> and <code class="inline-code">GET /api/events/&lt;ORG-A-Event-ID&gt;/registrations</code>.
+  4. Sign in as <code class="inline-code">ORG-A</code> and attempt <code class="inline-code">POST /api/events/&lt;ORG-A-Event-ID&gt;/registrations</code> and <code class="inline-code">GET /api/registrations/me</code>.
+  5. <em>(If <code class="inline-code">ORG-B</code> is provisioned)</em> As <code class="inline-code">ORG-B</code>, attempt <code class="inline-code">GET /api/events/&lt;ORG-A-Event-ID&gt;/registrations</code> and <code class="inline-code">PATCH /api/events/&lt;ORG-A-Event-ID&gt;/capacity</code>.
+<li><strong>Expected Results:</strong></li>
+<li>Step 1: Both return <code class="inline-code">401 Unauthorized</code>; no event or registrant data is returned.</li>
+<li>Step 2: Response contains <code class="inline-code">{ user: { id, email, name, role } }</code> and <strong>never</strong> includes <code class="inline-code">passwordHash</code>.</li>
+<li>Step 3: Both endpoints return <code class="inline-code">403 Forbidden</code>; no event is created and no roster data is disclosed.</li>
+<li>Step 4: Both endpoints return <code class="inline-code">403 Forbidden</code> (organizers cannot register as participants).</li>
+<li>Step 5: Both return <code class="inline-code">403 Forbidden</code>; <code class="inline-code">ORG-A</code>'s event and roster remain unchanged and undisclosed.</li>
+
+<hr/>
+
+<h3><code class="inline-code">UAT-05</code> — State, Session Lifecycle & Persistence Across Restart/Redeploy</h3>
+<li><strong>Category:</strong> State / History / Persistence</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F01-03</code>, <code class="inline-code">AC-F01-05</code>, <code class="inline-code">AC-F03-01</code> (<code class="inline-code">NFR-02</code>, <code class="inline-code">NFR-04</code>, <code class="inline-code">R-04</code>)</li>
+<li><strong>Objective:</strong> Verify session invalidation on logout and database persistence across Cloud Run container restart/redeploy.</li>
+<li><strong>Roles:</strong> <code class="inline-code">PART-1</code> (plus Product Team triggers restart/redeploy between Step 3 and Step 4)</li>
+<li><strong>Preconditions:</strong> <code class="inline-code">UAT-01</code> registration exists for <code class="inline-code">PART-1</code>.</li>
+<li><strong>Synthetic Inputs:</strong> Existing <code class="inline-code">UAT-01</code> registration.</li>
+<li><strong>Steps:</strong></li>
+  1. Sign in as <code class="inline-code">PART-1</code> and verify <code class="inline-code">GET /api/auth/me</code> returns <code class="inline-code">200 OK</code> (page reload keeps session).
+  2. Click <strong>Logout</strong> and verify <code class="inline-code">GET /api/auth/me</code> returns <code class="inline-code">401 Unauthorized</code>.
+  3. Sign back in as <code class="inline-code">PART-1</code>, record the visible registration in <strong>My Registrations</strong> (screenshot).
+  4. Wait for Product Team to restart/redeploy the Cloud Run service revision (announcing beforehand).
+  5. Reload the application URL, sign in as <code class="inline-code">PART-1</code>, and open <strong>My Registrations</strong>.
+<li><strong>Expected Results:</strong></li>
+<li>Step 1–2: Reload preserves active session; logout clears session so <code class="inline-code">/api/auth/me</code> returns <code class="inline-code">401</code>.</li>
+<li>Step 5: <code class="inline-code">UAT-01</code> event and <code class="inline-code">PART-1</code>'s <code class="inline-code">ACTIVE</code> registration remain intact in Cloud SQL after restart/redeploy.</li>
+
+<hr/>
+
+<h3><code class="inline-code">UAT-06</code> — Service Health & Database Readiness Probes</h3>
+<li><strong>Category:</strong> Operational Readiness</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F04-05</code> (<code class="inline-code">NFR-05</code>)</li>
+<li><strong>Objective:</strong> Confirm live service and Cloud SQL connectivity.</li>
+<li><strong>Roles:</strong> Public / Unauthenticated</li>
+<li><strong>Steps:</strong></li>
+  1. Call <code class="inline-code">GET &lt;URL&gt;/api/health</code>.
+  2. Call <code class="inline-code">GET &lt;URL&gt;/api/ready</code>.
+<li><strong>Expected Results:</strong></li>
+<li><code class="inline-code">GET /api/health</code> returns <code class="inline-code">200 OK</code> with <code class="inline-code">{"status":"ok"}</code>.</li>
+<li><code class="inline-code">GET /api/ready</code> returns <code class="inline-code">200 OK</code> with <code class="inline-code">{"status":"ready","database":"connected",...}</code>.</li>
+</body>
+</html>
