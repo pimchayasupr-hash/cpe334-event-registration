@@ -162,9 +162,9 @@ run_cmd gcloud run jobs update "$MIGRATE_JOB_NAME" \
   --image "$IMAGE_URI" \
   --region "$REGION" \
   --service-account "$SA_EMAIL" \
-  --set-cloudsql-instances "$SQL_CONN_NAME" \
-  --set-secrets "$JOB_SECRETS" \
-  --set-env-vars "NODE_ENV=production,TZ=Asia/Bangkok,SEED_DEMO_DATA=${SEED_DEMO_DATA}" \
+  --add-cloudsql-instances "$SQL_CONN_NAME" \
+  --update-secrets "$JOB_SECRETS" \
+  --update-env-vars "NODE_ENV=production,TZ=Asia/Bangkok,SEED_DEMO_DATA=${SEED_DEMO_DATA}" \
   --command "sh" \
   --args "-c,npx prisma migrate deploy && npm run prisma:seed" \
   --max-retries 1 \
@@ -192,8 +192,8 @@ run_cmd gcloud run services update "$SERVICE_NAME" \
   --region "$REGION" \
   --service-account "$SA_EMAIL" \
   --add-cloudsql-instances "$SQL_CONN_NAME" \
-  --set-secrets "DATABASE_URL=${SECRET_DB_URL}:latest" \
-  --set-env-vars "NODE_ENV=production,TZ=Asia/Bangkok" \
+  --update-secrets "DATABASE_URL=${SECRET_DB_URL}:latest" \
+  --update-env-vars "NODE_ENV=production,TZ=Asia/Bangkok" \
   --min-instances 0 \
   --max-instances 1 \
   --memory 512Mi \
