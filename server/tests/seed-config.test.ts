@@ -7,34 +7,66 @@ const base = {
 };
 
 describe('Seed credential resolution (Issue #27)', () => {
-  it('uses passwords from the environment', () => {
+  it('uses SEED_* passwords when provided', () => {
     const creds = resolveSeedCredentials({ ...base });
     expect(creds.organizerPassword).toBe('org-test-value-1');
     expect(creds.participantPassword).toBe('part-test-value-1');
   });
 
-  it('stops when SEED_ORGANIZER_PASSWORD is missing (no hardcoded fallback)', () => {
+  it('falls back to ADMIN_PASSWORD and DEMO_USER_PASSWORD aliases when SEED_* are absent', () => {
+    const creds = resolveSeedCredentials({
+      ADMIN_PASSWORD: 'alias-admin-value',
+      DEMO_USER_PASSWORD: 'alias-demo-value',
+    });
+    expect(creds.organizerPassword).toBe('alias-admin-value');
+    expect(creds.participantPassword).toBe('alias-demo-value');
+  });
+
+  it('prioritizes SEED_* over ADMIN_PASSWORD / DEMO_USER_PASSWORD when both are set', () => {
+    const creds = resolveSeedCredentials({
+      SEED_ORGANIZER_PASSWORD: 'primary-org-value',
+      ADMIN_PASSWORD: 'alias-admin-value',
+      SEED_PARTICIPANT_PASSWORD: 'primary-part-value',
+      DEMO_USER_PASSWORD: 'alias-demo-value',
+    });
+    expect(creds.organizerPassword).toBe('primary-org-value');
+    expect(creds.participantPassword).toBe('primary-part-value');
+  });
+
+  it('stops when neither SEED_ORGANIZER_PASSWORD nor ADMIN_PASSWORD is set', () => {
     expect(() => resolveSeedCredentials({ SEED_PARTICIPANT_PASSWORD: 'x' })).toThrow(
-      /SEED_ORGANIZER_PASSWORD is required/,
+      /SEED_ORGANIZER_PASSWORD \(or ADMIN_PASSWORD\) is required/,
     );
   });
 
-  it('stops when SEED_PARTICIPANT_PASSWORD is missing or blank', () => {
+  it('stops when neither SEED_PARTICIPANT_PASSWORD nor DEMO_USER_PASSWORD is set (or blank)', () => {
     expect(() =>
-      resolveSeedCredentials({ SEED_ORGANIZER_PASSWORD: 'x', SEED_PARTICIPANT_PASSWORD: '   ' }),
-    ).toThrow(/SEED_PARTICIPANT_PASSWORD is required/);
+      resolveSeedCredentials({
+        SEED_ORGANIZER_PASSWORD: 'x',
+        SEED_PARTICIPANT_PASSWORD: '   ',
+        DEMO_USER_PASSWORD: '',
+      }),
+    ).toThrow(/SEED_PARTICIPANT_PASSWORD \(or DEMO_USER_PASSWORD\) is required/);
   });
 
-  it('stops in production when a password is missing', () => {
+  it('stops in production when no password env var is set', () => {
     expect(() => resolveSeedCredentials({ NODE_ENV: 'production' })).toThrow(/is required/);
   });
 
-  it('rejects .env.example placeholder passwords in production', () => {
+  it('rejects .env.example placeholder passwords in production (both SEED_* and alias names)', () => {
     expect(() =>
       resolveSeedCredentials({
         NODE_ENV: 'production',
         SEED_ORGANIZER_PASSWORD: 'change-me-organizer',
         SEED_PARTICIPANT_PASSWORD: 'part-test-value-1',
+      }),
+    ).toThrow(/placeholder/);
+
+    expect(() =>
+      resolveSeedCredentials({
+        NODE_ENV: 'production',
+        ADMIN_PASSWORD: 'org-test-value-1',
+        DEMO_USER_PASSWORD: 'change-me-participant',
       }),
     ).toThrow(/placeholder/);
   });
@@ -46,6 +78,7 @@ describe('Seed credential resolution (Issue #27)', () => {
       SEED_PARTICIPANT_PASSWORD: 'change-me-participant',
     });
     expect(creds.organizerPassword).toBe('change-me-organizer');
+    expect(creds.participantPassword).toBe('change-me-participant');
   });
 
   it('uses default account emails when emails are not set', () => {
@@ -54,4 +87,3 @@ describe('Seed credential resolution (Issue #27)', () => {
     expect(creds.participantEmail).toBe('participant@kmutt.ac.th');
   });
 });
-
