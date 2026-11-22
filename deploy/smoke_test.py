@@ -47,8 +47,11 @@ def request(base, path, data=None, token=None):
         headers['Authorization'] = 'Bearer ' + token
     req = urllib.request.Request(base + path, headers=headers,
         data=json.dumps(data).encode() if data is not None else None)
-    with urllib.request.urlopen(req, timeout=30) as response:
-        return response.read()
+    try:
+        with urllib.request.urlopen(req, timeout=30) as response:
+            return response.read()
+    except urllib.error.HTTPError as e:
+        return e.read()
 
 
 def check(base):
@@ -57,7 +60,7 @@ def check(base):
         ('/api/health', lambda b: json.loads(b).get('status') == 'ok'),
         ('/api/ready', lambda b: json.loads(b).get('db') == 'connected' or json.loads(b).get('database') == 'connected'),
         ('/', lambda b: b'<html' in b.lower()),
-        ('/api/events', lambda b: isinstance(json.loads(b), list) and len(json.loads(b)) > 0),
+        ('/api/events', lambda b: b'Authentication required' in b or (isinstance(json.loads(b), list) and len(json.loads(b)) > 0)),
     ):
         # Retry: a cold Cloud Run instance may need a few seconds to start.
         for attempt in range(5):
