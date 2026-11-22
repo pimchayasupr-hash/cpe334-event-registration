@@ -439,6 +439,25 @@ function buildDocxCodeBlock(codeLines) {
   });
 }
 
+function getImageDimensions(buf) {
+  if (buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4E && buf[3] === 0x47) {
+    return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
+  }
+  if (buf[0] === 0xFF && buf[1] === 0xD8) {
+    let offset = 2;
+    while (offset < buf.length) {
+      if (buf[offset] !== 0xFF) break;
+      const marker = buf[offset + 1];
+      if (marker === 0xC0 || marker === 0xC2) {
+        return { height: buf.readUInt16BE(offset + 5), width: buf.readUInt16BE(offset + 7) };
+      }
+      const len = buf.readUInt16BE(offset + 2);
+      offset += 2 + len;
+    }
+  }
+  return null;
+}
+
 function markdownToDocxElements(md) {
   const elements = [];
   const lines = md.split(/\r?\n/);
@@ -512,6 +531,18 @@ function markdownToDocxElements(md) {
       const foundPath = candidatePaths.find((p) => fs.existsSync(p));
       if (foundPath) {
         const imgBuffer = fs.readFileSync(foundPath);
+        const dim = getImageDimensions(imgBuffer);
+        let targetWidth = 500;
+        let targetHeight = 280;
+        if (dim && dim.width && dim.height) {
+          const aspectRatio = dim.height / dim.width;
+          targetWidth = Math.min(500, Math.round(dim.width * 0.75));
+          targetHeight = Math.round(targetWidth * aspectRatio);
+          if (targetHeight > 420) {
+            targetHeight = 420;
+            targetWidth = Math.round(targetHeight / aspectRatio);
+          }
+        }
         elements.push(
           new Paragraph({
             alignment: AlignmentType.CENTER,
@@ -520,8 +551,8 @@ function markdownToDocxElements(md) {
               new ImageRun({
                 data: imgBuffer,
                 transformation: {
-                  width: 560,
-                  height: 290,
+                  width: targetWidth,
+                  height: targetHeight,
                 },
               }),
             ],
