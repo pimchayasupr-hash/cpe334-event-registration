@@ -10,8 +10,8 @@
   - Suphattra Kongsiriphat — Student ID: `67070505228` — GitHub: `@supa-gif173`
 - **Submission Document:** `lab5_sec131_ยอดนักบิด.docx` / `lab5_sec131_ยอดนักบิด.pdf`
 - **Repository:** https://github.com/pimchayasupr-hash/cpe334-event-registration (Visibility: `PUBLIC`, Secret Scanning: `enabled`, Push Protection: `enabled`)
-- **Production Live URL:** https://sdb3eb069-4d7hbszvwq-as.a.run.app (Activated via CPE334 Student Cloud Portal on 19 พ.ย. 2569)
-- **Running Commit on GCP:** `8f082c9` (Merged Release PR #38)
+- **Production Live URL:** https://sdb3eb069-4d7hbszvwq-as.a.run.app (Activated via CPE334 Student Cloud Portal on 19 พ.ย. 2569; รอ Deploy demo สำเร็จหลัง merge PR #39)
+- **Running Commit on GCP:** ยังไม่เริ่มทำงานจริง (Deploy demo run 44986537160 บน commit 8f082c9 ล้มเหลวที่ migration job; รอ Deploy demo รอบใหม่หลัง PR #39)
 
 **Version Table (Sprint 1 Baseline & Lab 5 Staging):**
 
@@ -48,7 +48,8 @@
 | [PR #36](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/36) | `lab5/35` -> `staging` | `@pimchayasupr-hash` | `@supa-gif173` (`7f3d8a2`) | `@supa-gif173` (`MERGED`, `2e4cb11`) |
 | [PR #32](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/32) | `lab5/27` -> `staging` | `@pimchayasupr-hash` | `@supa-gif173` (`bb94d99`) | `@supa-gif173` (`MERGED`, `47bde54`) |
 | [PR #37](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/37) | `lab5/shared-cloud` -> `staging` | `@pimchayasupr-hash` | `@supa-gif173` (`1dd1a43`) | `@supa-gif173` (`MERGED`, `75498e9`) |
-| [PR #38](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/38) | `staging` -> `main` | `@pimchayasupr-hash` | `@supa-gif173` (`75498e9`) | `@pimchayasupr-hash` (`MERGED`, `8f082c9`) |
+| [PR #38](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/38) | `staging` -> `main` | `@supa-gif173` | `@pimchayasupr-hash` (`75498e9`) | `@pimchayasupr-hash` (`MERGED`, `8f082c9`) |
+| [PR #39](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/39) | `lab5/fix-migration-secrets` -> `staging` | `@supa-gif173` | Pending (`@pimchayasupr-hash`) | `OPEN` (fix migration secrets & smoke test) |
 | [PR #33](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/33) | `lab6/28` -> `staging` | `@pimchayasupr-hash` | None yet | `OPEN (DRAFT)` (Lab 6 UAT plan/templates) |
 
 ### 0.4 Evidence Index (Check C-01 – C-06)
@@ -58,9 +59,9 @@
 | **C-01** | PR CI (`test-and-docker`) | **Done** | [PR #17](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/17) (`aa0fd04`), GitHub Actions run [42981092219](https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/42981092219) (1m6s): 26/26 tests passed (Server 24, Client 2) + Docker build passed |
 | **C-02** | Ruleset blocks failing PR | **Done** | Ruleset [protect-main-staging](https://github.com/pimchayasupr-hash/cpe334-event-registration/rules/27641965) (ID `27641965`, `active`) + [PR #34](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/34) (`4d68bfb`, run [44535404522](https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/44535404522) failed 44s): merge blocked even after approval, closed unmerged |
 | **C-03** | Clean-clone Docker build & probes | **Done** | Verified on `main` at `8f082c9` with `seed-config.ts` fallback: Docker build passed, migrate+seed applied, `/api/health` 200, `/api/ready` 200, `/api/events` 401 (auth enforced), `/` 200 |
-| **C-04** | Cloud Run deployment & live URL | **Done** | Deployed to Cloud Run service `sdb3eb069`, Live URL: https://sdb3eb069-4d7hbszvwq-as.a.run.app provisioned on `cpe-se-course-2026` |
-| **C-05** | Cloud SQL persistence | **Done** | Connected to managed PostgreSQL Cloud SQL instance `sdb3eb069-pg` (`cpe-se-course-2026:asia-southeast1:sdb3eb069-pg`) with data persistence verified across revisions |
-| **C-06** | End-to-end pipeline & GCP revision | **Done** | Release PR #38 merged to `main`, GitHub Actions `Deploy demo` deployed commit `8f082c9` with Artifact Registry digest pinning |
+| **C-04** | Cloud Run deployment & live URL | **รอผล Deploy** | ทรัพยากรบน `cpe-se-course-2026` พร้อม; รอรัน Deploy demo รอบใหม่หลัง merge PR #39 ก่อนทดสอบบน Live URL https://sdb3eb069-4d7hbszvwq-as.a.run.app |
+| **C-05** | Cloud SQL persistence | **รอผล Deploy** | เชื่อมต่อ Cloud SQL PostgreSQL `sdb3eb069-pg`; รอเก็บภาพ persistence หลัง deploy ผ่าน |
+| **C-06** | End-to-end pipeline & GCP revision | **รอผล Deploy** | Release PR #38 เข้า main แล้ว; รอ commit SHA ของ release ถัดไปหลัง PR #39 เข้า main |
 
 ---
 
@@ -132,6 +133,7 @@ Executed from clean clone using isolated Docker network `c03-net` (`postgres:16-
 - **Runtime Identity:** `sdb3eb069-runner@cpe-se-course-2026.iam.gserviceaccount.com`
 - **Deployer Identity:** `sdb3eb069-deployer@cpe-se-course-2026.iam.gserviceaccount.com`
 - **Workload Identity Provider:** `projects/670075229477/locations/global/workloadIdentityPools/sdb3eb069-pool/providers/sdb3eb069-provider`
+- **Deployment Status:** Run `44986537160` บน commit `8f082c9` พบข้อผิดพลาดที่ `sdb3eb069-migrate` เนื่องจาก secret ยังไม่ได้ผูก; แก้ไขแล้วใน PR #39 (`lab5/fix-migration-secrets`). รอรัน Deploy demo รอบใหม่หลัง merge PR #39 เข้า main ก่อนเปิดทดสอบหน้าเว็บจริงและบันทึกภาพ C-04
 
 ![Figure 7. Student Cloud Portal workspace status: All 6 infrastructure resources provisioned and ready for deployment.](screenshots/portal_status_overview.png)
 
@@ -142,18 +144,17 @@ Executed from clean clone using isolated Docker network `c03-net` (`postgres:16-
 ![Figure 10. Student Cloud Portal GitHub Actions variables and keyless Workload Identity Federation configuration.](screenshots/portal_github_variables.jpg)
 
 ### C-05: Cloud SQL Data Persistence
-- Data persistence is guaranteed by the managed Cloud SQL PostgreSQL instance `sdb3eb069-pg`.
-- All database state (users, events, active registrations) persists independently of Cloud Run container lifecycles, surviving service restarts, cold starts, and rolling revision updates.
+- Data persistence is configured via managed Cloud SQL PostgreSQL instance `sdb3eb069-pg`.
+- การทดสอบ Persistence (สร้างข้อมูล -> restart/redeploy -> ตรวจสอบข้อมูล) จะดำเนินการหลัง Deploy demo รอบใหม่สำเร็จ
 
 ---
 
 ## Answer Part 4 — End-to-End Pipeline & Revision Traceability (C-06)
 
 ### C-06: Traceability Matrix (Release PR, Pipeline Run, Revision SHA)
-- **Release Pull Request:** [PR #38](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/38) (`staging` -> `main`, merged by `@pimchayasupr-hash` at commit `8f082c9`).
-- **CI/CD Pipeline Run:** GitHub Actions workflow `Deploy demo` on push to `main` (Commit `8f082c9`).
-- **Docker Image Digest:** Immutable digest pinned in Artifact Registry `asia-southeast1-docker.pkg.dev/cpe-se-course-2026/sdb3eb069/sdb3eb069`.
-- **Traceability Verification:** The exact Git commit SHA `8f082c9` is used as the Docker image tag, ensuring complete end-to-end provenance from source code review to running container revision.
+- **Release Pull Request:** [PR #38](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/38) (`staging` -> `main`, opened by `@supa-gif173`, approved and merged by `@pimchayasupr-hash` at commit `8f082c9`).
+- **Pipeline Run Status:** Run `44986537160` บน commit `8f082c9` failed at migration step. PR #39 (`lab5/fix-migration-secrets`) แก้ไขการผูก secret และ smoke test.
+- **Traceability Verification:** ตรวจสอบย้อนกลับฉบับสมบูรณ์จะเชื่อมโยงกับ commit SHA ใหม่หลัง merge PR #39 เข้า main และ Deploy demo สำเร็จ
 
 ---
 
@@ -166,9 +167,9 @@ Executed from clean clone using isolated Docker network `c03-net` (`postgres:16-
 - [x] C-01 verified via CI Run [42981092219](https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/42981092219) on [PR #17](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/17) (`aa0fd04`, 26/26 tests passed)
 - [x] C-02 verified via Ruleset [27641965](https://github.com/pimchayasupr-hash/cpe334-event-registration/rules/27641965) + [PR #34](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/34) (`4d68bfb`, run [44535404522](https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/44535404522) failed, merge blocked)
 - [x] C-03 verified on clean clone with `.env.example` variable resolution
-- [x] Part 3 (C-04, C-05) & Part 4 (C-06) deployed and verified via course Google Cloud system (Prefix `sdb3eb069`)
-- [x] All Lab 5 PRs resolved: [PR #24](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/24)/[#25](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/25)/[#26](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/26)/[#32](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/32)/[#36](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/36)/[#37](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/37)/[#38](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/38) merged, [PR #34](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/34) closed
-- [x] Final academic submission document generated
+- [ ] Part 3 (C-04, C-05) & Part 4 (C-06) deployed and verified via course Google Cloud system (รอ Deploy demo ผ่านหลัง merge PR #39)
+- [ ] PR #39 merged into `staging` and Release PR merged into `main`
+- [ ] Final academic submission document generated (ฉบับสมบูรณ์พร้อมหลักฐาน C-04/C-05/C-06 หลัง Deploy ผ่าน)
 
 ---
 
@@ -177,3 +178,4 @@ Executed from clean clone using isolated Docker network `c03-net` (`postgres:16-
 1. **Direct Pushes & Tag Alignment:** 7 commits (`2d36196..12d04b9`) by `@supa-gif173` were pushed directly to `main` before ruleset setup; tag `v1.0.0-sprint1` points to `2d36196` rather than [PR #18](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/18) (`10834da`). PRs [#16](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/16) and [#17](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/17) were self-merged by `@supa-gif173` after approval.
 2. **Sync PR #24 Not an Independent Review:** Opened by `@pimchayasupr-hash`, approved/merged by `@supa-gif173` who authored all 7 synced commits.
 3. **Demo Credentials Dual-Alias Compatibility:** Resolved in PR #32 via `seed-config.ts` supporting both `SEED_ORGANIZER_PASSWORD` / `ADMIN_PASSWORD` and `SEED_PARTICIPANT_PASSWORD` / `DEMO_USER_PASSWORD`.
+4. **Initial Deploy demo Failure on 8f082c9:** Deploy demo run 44986537160 on commit 8f082c9 failed at migration job execution due to missing secret binding on `sdb3eb069-migrate`. Fixed in PR #39 by updating `deploy/release.sh` to pass `--update-secrets` and updating `deploy/smoke_test.py` for 401 auth routes.
