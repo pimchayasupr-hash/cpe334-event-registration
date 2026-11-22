@@ -83,17 +83,19 @@ docker run -p 3000:3000 --env-file server/.env eventreg:latest
 
 ## 4. Google Cloud Platform Resource Names & Topology
 
-> **Note:** The `toktickit*` resource identifiers below are Starter Kit template defaults and have not been provisioned on GCP yet (course Google Cloud resources not yet activated). They will be replaced with the names assigned by the course system after activation.
+> **Note:** Confirmed and provisioned via CPE334 Student Cloud Portal on 19 พ.ย. 2569 for Group "ยอดนักบิด" (Prefix: `sdb3eb069`).
 
 | Resource | Resource Name / Identifier | Region / Spec |
 |---|---|---|
-| **Artifact Registry** | `toktickit` | `asia-southeast1` (Docker format) |
-| **Cloud SQL Instance** | `toktickit-pg` | PostgreSQL 16, `db-f1-micro`, `--edition=enterprise`, `--no-storage-auto-increase` |
-| **Database & User** | `toktickit` / `toktickit` | PostgreSQL database user with random password stored in Secret Manager |
-| **Cloud Run Migration Job**| `toktickit-migrate` | Runs `npx prisma migrate deploy && npm run prisma:seed` |
-| **Cloud Run Service** | `toktickit` | Unified runtime, `--port 3000`, `--min-instances 0`, `--max-instances 2`, `--memory 512Mi` |
-| **Service Account** | `toktickit-runner` | Runtime identity with minimal secrets accessor role |
-| **Workload Identity Provider**| `github-wif-pool` / `github-wif-provider` | Keyless OIDC authentication for GitHub Actions |
+| **Artifact Registry** | `sdb3eb069` | `asia-southeast1` (Docker format: `asia-southeast1-docker.pkg.dev/cpe-se-course-2026/sdb3eb069/sdb3eb069`) |
+| **Cloud SQL Instance** | `sdb3eb069-pg` | PostgreSQL 16, `db-f1-micro`, Connection: `cpe-se-course-2026:asia-southeast1:sdb3eb069-pg` |
+| **Database & User** | `sdb3eb069` / `sdb3eb069` | Managed PostgreSQL database user with random password in Secret Manager |
+| **Cloud Run Migration Job**| `sdb3eb069-migrate` | Runs `npx prisma migrate deploy && npm run prisma:seed` with secrets bound |
+| **Cloud Run Service** | `sdb3eb069` | Unified runtime, Live URL: `https://sdb3eb069-4d7hbszvwq-as.a.run.app`, `--min-instances 0`, `--max-instances 1`, `--memory 512Mi` |
+| **Runtime Service Account** | `sdb3eb069-runner@cpe-se-course-2026.iam.gserviceaccount.com` | Runtime identity with minimal secrets accessor role |
+| **Deployer Service Account** | `sdb3eb069-deployer@cpe-se-course-2026.iam.gserviceaccount.com` | Identity for GitHub Actions deployment |
+| **Workload Identity Provider**| `sdb3eb069-pool` / `sdb3eb069-provider` | Keyless OIDC authentication for GitHub Actions (`projects/670075229477/locations/global/workloadIdentityPools/sdb3eb069-pool/providers/sdb3eb069-provider`) |
+| **Secret Manager Secrets** | `sdb3eb069-database-url`<br>`sdb3eb069-admin-password`<br>`sdb3eb069-demo-password` | Externalized credentials for database connection and demo/seed accounts |
 
 ---
 
@@ -108,9 +110,9 @@ docker run -p 3000:3000 --env-file server/.env eventreg:latest
    - Runs `ci-docker.yml` test suite first.
    - Logs into GCP via Workload Identity Federation (no long-lived JSON keys).
    - Builds container image tagged with immutable 40-character commit SHA:
-     `${REGION}-docker.pkg.dev/${PROJECT_ID}/toktickit/toktickit:${GITHUB_SHA}`
-   - Executes Cloud Run migration job (`toktickit-migrate`).
-   - Updates Cloud Run service (`toktickit`) to the new image digest.
+     `${REGION}-docker.pkg.dev/${PROJECT_ID}/sdb3eb069/sdb3eb069:${GITHUB_SHA}`
+   - Executes Cloud Run migration job (`sdb3eb069-migrate`).
+   - Updates Cloud Run service (`sdb3eb069`) to the new image digest.
    - Executes automated smoke test (`deploy/smoke_test.py`) against the live URL.
 
 ### 5.2 How to Identify the Currently Running Commit

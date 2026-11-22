@@ -130,9 +130,9 @@ echo "=================================================================="
 # ==============================================================================
 # Portal/TA pre-provisions infrastructure and public service IAM (Guide 5.3 steps 1–8, 5.4).
 # These names must exist. Never create or modify project-level IAM here.
-JOB_SECRETS="DATABASE_URL=${SECRET_DB_URL}:latest,ADMIN_PASSWORD=${SECRET_ADMIN_PASS}:latest"
+JOB_SECRETS="DATABASE_URL=${SECRET_DB_URL}:latest,ADMIN_PASSWORD=${SECRET_ADMIN_PASS}:latest,SEED_ORGANIZER_PASSWORD=${SECRET_ADMIN_PASS}:latest"
 if [ "$SEED_DEMO_DATA" = "true" ]; then
-  JOB_SECRETS="${JOB_SECRETS},DEMO_USER_PASSWORD=${SECRET_DEMO_PASS}:latest"
+  JOB_SECRETS="${JOB_SECRETS},DEMO_USER_PASSWORD=${SECRET_DEMO_PASS}:latest,SEED_PARTICIPANT_PASSWORD=${SECRET_DEMO_PASS}:latest"
 fi
 if [ "$DRY_RUN" != "1" ]; then
   gcloud run services describe "$SERVICE_NAME" --project "$PROJECT_ID" --region "$REGION" >/dev/null
