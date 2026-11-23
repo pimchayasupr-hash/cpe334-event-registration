@@ -1,37 +1,38 @@
 # Lab 6 Part A — Sprint 1 UAT Plan & Handoff
 
-> **Status:** Draft preparation (awaiting H1 GCP deployment URL/revision, H3 partner UAT team assignment, and Lab 5 PR merges). Fields marked `[รอค่าหลัง H1/Deploy]` or `[รอข้อมูลจากผู้ใช้]` will be filled after those gates complete.
+> **Status:** Updated with verified GCP deployment metadata (`e6aad26` / `sdb3eb069-00002-mct`); awaiting partner UAT team assignment (`H3`) and private credential handoff.
 
 ## 1. Release & Handoff Metadata
 
 | Item | Value |
 | :--- | :--- |
 | **Product Team** | ยอดนักบิด (`sec131`) — Pimchaya Suprateravarnit (`@pimchayasupr-hash`), Suphattra Kongsiriphat (`@supa-gif173`) |
-| **UAT Team (Partner)** | `[รอข้อมูลจากผู้ใช้ — H3]` |
+| **UAT Team (Partner)** | `[รอผู้ใช้กรอก — H3]` |
 | **Repository** | `https://github.com/pimchayasupr-hash/cpe334-event-registration` |
-| **Tested Release Tag / Commit** | `[รอค่าหลัง H1/Deploy]` *(Sprint 1 baseline: CI tested `e2846b8`, PR #18 merge `10834da`, tag `v1.0.0-sprint1` at `2d36196`)* |
-| **GCP Cloud Run Revision** | `[รอค่าหลัง H1/Deploy]` |
-| **Public Application URL** | `[รอค่าหลัง H1/Deploy]` |
+| **Tested Release Tag / Commit** | `e6aad269e7b0f459126004e076f4fc432d1abdd0` (`e6aad26`, merged [PR #40](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/40), `Deploy demo` run [`45018492877`](https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/45018492877)) |
+| **GCP Cloud Run Revision** | `sdb3eb069-00002-mct` (Service `sdb3eb069`, `cpe-se-course-2026`, `asia-southeast1`) |
+| **Public Application URL** | `https://sdb3eb069-4d7hbszvwq-as.a.run.app` |
 | **Accepted-for-Test Scope** | **Sprint 1 (`F-01` to `F-04`) ONLY:** Authentication & Session (`F-01`), Event Creation/Publish/Capacity (`F-02`), Registration & Concurrency (`F-03`), Organizer Roster & Health/Ready (`F-04`). |
 | **Out of Scope (Deferred)** | Sprint 2 (`F-05` cancellation, `F-06` deadline cutoff, `F-07` edit/filter) and Sprint 3 (`F-08` check-in, `F-09` analytics). |
 
 ## 2. Test Accounts & Roles (No Secrets in Repo/PDF)
 
-Credentials are **never** stored in this document or Git; they will be delivered privately to the UAT Team via the course-approved private channel after `./kit.sh secrets add` (H1 / ชุด 3).
+Credentials are **never** stored in this document or Git; they are delivered privately to the UAT Team via the course-approved private channel.
 
-| Account Label | Role | Purpose |
-| :--- | :--- | :--- |
-| `ORG-A` | `ORGANIZER` | Primary organizer for creating/publishing events and viewing own roster |
-| `ORG-B` | `ORGANIZER` | Secondary organizer (if provisioned) for cross-organizer `403` ownership check |
-| `PART-1` | `PARTICIPANT` | Primary participant for event browsing and registration |
-| `PART-2` | `PARTICIPANT` | Secondary participant for full-capacity boundary check |
+| Account Label | Role | Email / Identifier | Notes |
+| :--- | :--- | :--- | :--- |
+| `ORG-A` | `ORGANIZER` | `organizer@kmutt.ac.th` | Seeded by `prisma/seed.ts`; creates/publishes events & views own roster |
+| `PART-1` | `PARTICIPANT` | `participant@kmutt.ac.th` | Seeded by `prisma/seed.ts`; browses & registers for events |
+| `ORG-B` | `ORGANIZER` | `[รอผู้ใช้กรอก — optional]` | Only if a second organizer is provisioned; otherwise cross-organizer step in `UAT-04` is marked N/A |
+| `PART-2` | `PARTICIPANT` | `[รอผู้ใช้กรอก — optional]` | Only if a second participant is provisioned; otherwise full-capacity test in `UAT-02` uses `capacity=1` filled by `PART-1` + capacity floor check by `ORG-A` |
 
 ## 3. Setup, Execution Order & Reset Instructions
 
-1. **Independence & Sequence:** Cases `UAT-01` through `UAT-06` are self-contained when using unique synthetic event titles (e.g., append timestamp or tester initials). Recommended order: `UAT-06` → `UAT-01` → `UAT-02` → `UAT-03` → `UAT-04` → `UAT-05`.
-2. **Pre-Test Check:** Verify `GET <URL>/api/health` and `GET <URL>/api/ready` return `200 OK` before starting.
-3. **Synthetic Data Only:** Use synthetic event titles/locations (e.g., `UAT-Workshop-01`) and never enter real personal data or real passwords.
-4. **Reset / Cleanup:** Because Sprint 1 does not include `F-05` (registration cancellation) or event deletion, use fresh synthetic events (`capacity` sized per case, e.g., `1` for `UAT-02`) for each run rather than reusing a full event.
+1. **Seed Behavior & Secret Stability (Important):** `server/prisma/seed.ts` uses `prisma.user.upsert` with `update: { passwordHash }`, which **overwrites seeded account passwords every time `sdb3eb069-migrate` runs**. Do **not** rotate Secret Manager secrets (`sdb3eb069-admin-password`, `sdb3eb069-demo-password`) while the UAT Team is testing without notifying them beforehand.
+2. **Independence & Sequence:** Cases `UAT-01` through `UAT-06` are self-contained when using unique synthetic event titles (e.g., append timestamp or tester initials). Recommended order: `UAT-06` → `UAT-01` → `UAT-02` → `UAT-03` → `UAT-04` → `UAT-05`.
+3. **Pre-Test Check:** Verify `GET https://sdb3eb069-4d7hbszvwq-as.a.run.app/api/health` and `GET https://sdb3eb069-4d7hbszvwq-as.a.run.app/api/ready` return `200 OK` before starting.
+4. **Synthetic Data Only:** Use synthetic event titles/locations (e.g., `UAT-Workshop-01`) and never enter real personal data or real passwords.
+5. **Reset / Cleanup:** Because Sprint 1 does not include `F-05` (registration cancellation) or event deletion, use fresh synthetic events (`capacity` sized per case) for each run rather than reusing a full event.
 
 ---
 

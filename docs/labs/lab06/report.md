@@ -1,6 +1,6 @@
 # Lab 6 Submission Report — Independent User Acceptance Testing & Defect Management
 
-> **Status:** Draft preparation (awaiting Lab 5 GCP deployment URL/revision, partner UAT team assignment [H3], and real UAT execution). All unconfirmed fields are marked `[รอค่าหลัง deploy]` or `[รอข้อมูลจากผู้ใช้]`.
+> **Status:** Draft preparation (updated with deployed `main` release `e6aad26` / `sdb3eb069-00002-mct`; awaiting partner UAT team assignment [H3] and real UAT execution). All unconfirmed fields are marked `[รอผู้ใช้กรอก]` or left blank for actual test results.
 
 ## Team, Scope & Version Overview
 
@@ -11,16 +11,16 @@
 - **Project Theme:** Event Registration & Attendance System (KMUTT Academic Seminars & Workshops)
 - **Sprint 1 Accepted-for-Test Scope:** `F-01` (Authentication & Session), `F-02` (Event Creation, Publication & Capacity), `F-03` (Participant Registration & Row-Locking Concurrency), `F-04` (Organizer Roster & Health/Ready). Sprint 2 (`F-05..F-07`) and Sprint 3 (`F-08..F-09`) are out of scope.
 - **Repository:** [https://github.com/pimchayasupr-hash/cpe334-event-registration](https://github.com/pimchayasupr-hash/cpe334-event-registration)
-- **Tested Release Tag / Commit (Our Product):** `[รอค่าหลัง deploy]`
-- **Deployed Public URL & Cloud Run Revision:** `[รอค่าหลัง deploy]` (Service `sdb3eb069`, `asia-southeast1`)
-- **Partner UAT Team (Independent Testers):** `[รอข้อมูลจากผู้ใช้ — H3]`
+- **Tested Release Tag / Commit (Our Product):** `e6aad269e7b0f459126004e076f4fc432d1abdd0` (`e6aad26`, merged [PR #40](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/40))
+- **Deployed Public URL & Cloud Run Revision:** `https://sdb3eb069-4d7hbszvwq-as.a.run.app` — Revision `sdb3eb069-00002-mct` (Service `sdb3eb069`, `asia-southeast1`)
+- **Partner UAT Team (Independent Testers):** `[รอผู้ใช้กรอก — H3]`
 - **Final Sprint 1 UAT Decision (Recorded by UAT Team Only):** `[รอทีมคู่ตัดสินหลังทดสอบ]`
 
 ### Contents & Evidence Index (Parts A–D)
 
 | Part | Section | Evidence IDs | Status |
 | :--- | :--- | :--- | :--- |
-| **Part A** | UAT Preparation & Safe Handoff (`F-01..F-04`, 6 cases) | `UAT-01` – `UAT-06` | Draft ready (`uat-plan.md`); awaiting URL/revision & partner team |
+| **Part A** | UAT Preparation & Safe Handoff (`F-01..F-04`, 6 cases) | `UAT-01` – `UAT-06` | Ready (`uat-plan.md` updated with `e6aad26` / `sdb3eb069-00002-mct`); awaiting partner team (`H3`) |
 | **Part B** | Independent Execution on Partner Team's Release | `EXEC-01` – `EXEC-0N` | `[รอทดสอบจริงกับทีมคู่]` (Actual Result left blank) |
 | **Part C** | Defect Reporting & Triage Table | `DEF-01` – `DEF-0N` | `[รอผลทดสอบจากทีมคู่]` |
 | **Part D** | Defect Resolution (RED/GREEN), Retest & Acceptance | `FIX-01`, `RETEST-01` | `[รอผลหลัง Part B/C หรือ Controlled Exercise จาก TA]` |
@@ -32,7 +32,7 @@
 | Sprint 1 CI-tested `staging` | `e2846b8` | — | Run `43210196284` |
 | PR #18 merge commit (`main`) | `10834da` | — | Release PR #18 |
 | Tag `v1.0.0-sprint1` | `2d36196` | — | Diff vs `10834da`: `docs/deliverable-1-report.md` only |
-| Pre-UAT `main` release (after PR #32, #37) | `[รอค่าหลัง deploy]` | `[รอค่าหลัง deploy]` | Baseline tested by Partner UAT Team |
+| Pre-UAT `main` release (PR #40) | `e6aad26` | `sdb3eb069-00002-mct` | `Deploy demo` run [`45018492877`](https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/45018492877) succeeded; baseline for Partner UAT |
 | Fix commit / release (if accepted defect) | `[รอค่าหลัง Part D]` | `[รอค่าหลัง Part D]` | RED → GREEN → PR review → CI → `main` |
 
 ---
@@ -110,3 +110,4 @@
 - **AI-Use Declaration:** Google Antigravity assisted with structuring `uat-plan.md`, `uat-templates.md`, `report.md`, and `scripts/bundle_lab6.js`. All UAT cases, contract mappings, and verification commands are reviewed by the team; no AI-generated test results or sign-offs are permitted.
 - **Known Limitations:**
   - Currently in Draft awaiting Lab 5 GCP deployment (`sdb3eb069`) and partner UAT team assignment (`H3`).
+
