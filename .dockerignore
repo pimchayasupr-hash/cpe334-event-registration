@@ -7,3 +7,8 @@ dist
 tests
 coverage
 *.log
+
+# Never copy local env files (including client/.env.local demo values) into the image
+**/.env
+**/.env.*
+!**/.env.example

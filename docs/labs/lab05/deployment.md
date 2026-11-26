@@ -83,15 +83,19 @@ docker run -p 3000:3000 --env-file server/.env eventreg:latest
 
 ## 4. Google Cloud Platform Resource Names & Topology
 
+> **Note:** Confirmed and provisioned via CPE334 Student Cloud Portal on 19 พ.ย. 2569 for Group "ยอดนักบิด" (Prefix: `sdb3eb069`).
+
 | Resource | Resource Name / Identifier | Region / Spec |
 |---|---|---|
-| **Artifact Registry** | `toktickit` | `asia-southeast1` (Docker format) |
-| **Cloud SQL Instance** | `toktickit-pg` | PostgreSQL 16, `db-f1-micro`, `--edition=enterprise`, `--no-storage-auto-increase` |
-| **Database & User** | `toktickit` / `toktickit` | PostgreSQL database user with random password stored in Secret Manager |
-| **Cloud Run Migration Job**| `toktickit-migrate` | Runs `npx prisma migrate deploy && npm run prisma:seed` |
-| **Cloud Run Service** | `toktickit` | Unified runtime, `--port 3000`, `--min-instances 0`, `--max-instances 2`, `--memory 512Mi` |
-| **Service Account** | `toktickit-runner` | Runtime identity with minimal secrets accessor role |
-| **Workload Identity Provider**| `github-wif-pool` / `github-wif-provider` | Keyless OIDC authentication for GitHub Actions |
+| **Artifact Registry** | `sdb3eb069` | `asia-southeast1` (Docker format: `asia-southeast1-docker.pkg.dev/cpe-se-course-2026/sdb3eb069/sdb3eb069`) |
+| **Cloud SQL Instance** | `sdb3eb069-pg` | PostgreSQL 16, `db-f1-micro`, Connection: `cpe-se-course-2026:asia-southeast1:sdb3eb069-pg` |
+| **Database & User** | `sdb3eb069` / `sdb3eb069` | Managed PostgreSQL database user with random password in Secret Manager |
+| **Cloud Run Migration Job**| `sdb3eb069-migrate` | Runs `npx prisma migrate deploy && npm run prisma:seed` with secrets bound |
+| **Cloud Run Service** | `sdb3eb069` | Unified runtime, Live URL: `https://sdb3eb069-4d7hbszvwq-as.a.run.app`, `--min-instances 0`, `--max-instances 1`, `--memory 512Mi` |
+| **Runtime Service Account** | `sdb3eb069-runner@cpe-se-course-2026.iam.gserviceaccount.com` | Runtime identity with minimal secrets accessor role |
+| **Deployer Service Account** | `sdb3eb069-deployer@cpe-se-course-2026.iam.gserviceaccount.com` | Identity for GitHub Actions deployment |
+| **Workload Identity Provider**| `sdb3eb069-pool` / `sdb3eb069-provider` | Keyless OIDC authentication for GitHub Actions (`projects/670075229477/locations/global/workloadIdentityPools/sdb3eb069-pool/providers/sdb3eb069-provider`) |
+| **Secret Manager Secrets** | `sdb3eb069-database-url`<br>`sdb3eb069-admin-password`<br>`sdb3eb069-demo-password` | Externalized credentials for database connection and demo/seed accounts |
 
 ---
 
@@ -106,9 +110,9 @@ docker run -p 3000:3000 --env-file server/.env eventreg:latest
    - Runs `ci-docker.yml` test suite first.
    - Logs into GCP via Workload Identity Federation (no long-lived JSON keys).
    - Builds container image tagged with immutable 40-character commit SHA:
-     `${REGION}-docker.pkg.dev/${PROJECT_ID}/toktickit/toktickit:${GITHUB_SHA}`
-   - Executes Cloud Run migration job (`toktickit-migrate`).
-   - Updates Cloud Run service (`toktickit`) to the new image digest.
+     `${REGION}-docker.pkg.dev/${PROJECT_ID}/sdb3eb069/sdb3eb069:${GITHUB_SHA}`
+   - Executes Cloud Run migration job (`sdb3eb069-migrate`).
+   - Updates Cloud Run service (`sdb3eb069`) to the new image digest.
    - Executes automated smoke test (`deploy/smoke_test.py`) against the live URL.
 
 ### 5.2 How to Identify the Currently Running Commit
@@ -123,3 +127,12 @@ docker run -p 3000:3000 --env-file server/.env eventreg:latest
    ```bash
    gcloud run services describe toktickit --region asia-southeast1 --format='value(spec.template.spec.containers[0].image)'
    ```
+
+---
+
+## 6. Known Limitations (Documentation Disclosure)
+
+1. **Client-Embedded Demo Credentials:** `client/src/App.tsx` (`handleQuickLogin`, lines 96–113) calls `/api/auth/login`, but embeds demo passwords in the client bundle.
+2. **Seed Environment Variable Mismatch:** `deploy/deploy.sh` passes `ADMIN_PASSWORD` / `DEMO_USER_PASSWORD`, whereas `server/prisma/seed.ts` reads `SEED_ORGANIZER_PASSWORD` / `SEED_PARTICIPANT_PASSWORD`; a real deploy would fall back to the default passwords committed in the repository.
+3. **Self-Merged Approved PRs:** PR #16 and PR #17 were merged by their author (`@supa-gif173`) after receiving approval from `@pimchayasupr-hash`.
+4. **Failing `Deploy demo` Runs Before Activation:** `deploy.yml` runs on every push to `main`; run `43237080737` failed at `google-github-actions/auth` because `WIF_PROVIDER` was not yet set. Run history is kept (R-10). `Deploy demo` must not be configured as a required check. After activation, merging `staging` into `main` deploys immediately, so the first release must be done deliberately after confirming the GitHub variables (`GCP_PROJECT_ID`, `GCP_REGION`, `WIF_PROVIDER`, `WIF_SERVICE_ACCOUNT`) match what `deploy.yml` reads.
