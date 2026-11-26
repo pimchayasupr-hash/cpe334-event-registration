@@ -1,0 +1,175 @@
+# Lab 6 Single Input File (docs/labs/lab06/uat-results.yaml)
+# Fill in REAL observed results only. Leave blank ("") for anything not yet completed.
+# NEVER put real passwords, secrets, or connection strings in this file.
+# Run `npm run build:lab6` to generate HTML + PDF and check remaining [รอ...] fields.
+
+pdf_filename: "lab6_sec131_ยอดนักบิด.pdf"
+
+team:
+  pimchaya_student_id: ""
+  suphattra_student_id: ""
+
+partner:
+  team_name: "พวกพี่ชอบบิด (Team 2)"
+  members: ""
+  handoff_date: ""
+  handoff_commit: "d54664d"
+  handoff_revision: "inventory-borrowing-00006-t9c"
+  handoff_url: "https://inventory-borrowing-4bhkmkbela-as.a.run.app"
+  actual_tested_version: ""
+
+part_b_cases:
+  - id: "UAT-01"
+    title: "Normal borrowing journey"
+    requires_screenshot: true
+    is_rejected_case: false
+    tester: ""
+    datetime_ict: ""
+    tested_version: ""
+    inputs_used: ""
+    steps_executed: ""
+    actual_result: ""
+    protected_state_check: ""
+    status: ""
+    status_reason: ""
+    evidence_id: "EXEC-01"
+    screenshot_file: ""
+    caption_action: ""
+    caption_expected_actual: ""
+    caption_time: ""
+    caption_version: ""
+
+  - id: "UAT-02"
+    title: "Business rule: approval cannot exceed stock; rejection needs a reason"
+    requires_screenshot: false
+    is_rejected_case: true
+    tester: ""
+    datetime_ict: ""
+    tested_version: ""
+    inputs_used: ""
+    steps_executed: ""
+    actual_result: ""
+    protected_state_check: ""
+    status: ""
+    status_reason: ""
+    evidence_id: "EXEC-02"
+    screenshot_file: ""
+    caption_action: ""
+    caption_expected_actual: ""
+    caption_time: ""
+    caption_version: ""
+
+  - id: "UAT-03"
+    title: "Forbidden role and unauthenticated access"
+    requires_screenshot: true
+    is_rejected_case: true
+    tester: ""
+    datetime_ict: ""
+    tested_version: ""
+    inputs_used: ""
+    steps_executed: ""
+    actual_result: ""
+    protected_state_check: ""
+    status: ""
+    status_reason: ""
+    evidence_id: "EXEC-03"
+    screenshot_file: ""
+    caption_action: ""
+    caption_expected_actual: ""
+    caption_time: ""
+    caption_version: ""
+
+  - id: "UAT-04"
+    title: "State, history and persistence"
+    requires_screenshot: false
+    is_rejected_case: true
+    tester: ""
+    datetime_ict: ""
+    tested_version: ""
+    inputs_used: ""
+    steps_executed: ""
+    actual_result: ""
+    protected_state_check: ""
+    status: ""
+    status_reason: ""
+    evidence_id: "EXEC-04"
+    screenshot_file: ""
+    caption_action: ""
+    caption_expected_actual: ""
+    caption_time: ""
+    caption_version: ""
+
+  - id: "UAT-05"
+    title: "Custodian adds inventory; invalid quantities rejected"
+    requires_screenshot: false
+    is_rejected_case: true
+    tester: ""
+    datetime_ict: ""
+    tested_version: ""
+    inputs_used: ""
+    steps_executed: ""
+    actual_result: ""
+    protected_state_check: ""
+    status: ""
+    status_reason: ""
+    evidence_id: "EXEC-05"
+    screenshot_file: ""
+    caption_action: ""
+    caption_expected_actual: ""
+    caption_time: ""
+    caption_version: ""
+
+  - id: "UAT-06"
+    title: "Borrower ownership (requires ACC-B2)"
+    requires_screenshot: false
+    is_rejected_case: true
+    tester: ""
+    datetime_ict: ""
+    tested_version: ""
+    inputs_used: ""
+    steps_executed: ""
+    actual_result: ""
+    protected_state_check: ""
+    status: ""
+    status_reason: ""
+    evidence_id: "EXEC-06"
+    screenshot_file: ""
+    caption_action: ""
+    caption_expected_actual: ""
+    caption_time: ""
+    caption_version: ""
+
+part_c_outgoing_defects_none: false
+part_c_outgoing_defects: []
+
+part_c_incoming_findings_none: false
+part_c_incoming_findings: []
+
+part_d_resolutions: []
+
+part_d_controlled_exercise:
+  needed: ""
+  ta_notification_date: ""
+  message_summary: ""
+  ta_response: ""
+  isolated_branch: ""
+
+decisions:
+  partner_on_ours:
+    decision: ""
+    tester_names: ""
+    tested_release: ""
+    date_ict: ""
+    conditions: ""
+  ours_on_partner:
+    decision: ""
+    tester_names: ""
+    tested_release: ""
+    date_ict: ""
+    reasons: ""
+
+ai_use:
+  tools_and_tasks: ""
+  verified_by: ""
+
+lab5_screenshot_status: ""

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CPE 334 - Lab 6 Submission Report</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 16mm 14mm 18mm 14mm;
+      @bottom-right {
+        content: counter(page) " / " counter(pages);
+        font-family: 'Inter', 'Sarabun', sans-serif;
+        font-size: 8pt;
+        color: #64748b;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', 'Sarabun', 'Noto Sans Thai', 'Thonburi', -apple-system, sans-serif;
+      font-size: 8.8pt;
+      line-height: 1.48;
+      color: #1e293b;
+      margin: 0;
+      padding: 16px;
+    }
+    .header-banner { border-left: 6px solid #FA4616; padding-left: 14px; margin-bottom: 16px; }
+    .header-banner h1 { font-size: 15pt; margin: 0 0 4px 0; color: #0f172a; }
+    .header-banner p { font-size: 9pt; color: #64748b; margin: 0; }
+    h1 { font-size: 13.5pt; color: #0f172a; }
+    h2 { font-size: 11.5pt; color: #0f172a; border-bottom: 1px solid #cbd5e1; padding-bottom: 3px; margin-top: 16px; page-break-after: avoid; }
+    h3 { font-size: 10pt; color: #1e293b; margin-top: 12px; page-break-after: avoid; }
+    a { color: #2563eb; text-decoration: none; }
+    code.inline-code { background: #f1f5f9; padding: 1px 4px; border-radius: 3px; font-family: monospace; font-size: 8.2pt; }
+    pre.code-block { background: #0f172a; color: #f8fafc; padding: 8px 10px; border-radius: 6px; font-size: 7.8pt; white-space: pre-wrap; }
+    blockquote { border-left: 3px solid #94a3b8; margin: 8px 0; padding: 6px 12px; color: #334155; background: #f8fafc; }
+    .table-container { margin: 8px 0 14px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 8pt; }
+    th, td { border: 1px solid #cbd5e1; padding: 4px 7px; text-align: left; vertical-align: top; overflow-wrap: break-word; }
+    th { background: #f1f5f9; font-weight: 600; }
+    tr { page-break-inside: avoid; }
+    .figure-container { margin: 10px 0; text-align: center; page-break-inside: avoid; }
+    .figure-container img { max-width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; }
+    .caption { font-size: 8pt; color: #475569; margin-top: 4px; font-style: italic; text-align: left; }
+  </style>
+</head>
+<body>
+  <div class="header-banner">
+    <h1>CPE 334 Introduction to Software Engineering in the Age of AI Agents</h1>
+    <p>Lab 6: Independent User Acceptance Testing and Defect Management</p>
+  </div>
+  <h1>Lab 6 Submission Report — Independent User Acceptance Testing & Defect Management</h1>
+
+<blockquote><strong>Status: Draft — ยังไม่พร้อมส่ง</strong> (เหลือช่องรอข้อมูล <strong>68</strong> ช่อง; แถบนี้จะถูกลบอัตโนมัติเมื่อกรอกข้อมูลจริงครบและผ่านการตรวจสอบ)</blockquote>
+
+<h2>Team, Scope & Release Overview</h2>
+<li><strong>Course / Lab:</strong> CPE 334 Software Engineering — Lab 6 (Independent UAT & Defect Management)</li>
+<li><strong>Product Team:</strong> ยอดนักบิด (<code class="inline-code">sec131</code>)</li>
+<li>Pimchaya Suprateravarnit — Student ID: <code class="inline-code">[รอผู้ใช้กรอก]</code> — GitHub: <code class="inline-code">@pimchayasupr-hash</code></li>
+<li>Suphattra Kongsiriphat — Student ID: <code class="inline-code">[รอผู้ใช้กรอก]</code> — GitHub: <code class="inline-code">@supa-gif173</code></li>
+<li><strong>Project Theme:</strong> Event Registration and Attendance System (KMUTT Faculty Workshops & Seminars)</li>
+<li><strong>Sprint 1 Accepted-for-Test Scope:</strong> <code class="inline-code">F-01</code> (Authentication & Session), <code class="inline-code">F-02</code> (Event Creation, Publication & Capacity), <code class="inline-code">F-03</code> (Participant Registration & Concurrency), <code class="inline-code">F-04</code> (Organizer Roster & Health/Ready). Sprint 2 (<code class="inline-code">F-05..F-07</code>) and Sprint 3 (<code class="inline-code">F-08..F-09</code>) are out of scope.</li>
+<li><strong>Repository:</strong> <a href="https://github.com/pimchayasupr-hash/cpe334-event-registration" target="_blank" rel="noopener noreferrer">https://github.com/pimchayasupr-hash/cpe334-event-registration</a></li>
+<li><strong>Tested Release Commit (<code class="inline-code">main</code>):</strong> <code class="inline-code">e6aad269e7b0f459126004e076f4fc432d1abdd0</code> (<code class="inline-code">e6aad26</code>, merged <a href="https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/40" target="_blank" rel="noopener noreferrer">PR #40</a>) — differs from tag <code class="inline-code">v1.0.0-sprint1</code> (<code class="inline-code">2d36196</code>) because Lab 5 CI/deploy/seed security fixes (#32, #37, #39) were merged before live deployment.</li>
+<li><strong>Deployed Public URL & Version:</strong> <code class="inline-code">https://sdb3eb069-4d7hbszvwq-as.a.run.app</code> — Cloud Run Service <code class="inline-code">sdb3eb069</code>, Revision <code class="inline-code">sdb3eb069-00002-mct</code> (<code class="inline-code">Deploy demo</code> run <a href="https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/45018492877" target="_blank" rel="noopener noreferrer"><code class="inline-code">45018492877</code></a>)</li>
+<li><strong>Partner Team (UAT Team / Product Team We Test):</strong> พวกพี่ชอบบิด (Team 2) — Inventory and Borrowing System — Members: [รอผู้ใช้กรอก: ชื่อสมาชิกทีมคู่]</li>
+<li><strong>ข้อมูลจากเอกสารส่งมอบของทีมคู่ ณ วันที่ [รอผู้ใช้กรอก]:</strong> URL <code class="inline-code">https://inventory-borrowing-4bhkmkbela-as.a.run.app</code>, Commit <code class="inline-code">d54664d</code>, Revision <code class="inline-code">inventory-borrowing-00006-t9c</code></li>
+<li><strong>เวอร์ชันที่ตรวจจริงตอนทดสอบ:</strong> [รอผู้ใช้กรอก]</li>
+<li><strong>Final Sprint 1 UAT Decision (Our Product — by UAT Team Only):</strong> [รอทีมคู่] (Independent Testers: [รอทีมคู่])</li>
+
+<h3>Contents Table (Auto-Generated Page Numbers)</h3>
+
+<div class="table-container"><table><thead><tr><th>Section</th><th>Title</th><th>Page</th><th>Evidence IDs</th></tr></thead><tbody><tr><td><strong>Part A</strong></td><td>UAT Preparation & Safe Handoff (<code class="inline-code">F-01</code>–<code class="inline-code">F-04</code>, 6 cases)</td><td>p. 2</td><td><code class="inline-code">UAT-01</code> – <code class="inline-code">UAT-06</code></td></tr><tr><td><strong>Part B</strong></td><td>Independent Execution (Testing Partner's App — Manual)</td><td>p. 2</td><td><code class="inline-code">EXEC-01</code> – <code class="inline-code">EXEC-06</code></td></tr><tr><td><strong>Part C</strong></td><td>Defect Reporting (Outgoing) & Findings Triage (Incoming)</td><td>p. 5</td><td><code class="inline-code">DEF-OUT-*</code>, <code class="inline-code">DEF-IN-*</code></td></tr><tr><td><strong>Part D</strong></td><td>Defect Resolution (RED/GREEN), Retest & Final Acceptance</td><td>p. 5</td><td><code class="inline-code">FIX-*</code>, <code class="inline-code">RETEST-*</code></td></tr><tr><td><strong>Version</strong></td><td>Version Traceability Table</td><td>p. 5</td><td>—</td></tr><tr><td><strong>Contrib</strong></td><td>Team Contribution Table (GitHub History)</td><td>p. 6</td><td>—</td></tr><tr><td><strong>AI-Use</strong></td><td>AI-Use Declaration</td><td>p. 6</td><td>—</td></tr><tr><td><strong>Limits</strong></td><td>Known Limitations</td><td>p. 6</td><td>—</td></tr><tr><td><strong>Appendix A</strong></td><td>Sprint 1 Contract Acceptance Criteria (Verbatim)</td><td>p. 7</td><td><code class="inline-code">AC-F01-*</code> – <code class="inline-code">AC-F04-*</code></td></tr><tr><td><strong>Appendix B</strong></td><td>Complete Sprint 1 UAT Plan (<code class="inline-code">uat-plan.md</code>)</td><td>p. 9</td><td><code class="inline-code">UAT-01</code> – <code class="inline-code">UAT-06</code></td></tr><tr><td><strong>Appendix C</strong></td><td>Baseline Automated Test & Release Evidence (<code class="inline-code">45018492877</code>)</td><td>p. 13</td><td><code class="inline-code">RUN-45018492877</code></td></tr></tbody></table></div>
+
+<hr/>
+
+<h2>Part A — UAT Preparation and Handoff</h2>
+
+<h3>A.1 Scope, Safe Account Labels & Setup/Reset Rules</h3>
+<li><strong>Accepted-for-Test Scope:</strong> Sprint 1 (<code class="inline-code">F-01</code>–<code class="inline-code">F-04</code>) only; Sprint 2 (<code class="inline-code">F-05</code>–<code class="inline-code">F-07</code>) and Sprint 3 (<code class="inline-code">F-08</code>–<code class="inline-code">F-09</code>) are out of scope.</li>
+<li><strong>Account Labels & Roles (No Secrets in Repo/PDF):</strong> <code class="inline-code">ORG-A</code> (<code class="inline-code">ORGANIZER</code>, <code class="inline-code">organizer@kmutt.ac.th</code>), <code class="inline-code">PART-1</code> (<code class="inline-code">PARTICIPANT</code>, <code class="inline-code">participant@kmutt.ac.th</code>) — credentials delivered privately via course handoff.</li>
+<li><strong>Setup, Sequence & Seed Behavior:</strong> Verify <code class="inline-code">GET /api/health</code> and <code class="inline-code">/api/ready</code> return <code class="inline-code">200 OK</code>. Run <code class="inline-code">UAT-06</code> → <code class="inline-code">UAT-01</code> → <code class="inline-code">UAT-02</code> → <code class="inline-code">UAT-03</code> → <code class="inline-code">UAT-04</code> → <code class="inline-code">UAT-05</code> using unique synthetic titles. <code class="inline-code">server/prisma/seed.ts</code> uses <code class="inline-code">prisma.user.upsert</code> (<code class="inline-code">update: { passwordHash }</code>), overwriting seeded passwords on every <code class="inline-code">sdb3eb069-migrate</code> execution; <strong>do not rotate secrets during partner UAT without prior notice</strong>.</li>
+
+<h3>A.2 Executable UAT Case Summary (Full Steps in Appendix B)</h3>
+
+<div class="table-container"><table><thead><tr><th>Case ID</th><th>Category</th><th>Contract / AC Reference</th><th>Objective</th></tr></thead><tbody><tr><td><code class="inline-code">UAT-01</code></td><td>Normal Domain Journey</td><td><code class="inline-code">AC-F02-01</code>, <code class="inline-code">AC-F02-03</code>, <code class="inline-code">AC-F03-01</code>, <code class="inline-code">AC-F03-06</code>, <code class="inline-code">AC-F04-01</code></td><td>Organizer creates & publishes event → Participant registers → Roster shows participant</td></tr><tr><td><code class="inline-code">UAT-02</code></td><td>Business Rule / Boundary</td><td><code class="inline-code">AC-F03-02</code>, <code class="inline-code">AC-F03-03</code>, <code class="inline-code">AC-F02-06</code></td><td>Full capacity <code class="inline-code">409</code>, duplicate registration <code class="inline-code">409</code>, capacity floor <code class="inline-code">409</code></td></tr><tr><td><code class="inline-code">UAT-03</code></td><td>Business Rule / Boundary</td><td><code class="inline-code">AC-F02-04</code>, <code class="inline-code">AC-F02-05</code>, <code class="inline-code">AC-F03-05</code></td><td>Past <code class="inline-code">startAt</code> publish rejected (<code class="inline-code">400</code>); <code class="inline-code">DRAFT</code> hidden from participants</td></tr><tr><td><code class="inline-code">UAT-04</code></td><td>Forbidden Role / Ownership</td><td><code class="inline-code">AC-F01-01</code>, <code class="inline-code">AC-F02-07</code>, <code class="inline-code">AC-F02-08</code>, <code class="inline-code">AC-F03-07</code>, <code class="inline-code">AC-F04-03</code>, <code class="inline-code">AC-F04-04</code></td><td>Role separation (<code class="inline-code">403</code>), cross-organizer blocked (<code class="inline-code">403</code>), <code class="inline-code">passwordHash</code> omitted</td></tr><tr><td><code class="inline-code">UAT-05</code></td><td>State / Session / Persistence</td><td><code class="inline-code">AC-F01-03</code>, <code class="inline-code">AC-F01-05</code>, <code class="inline-code">AC-F03-01</code></td><td>Logout invalidates session (<code class="inline-code">401</code>); data persists across Cloud Run restart/redeploy</td></tr><tr><td><code class="inline-code">UAT-06</code></td><td>Operational Readiness</td><td><code class="inline-code">AC-F04-05</code></td><td><code class="inline-code">GET /api/health</code> and <code class="inline-code">GET /api/ready</code> return <code class="inline-code">200 OK</code></td></tr></tbody></table></div>
+
+<hr/>
+
+<h2>Part B — Independent Execution (We Test Partner Team's System)</h2>
+<li><strong>UAT Team:</strong> ยอดนักบิด (<code class="inline-code">sec131</code>) — <code class="inline-code">@pimchayasupr-hash</code>, <code class="inline-code">@supa-gif173</code> (<strong>ทดสอบด้วยมือ / manual</strong>)</li>
+<li><strong>Partner System:</strong> พวกพี่ชอบบิด (Team 2) — <code class="inline-code">https://inventory-borrowing-4bhkmkbela-as.a.run.app</code></li>
+<li><strong>Partner Account Labels Used (No Passwords):</strong> <code class="inline-code">ACC-B1</code> (Borrower 1), <code class="inline-code">ACC-C1</code> (Custodian), <code class="inline-code">ACC-B2</code> (Borrower 2)</li>
+<li><strong>ข้อมูลจากเอกสารส่งมอบของทีมคู่ ณ วันที่ [รอผู้ใช้กรอก]:</strong> Commit <code class="inline-code">d54664d</code>, Revision <code class="inline-code">inventory-borrowing-00006-t9c</code></li>
+<li><strong>เวอร์ชันที่ตรวจจริงตอนทดสอบ:</strong> [รอผู้ใช้กรอก]</li>
+
+<h3>UAT-01 — Normal borrowing journey <em>(ทดสอบด้วยมือ / manual)</em></h3>
+
+<div class="table-container"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><strong>Case ID / Evidence ID</strong></td><td><code class="inline-code">UAT-01</code> / <code class="inline-code">EXEC-01</code> — <strong>ทดสอบด้วยมือ (manual)</strong></td></tr><tr><td><strong>ผู้ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>วันเวลา (ICT)</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>เวอร์ชัน / URL / Revision ที่ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>อินพุตที่ใช้จริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ขั้นตอนที่ทำจริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ผลจริง (ข้อสังเกตที่อ่านได้)</strong></td><td>[รอผู้ใช้กรอกจากผลทดสอบจริง]</td></tr><tr><td><strong>สถานะ (PASS / FAIL / BLOCKED) & เหตุผล</strong></td><td>[รอผู้ใช้กรอก]</td></tr></tbody></table></div>
+
+<blockquote><strong>[รอภาพจริงจากผู้ใช้: EXEC-01]</strong> — ใส่ไฟล์ภาพจริงใน <code class="inline-code">docs/labs/lab06/screenshots/</code> พร้อม caption (Evidence ID, action, ผลที่คาดหวัง/ผลจริง, เวลา, เวอร์ชัน)</blockquote>
+
+<h3>UAT-02 — Business rule: approval cannot exceed stock; rejection needs a reason <em>(ทดสอบด้วยมือ / manual)</em></h3>
+
+<div class="table-container"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><strong>Case ID / Evidence ID</strong></td><td><code class="inline-code">UAT-02</code> / <code class="inline-code">EXEC-02</code> — <strong>ทดสอบด้วยมือ (manual)</strong></td></tr><tr><td><strong>ผู้ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>วันเวลา (ICT)</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>เวอร์ชัน / URL / Revision ที่ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>อินพุตที่ใช้จริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ขั้นตอนที่ทำจริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ผลจริง (ข้อสังเกตที่อ่านได้)</strong></td><td>[รอผู้ใช้กรอกจากผลทดสอบจริง]</td></tr><tr><td><strong>ผลตรวจว่าข้อมูลที่ป้องกันไม่ถูกเปลี่ยนหรือเปิดเผย</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>สถานะ (PASS / FAIL / BLOCKED) & เหตุผล</strong></td><td>[รอผู้ใช้กรอก]</td></tr></tbody></table></div>
+
+<blockquote><strong>ข้อสังเกต/ภาพ (EXEC-02):</strong> [รอภาพจริงหรือข้อสังเกตจากผู้ใช้: EXEC-02]</blockquote>
+
+<h3>UAT-03 — Forbidden role and unauthenticated access <em>(ทดสอบด้วยมือ / manual)</em></h3>
+
+<div class="table-container"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><strong>Case ID / Evidence ID</strong></td><td><code class="inline-code">UAT-03</code> / <code class="inline-code">EXEC-03</code> — <strong>ทดสอบด้วยมือ (manual)</strong></td></tr><tr><td><strong>ผู้ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>วันเวลา (ICT)</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>เวอร์ชัน / URL / Revision ที่ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>อินพุตที่ใช้จริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ขั้นตอนที่ทำจริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ผลจริง (ข้อสังเกตที่อ่านได้)</strong></td><td>[รอผู้ใช้กรอกจากผลทดสอบจริง]</td></tr><tr><td><strong>ผลตรวจว่าข้อมูลที่ป้องกันไม่ถูกเปลี่ยนหรือเปิดเผย</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>สถานะ (PASS / FAIL / BLOCKED) & เหตุผล</strong></td><td>[รอผู้ใช้กรอก]</td></tr></tbody></table></div>
+
+<blockquote><strong>[รอภาพจริงจากผู้ใช้: EXEC-03]</strong> — ใส่ไฟล์ภาพจริงใน <code class="inline-code">docs/labs/lab06/screenshots/</code> พร้อม caption (Evidence ID, action, ผลที่คาดหวัง/ผลจริง, เวลา, เวอร์ชัน)</blockquote>
+
+<h3>UAT-04 — State, history and persistence <em>(ทดสอบด้วยมือ / manual)</em></h3>
+
+<div class="table-container"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><strong>Case ID / Evidence ID</strong></td><td><code class="inline-code">UAT-04</code> / <code class="inline-code">EXEC-04</code> — <strong>ทดสอบด้วยมือ (manual)</strong></td></tr><tr><td><strong>ผู้ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>วันเวลา (ICT)</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>เวอร์ชัน / URL / Revision ที่ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>อินพุตที่ใช้จริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ขั้นตอนที่ทำจริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ผลจริง (ข้อสังเกตที่อ่านได้)</strong></td><td>[รอผู้ใช้กรอกจากผลทดสอบจริง]</td></tr><tr><td><strong>ผลตรวจว่าข้อมูลที่ป้องกันไม่ถูกเปลี่ยนหรือเปิดเผย</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>สถานะ (PASS / FAIL / BLOCKED) & เหตุผล</strong></td><td>[รอผู้ใช้กรอก]</td></tr></tbody></table></div>
+
+<blockquote><strong>ข้อสังเกต/ภาพ (EXEC-04):</strong> [รอภาพจริงหรือข้อสังเกตจากผู้ใช้: EXEC-04]</blockquote>
+
+<h3>UAT-05 — Custodian adds inventory; invalid quantities rejected <em>(ทดสอบด้วยมือ / manual)</em></h3>
+
+<div class="table-container"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><strong>Case ID / Evidence ID</strong></td><td><code class="inline-code">UAT-05</code> / <code class="inline-code">EXEC-05</code> — <strong>ทดสอบด้วยมือ (manual)</strong></td></tr><tr><td><strong>ผู้ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>วันเวลา (ICT)</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>เวอร์ชัน / URL / Revision ที่ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>อินพุตที่ใช้จริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ขั้นตอนที่ทำจริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ผลจริง (ข้อสังเกตที่อ่านได้)</strong></td><td>[รอผู้ใช้กรอกจากผลทดสอบจริง]</td></tr><tr><td><strong>ผลตรวจว่าข้อมูลที่ป้องกันไม่ถูกเปลี่ยนหรือเปิดเผย</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>สถานะ (PASS / FAIL / BLOCKED) & เหตุผล</strong></td><td>[รอผู้ใช้กรอก]</td></tr></tbody></table></div>
+
+<blockquote><strong>ข้อสังเกต/ภาพ (EXEC-05):</strong> [รอภาพจริงหรือข้อสังเกตจากผู้ใช้: EXEC-05]</blockquote>
+
+<h3>UAT-06 — Borrower ownership (requires ACC-B2) <em>(ทดสอบด้วยมือ / manual)</em></h3>
+
+<div class="table-container"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><strong>Case ID / Evidence ID</strong></td><td><code class="inline-code">UAT-06</code> / <code class="inline-code">EXEC-06</code> — <strong>ทดสอบด้วยมือ (manual)</strong></td></tr><tr><td><strong>ผู้ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>วันเวลา (ICT)</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>เวอร์ชัน / URL / Revision ที่ทดสอบ</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>อินพุตที่ใช้จริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ขั้นตอนที่ทำจริง</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>ผลจริง (ข้อสังเกตที่อ่านได้)</strong></td><td>[รอผู้ใช้กรอกจากผลทดสอบจริง]</td></tr><tr><td><strong>ผลตรวจว่าข้อมูลที่ป้องกันไม่ถูกเปลี่ยนหรือเปิดเผย</strong></td><td>[รอผู้ใช้กรอก]</td></tr><tr><td><strong>สถานะ (PASS / FAIL / BLOCKED) & เหตุผล</strong></td><td>[รอผู้ใช้กรอก]</td></tr></tbody></table></div>
+
+<blockquote><strong>ข้อสังเกต/ภาพ (EXEC-06):</strong> [รอภาพจริงหรือข้อสังเกตจากผู้ใช้: EXEC-06]</blockquote>
+
+<hr/>
+
+<h2>Part C — Defect Reporting and Triage</h2>
+
+<h3>C.1 Outgoing Defect Reports (Sent by Our Team to Partner Team)</h3>
+<code class="inline-code">[รอผู้ใช้กรอกจากผลทดสอบจริง — หากไม่พบ defect ให้ตั้ง part_c_outgoing_defects_none: true]</code>
+
+<h3>C.2 Incoming Findings Triage Table (Received from Partner Team on Our Product)</h3>
+
+<div class="table-container"><table><thead><tr><th>Finding / Issue ID</th><th>Reporter</th><th>Summary</th><th>Classification</th><th>Sprint 1 Contract Reason</th><th>Duplicate Of</th><th>Severity</th><th>Owner</th><th>Disposition</th></tr></thead><tbody><tr><td><code class="inline-code">[รอผลทดสอบจากทีมคู่]</code></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div>
+
+<hr/>
+
+<h2>Part D — Resolution and Independent Retest</h2>
+
+<h3>D.1 Accepted Defect Resolution Chain (or Controlled Defect Exercise)</h3>
+<li><code class="inline-code">[รอผลจาก Part C — หากมี accepted defect ให้กรอก part_d_resolutions; หากไม่มีให้ขอ Controlled Defect Exercise จาก TA บน branch แยก]</code></li>
+
+<h3>D.2 Independent UAT Final Acceptance Decisions</h3>
+
+<p><strong>1. Partner UAT Team's Final Decision on Our Product (<code class="inline-code">ยอดนักบิด sec131</code>):</strong><br/><li><strong>Independent Tester Name(s):</strong> [รอทีมคู่]</li><br/><li><strong>Exact Tested Release (Commit / GCP Revision / URL):</strong> [รอทีมคู่]</li><br/><li><strong>Date & Time (ICT):</strong> [รอทีมคู่]</li><br/><li><strong>Decision:</strong> <strong>[รอทีมคู่]</strong> <em>(Accepted / Accepted with minor limitations / Not Accepted — recorded by UAT Team only)</em></li><br/><li><strong>Conditions / Minor Limitations:</strong> [รอทีมคู่]</li></p>
+
+<p><strong>2. Our Team's Final Decision on Partner Team's Product (<code class="inline-code">พวกพี่ชอบบิด Team 2</code>):</strong><br/><li><strong>Testers:</strong> [รอผู้ใช้กรอกตามหลักฐานจริง]</li><br/><li><strong>Exact Tested Release (Commit / Revision / URL):</strong> [รอผู้ใช้กรอกตามหลักฐานจริง]</li><br/><li><strong>Date & Time (ICT):</strong> [รอผู้ใช้กรอกตามหลักฐานจริง]</li><br/><li><strong>Decision:</strong> <strong>[รอผู้ใช้กรอกตามหลักฐานจริง]</strong></li><br/><li><strong>Reasons / Conditions:</strong> [รอผู้ใช้กรอกตามหลักฐานจริง]</li></p>
+
+<hr/>
+
+<h2>Version Traceability</h2>
+
+<div class="table-container"><table><thead><tr><th>Stage</th><th>Commit / Tag</th><th>GCP Revision</th><th>Explanation</th></tr></thead><tbody><tr><td>Sprint 1 CI-tested <code class="inline-code">staging</code></td><td><code class="inline-code">e2846b8</code></td><td>—</td><td>CI run <code class="inline-code">43210196284</code> (<code class="inline-code">pull_request</code>)</td></tr><tr><td>Release PR #18 merge (<code class="inline-code">main</code>)</td><td><code class="inline-code">10834da</code></td><td>—</td><td>Merged by <code class="inline-code">@pimchayasupr-hash</code></td></tr><tr><td>Tag <code class="inline-code">v1.0.0-sprint1</code></td><td><code class="inline-code">2d36196</code></td><td>—</td><td>Diff vs <code class="inline-code">10834da</code>: <code class="inline-code">docs/deliverable-1-report.md</code> only</td></tr><tr><td>Pre-activation <code class="inline-code">main</code> head</td><td><code class="inline-code">12d04b9</code></td><td>—</td><td>7 direct-push doc/script commits (<code class="inline-code">2d36196..12d04b9</code>)</td></tr><tr><td>Release PR #38 merge (<code class="inline-code">main</code>)</td><td><code class="inline-code">8f082c9</code></td><td>—</td><td><code class="inline-code">Deploy demo</code> run <code class="inline-code">44986537160</code> failed at <code class="inline-code">sdb3eb069-migrate</code></td></tr><tr><td>Release PR #40 merge (<code class="inline-code">main</code>)</td><td><code class="inline-code">e6aad26</code></td><td><code class="inline-code">sdb3eb069-00002-mct</code></td><td><code class="inline-code">Deploy demo</code> run <a href="https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/45018492877" target="_blank" rel="noopener noreferrer"><code class="inline-code">45018492877</code></a> (attempt 2) succeeded; baseline for Lab 6 UAT</td></tr></tbody></table></div>
+
+<h2>Team Contribution Table</h2>
+
+<div class="table-container"><table><thead><tr><th>Member</th><th>Authored PRs / Issues</th><th>Reviewed / Approved</th><th>Merged</th></tr></thead><tbody><tr><td><strong>Pimchaya Suprateravarnit</strong> (<code class="inline-code">@pimchayasupr-hash</code>)</td><td>PRs #2–#14, #24–#26, #32–#34, #36, #37, #40; Issues #20–#23, #27–#31, #35</td><td>Approved PRs #16, #17, #18, #38, #39</td><td>Merged PRs #2–#14, #18, #25, #38, #39</td></tr><tr><td><strong>Suphattra Kongsiriphat</strong> (<code class="inline-code">@supa-gif173</code>)</td><td>PRs #16–#19, #38, #39; 7 direct commits (<code class="inline-code">2d36196..12d04b9</code>); co-named on Issues #20–#23, #27–#31</td><td>Approved PRs #2–#14, #24 (sync), #25, #26, #32, #34, #36, #37, #40</td><td>Merged PRs #16, #17, #24, #26, #32, #36, #37, #40</td></tr></tbody></table></div>
+
+<h2>AI-Use Declaration</h2>
+<li><strong>Verifiable Repository Assistance:</strong> Google Antigravity assisted with structuring <code class="inline-code">docs/labs/lab06/uat-plan.md</code>, <code class="inline-code">uat-templates.md</code>, <code class="inline-code">uat-results.yaml</code>, <code class="inline-code">report.md</code>, and <code class="inline-code">scripts/bundle_lab6.js</code>.</li>
+<li><strong>User Confirmation of All AI Tools & Tasks:</strong> [ผู้ใช้ยืนยันเครื่องมือ AI ทั้งหมดที่ใช้จริงและงานที่แต่ละตัวทำ]</li>
+<li><strong>Reviewed & Verified By:</strong> [รอผู้ใช้ระบุผู้ตรวจ]</li>
+
+<h2>Known Limitations</h2>
+
+<p>1. <strong>Single Seeded Account per Role (<code class="inline-code">ORG-A</code>, <code class="inline-code">PART-1</code>):</strong> <code class="inline-code">server/prisma/seed.ts</code> creates only 1 Organizer (<code class="inline-code">ORG-A</code>) and 1 Participant (<code class="inline-code">PART-1</code>), and Sprint 1 has no self-registration endpoint. Therefore:<br/><li>Cross-organizer ownership checks (<code class="inline-code">AC-F02-08</code>, <code class="inline-code">AC-F04-03</code> in <code class="inline-code">UAT-04</code> step 5) are <strong>N/A</strong> on the live deployment unless <code class="inline-code">ORG-B</code> is provisioned (covered by automated integration tests <code class="inline-code">TEST-F02-07</code> and <code class="inline-code">TEST-F04-02</code>).</li><br/><li>Second-participant full-capacity check (<code class="inline-code">AC-F03-03</code> in <code class="inline-code">UAT-02</code> step 4) uses the <strong>fallback</strong> (<code class="inline-code">capacity=1</code> filled by <code class="inline-code">PART-1</code> + duplicate <code class="inline-code">409</code> + capacity-floor <code class="inline-code">409</code> by <code class="inline-code">ORG-A</code>) unless <code class="inline-code">PART-2</code> is provisioned (covered by automated tests <code class="inline-code">TEST-F03-03</code> and <code class="inline-code">TEST-F03-04</code>).</li><br/>2. <strong>Direct Pushes & Tag Alignment (Sprint 1):</strong> 7 commits (<code class="inline-code">2d36196..12d04b9</code>) were pushed directly to <code class="inline-code">main</code> before ruleset <code class="inline-code">protect-main-staging</code> (<code class="inline-code">27641965</code>) existed, and <code class="inline-code">v1.0.0-sprint1</code> points to <code class="inline-code">2d36196</code> rather than PR #18 (<code class="inline-code">10834da</code>).<br/>3. <strong>Lab 5 Draft Screenshot Audit Finding:</strong> Figures 11–17 in an earlier Lab 5 draft contained status banners absent from deployed <code class="inline-code">client/src</code> (<code class="inline-code">e6aad26</code>); they are excluded from Lab 6 ([สถานะการแก้/แจ้ง TA Lab 5: รอผู้ใช้กรอก]).<br/>4. <strong>Demo Credential Remediation:</strong> Hardcoded demo credentials from Sprint 1 were removed in PR #32 and deployed in PR #40 (<code class="inline-code">e6aad26</code>).</p>
+
+<hr/>
+
+<h2>Appendix A — Sprint 1 Contract Acceptance Criteria (Verbatim Excerpts)</h2>
+
+<h3>F-01: Authentication & Session Contract (<code class="inline-code">f-01-auth-session.md</code>)</h3>
+
+<h2>3. Acceptance Criteria (<code class="inline-code">AC</code>)</h2>
+
+<div class="table-container"><table><thead><tr><th>AC ID</th><th>Criterion (Observable Expected Outcome)</th><th>Linked Req</th></tr></thead><tbody><tr><td><strong>AC-F01-01</strong></td><td>Given a seeded user (<code class="inline-code">ORGANIZER</code> or <code class="inline-code">PARTICIPANT</code>), when <code class="inline-code">POST /api/auth/login</code> is called with valid email and password, then the server responds <code class="inline-code">200 OK</code>, sets an <code class="inline-code">httpOnly</code> <code class="inline-code">sid</code> cookie (<code class="inline-code">crypto.randomBytes(32).toString('hex')</code>), creates a <code class="inline-code">Session</code> record in PostgreSQL with an 8-hour expiry, and returns <code class="inline-code">{ user: { id, email, name, role } }</code> without <code class="inline-code">passwordHash</code>.</td><td><code class="inline-code">FR-01</code>, <code class="inline-code">NFR-01</code>, <code class="inline-code">NFR-02</code></td></tr><tr><td><strong>AC-F01-02</strong></td><td>Given an invalid password or unknown email, when <code class="inline-code">POST /api/auth/login</code> is called, then the server responds <code class="inline-code">401 Unauthorized</code>, sets no session cookie, and creates no <code class="inline-code">Session</code> row in PostgreSQL.</td><td><code class="inline-code">FR-01</code>, <code class="inline-code">NFR-02</code></td></tr><tr><td><strong>AC-F01-03</strong></td><td>Given a valid active <code class="inline-code">sid</code> cookie, when <code class="inline-code">GET /api/auth/me</code> is called, then the server responds <code class="inline-code">200 OK</code> with the authenticated user's <code class="inline-code">{ id, email, name, role }</code>.</td><td><code class="inline-code">FR-01</code>, <code class="inline-code">NFR-02</code></td></tr><tr><td><strong>AC-F01-04</strong></td><td>Given no <code class="inline-code">sid</code> cookie or an unrecognized token, when <code class="inline-code">GET /api/auth/me</code> is called, then the server responds <code class="inline-code">401 Unauthorized</code> without returning user data.</td><td><code class="inline-code">FR-01</code>, <code class="inline-code">NFR-02</code></td></tr><tr><td><strong>AC-F01-05</strong></td><td>Given a logged-in session, when <code class="inline-code">POST /api/auth/logout</code> is called, then the <code class="inline-code">Session</code> row is removed from PostgreSQL, the cookie is cleared, and a subsequent <code class="inline-code">GET /api/auth/me</code> using the old cookie returns <code class="inline-code">401 Unauthorized</code>.</td><td><code class="inline-code">FR-01</code>, <code class="inline-code">NFR-02</code>, <code class="inline-code">NFR-04</code></td></tr><tr><td><strong>AC-F01-06</strong></td><td>Given a <code class="inline-code">Session</code> row in PostgreSQL whose <code class="inline-code">expiresAt</code> timestamp is in the past, when <code class="inline-code">GET /api/auth/me</code> is called with that session's cookie, then the server responds <code class="inline-code">401 Unauthorized</code>.</td><td><code class="inline-code">NFR-02</code></td></tr><tr><td><strong>AC-F01-07</strong></td><td>Given a login request with an empty/missing <code class="inline-code">email</code> or empty/missing <code class="inline-code">password</code>, when <code class="inline-code">POST /api/auth/login</code> is called, then the server responds <code class="inline-code">400 Bad Request</code> with a validation error message and creates no <code class="inline-code">Session</code> row in PostgreSQL.</td><td><code class="inline-code">FR-01</code></td></tr></tbody></table></div>
+
+<hr/>
+
+<h3>F-02: Event Management Contract (<code class="inline-code">f-02-event-management.md</code>)</h3>
+
+<h2>3. Acceptance Criteria (<code class="inline-code">AC</code>)</h2>
+
+<div class="table-container"><table><thead><tr><th>AC ID</th><th>Criterion (Observable Expected Outcome)</th><th>Linked Req</th></tr></thead><tbody><tr><td><strong>AC-F02-01</strong></td><td>Given an authenticated <code class="inline-code">ORGANIZER</code>, when <code class="inline-code">POST /api/events</code> is called with valid fields and <code class="inline-code">1 &lt;= capacity &lt;= 500</code>, then the event is stored in PostgreSQL with <code class="inline-code">status = 'DRAFT'</code> and <code class="inline-code">organizerId = currentUser.id</code>, returning <code class="inline-code">201 Created</code>.</td><td><code class="inline-code">FR-02</code>, <code class="inline-code">BR-01</code>, <code class="inline-code">AD-03</code></td></tr><tr><td><strong>AC-F02-02</strong></td><td>Given an authenticated <code class="inline-code">ORGANIZER</code>, when <code class="inline-code">POST /api/events</code> is called with <code class="inline-code">capacity &lt; 1</code> (e.g., <code class="inline-code">0</code>, <code class="inline-code">-1</code>), <code class="inline-code">capacity &gt; 500</code> (e.g., <code class="inline-code">501</code>), or <code class="inline-code">endAt &lt;= startAt</code>, then the request is rejected with <code class="inline-code">400 Bad Request</code> and no event is saved.</td><td><code class="inline-code">BR-01</code>, <code class="inline-code">BR-02</code>, <code class="inline-code">AD-02</code></td></tr><tr><td><strong>AC-F02-03</strong></td><td>Given a <code class="inline-code">DRAFT</code> event owned by the authenticated <code class="inline-code">ORGANIZER</code> with <code class="inline-code">startAt &gt; now</code>, when <code class="inline-code">POST /api/events/:id/publish</code> is called, then <code class="inline-code">status</code> updates to <code class="inline-code">'PUBLISHED'</code> in PostgreSQL and the event appears in <code class="inline-code">GET /api/events</code>.</td><td><code class="inline-code">FR-02</code>, <code class="inline-code">FR-03</code>, <code class="inline-code">BR-02</code></td></tr><tr><td><strong>AC-F02-04</strong></td><td>Given a <code class="inline-code">DRAFT</code> event whose <code class="inline-code">startAt</code> is in the past (<code class="inline-code">startAt &lt;= now</code>), when <code class="inline-code">POST /api/events/:id/publish</code> is called, then the server responds <code class="inline-code">400 Bad Request</code> and the event remains <code class="inline-code">'DRAFT'</code>.</td><td><code class="inline-code">BR-02</code>, <code class="inline-code">AD-03</code></td></tr><tr><td><strong>AC-F02-05</strong></td><td>Given a <code class="inline-code">DRAFT</code> event, when a <code class="inline-code">PARTICIPANT</code> calls <code class="inline-code">GET /api/events</code> or <code class="inline-code">GET /api/events/:id</code>, then the <code class="inline-code">DRAFT</code> event is excluded from the list and <code class="inline-code">GET /api/events/:id</code> returns <code class="inline-code">404 Not Found</code>.</td><td><code class="inline-code">FR-03</code>, <code class="inline-code">BR-03</code></td></tr><tr><td><strong>AC-F02-06</strong></td><td>Given an event with <code class="inline-code">k</code> active registrations, when the owning <code class="inline-code">ORGANIZER</code> calls <code class="inline-code">PATCH /api/events/:id/capacity</code> with <code class="inline-code">newCapacity &lt; k</code>, then the server responds <code class="inline-code">409 Conflict</code> and <code class="inline-code">capacity</code> remains unchanged; when <code class="inline-code">k &lt;= newCapacity &lt;= 500</code>, <code class="inline-code">capacity</code> updates and returns <code class="inline-code">200 OK</code>.</td><td><code class="inline-code">FR-02</code>, <code class="inline-code">BR-01</code>, <code class="inline-code">AD-04</code></td></tr><tr><td><strong>AC-F02-07</strong></td><td>Given a logged-in <code class="inline-code">PARTICIPANT</code>, when they call <code class="inline-code">POST /api/events</code>, <code class="inline-code">POST /api/events/:id/publish</code>, <code class="inline-code">PATCH /api/events/:id/capacity</code>, or <code class="inline-code">GET /api/organizer/events</code>, then the server responds <code class="inline-code">403 Forbidden</code>.</td><td><code class="inline-code">BR-06</code></td></tr><tr><td><strong>AC-F02-08</strong></td><td>Given <code class="inline-code">Organizer B</code> who does not own <code class="inline-code">Organizer A</code>'s event, when <code class="inline-code">Organizer B</code> calls <code class="inline-code">POST /api/events/:id/publish</code> or <code class="inline-code">PATCH /api/events/:id/capacity</code> on <code class="inline-code">Organizer A</code>'s event, then the server responds <code class="inline-code">403 Forbidden</code> and the event is unmodified.</td><td><code class="inline-code">BR-07</code></td></tr></tbody></table></div>
+
+<hr/>
+
+<h3>F-03: Registration & Concurrency Contract (<code class="inline-code">f-03-registration-concurrency.md</code>)</h3>
+
+<h2>3. Acceptance Criteria (<code class="inline-code">AC</code>)</h2>
+
+<div class="table-container"><table><thead><tr><th>AC ID</th><th>Criterion (Observable Expected Outcome)</th><th>Linked Req</th></tr></thead><tbody><tr><td><strong>AC-F03-01</strong></td><td>Given an authenticated <code class="inline-code">PARTICIPANT</code> and a <code class="inline-code">PUBLISHED</code> event with <code class="inline-code">remainingSeats &gt;= 1</code>, when <code class="inline-code">POST /api/events/:id/registrations</code> is called, then an <code class="inline-code">ACTIVE</code> registration row is persisted in PostgreSQL, <code class="inline-code">remainingSeats</code> decreases by 1, and the server responds <code class="inline-code">201 Created</code>.</td><td><code class="inline-code">FR-04</code>, <code class="inline-code">NFR-04</code></td></tr><tr><td><strong>AC-F03-02</strong></td><td>Given an authenticated <code class="inline-code">PARTICIPANT</code> who already has an <code class="inline-code">ACTIVE</code> registration for an event, when <code class="inline-code">POST /api/events/:id/registrations</code> is called again for the same event, then the server responds <code class="inline-code">409 Conflict</code> and only 1 registration row exists in PostgreSQL for <code class="inline-code">(eventId, userId)</code>.</td><td><code class="inline-code">BR-05</code>, <code class="inline-code">AD-05</code></td></tr><tr><td><strong>AC-F03-03</strong></td><td>Given a <code class="inline-code">PUBLISHED</code> event where <code class="inline-code">activeRegistrationsCount == capacity</code>, when another <code class="inline-code">PARTICIPANT</code> calls <code class="inline-code">POST /api/events/:id/registrations</code>, then the server responds <code class="inline-code">409 Conflict</code> and no new registration is stored.</td><td><code class="inline-code">BR-04</code></td></tr><tr><td><strong>AC-F03-04</strong></td><td>Given a <code class="inline-code">PUBLISHED</code> event with <code class="inline-code">capacity = 1</code> (or 1 seat remaining) and 5 distinct authenticated <code class="inline-code">PARTICIPANT</code> users submitting <code class="inline-code">POST /api/events/:id/registrations</code> concurrently, then exactly 1 request returns <code class="inline-code">201 Created</code>, 4 requests return <code class="inline-code">409 Conflict</code>, and PostgreSQL contains exactly 1 <code class="inline-code">ACTIVE</code> registration for that seat.</td><td><code class="inline-code">BR-04</code>, <code class="inline-code">NFR-03</code></td></tr><tr><td><strong>AC-F03-05</strong></td><td>Given a <code class="inline-code">DRAFT</code> event, when a <code class="inline-code">PARTICIPANT</code> calls <code class="inline-code">POST /api/events/:id/registrations</code>, then the request is rejected (<code class="inline-code">404 Not Found</code> or <code class="inline-code">409 Conflict</code>) and no registration is stored.</td><td><code class="inline-code">BR-03</code></td></tr><tr><td><strong>AC-F03-06</strong></td><td>Given <code class="inline-code">Participant A</code> and <code class="inline-code">Participant B</code> each having their own registrations, when <code class="inline-code">Participant A</code> calls <code class="inline-code">GET /api/registrations/me</code>, then the response returns <code class="inline-code">200 OK</code> containing only <code class="inline-code">Participant A</code>'s registrations and never includes <code class="inline-code">Participant B</code>'s records.</td><td><code class="inline-code">FR-05</code>, <code class="inline-code">BR-07</code></td></tr><tr><td><strong>AC-F03-07</strong></td><td>Given an authenticated <code class="inline-code">ORGANIZER</code> (or unauthenticated client), when calling <code class="inline-code">POST /api/events/:id/registrations</code> or <code class="inline-code">GET /api/registrations/me</code>, then the server responds <code class="inline-code">403 Forbidden</code> (or <code class="inline-code">401 Unauthorized</code>).</td><td><code class="inline-code">BR-06</code>, <code class="inline-code">NFR-02</code></td></tr></tbody></table></div>
+
+<hr/>
+
+<h3>F-04: Organizer Roster & Readiness Contract (<code class="inline-code">f-04-organizer-roster.md</code>)</h3>
+
+<h2>3. Acceptance Criteria (<code class="inline-code">AC</code>)</h2>
+
+<div class="table-container"><table><thead><tr><th>AC ID</th><th>Criterion (Observable Expected Outcome)</th><th>Linked Req</th></tr></thead><tbody><tr><td><strong>AC-F04-01</strong></td><td>Given an authenticated <code class="inline-code">ORGANIZER</code> who owns <code class="inline-code">Event A</code> having registered participants, when <code class="inline-code">GET /api/events/:id/registrations</code> is called, then the server responds <code class="inline-code">200 OK</code> with the list of active registrations including each participant's <code class="inline-code">{ id, name, email }</code> (and omitting <code class="inline-code">passwordHash</code>).</td><td><code class="inline-code">FR-06</code>, <code class="inline-code">NFR-01</code>, <code class="inline-code">NFR-04</code></td></tr><tr><td><strong>AC-F04-02</strong></td><td>Given an authenticated <code class="inline-code">ORGANIZER</code> who owns <code class="inline-code">Event A</code> with <code class="inline-code">0</code> registrations, when <code class="inline-code">GET /api/events/:id/registrations</code> is called, then the server responds <code class="inline-code">200 OK</code> with <code class="inline-code">"registrations": []</code> and <code class="inline-code">"activeRegistrationsCount": 0</code>.</td><td><code class="inline-code">FR-06</code></td></tr><tr><td><strong>AC-F04-03</strong></td><td>Given <code class="inline-code">Organizer B</code> who does not own <code class="inline-code">Organizer A</code>'s <code class="inline-code">Event A</code>, when <code class="inline-code">Organizer B</code> calls <code class="inline-code">GET /api/events/:id/registrations</code> for <code class="inline-code">Event A</code>, then the server responds <code class="inline-code">403 Forbidden</code> without returning any registrant records.</td><td><code class="inline-code">BR-07</code></td></tr><tr><td><strong>AC-F04-04</strong></td><td>Given a logged-in <code class="inline-code">PARTICIPANT</code> (or unauthenticated user), when calling <code class="inline-code">GET /api/events/:id/registrations</code>, then the server responds <code class="inline-code">403 Forbidden</code> (or <code class="inline-code">401 Unauthorized</code>) without returning any registrant records.</td><td><code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">NFR-02</code></td></tr><tr><td><strong>AC-F04-05</strong></td><td>Given a running backend with a reachable PostgreSQL database, when <code class="inline-code">GET /api/health</code> and <code class="inline-code">GET /api/ready</code> are called, then both respond <code class="inline-code">200 OK</code>.</td><td><code class="inline-code">NFR-05</code></td></tr><tr><td><strong>AC-F04-06</strong></td><td>Given a database connectivity failure during readiness check, when <code class="inline-code">GET /api/ready</code> is called, then the server responds <code class="inline-code">503 Service Unavailable</code>.</td><td><code class="inline-code">NFR-05</code></td></tr></tbody></table></div>
+
+<hr/>
+
+<hr/>
+
+<h2>Appendix B — Complete Sprint 1 UAT Plan (<code class="inline-code">uat-plan.md</code>)</h2>
+
+<h1>Lab 6 Part A — Sprint 1 UAT Plan & Handoff</h1>
+
+<blockquote><strong>Status:</strong> Updated with verified GCP deployment metadata (<code class="inline-code">e6aad26</code> / <code class="inline-code">sdb3eb069-00002-mct</code>); awaiting partner UAT team assignment (<code class="inline-code">H3</code>) and private credential handoff.</blockquote>
+
+<h2>1. Release & Handoff Metadata</h2>
+
+<div class="table-container"><table><thead><tr><th>Item</th><th>Value</th></tr></thead><tbody><tr><td><strong>Product Team</strong></td><td>ยอดนักบิด (<code class="inline-code">sec131</code>) — Pimchaya Suprateravarnit (<code class="inline-code">@pimchayasupr-hash</code>), Suphattra Kongsiriphat (<code class="inline-code">@supa-gif173</code>)</td></tr><tr><td><strong>UAT Team (Partner)</strong></td><td>พวกพี่ชอบบิด (Team 2) — <code class="inline-code">[รอผู้ใช้กรอก: ชื่อสมาชิกทีมคู่]</code></td></tr><tr><td><strong>Repository</strong></td><td><code class="inline-code">https://github.com/pimchayasupr-hash/cpe334-event-registration</code></td></tr><tr><td><strong>Tested Release Tag / Commit</strong></td><td><code class="inline-code">e6aad269e7b0f459126004e076f4fc432d1abdd0</code> (<code class="inline-code">e6aad26</code>, merged <a href="https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/40" target="_blank" rel="noopener noreferrer">PR #40</a>, <code class="inline-code">Deploy demo</code> run <a href="https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/45018492877" target="_blank" rel="noopener noreferrer"><code class="inline-code">45018492877</code></a>)</td></tr><tr><td><strong>GCP Cloud Run Revision</strong></td><td><code class="inline-code">sdb3eb069-00002-mct</code> (Service <code class="inline-code">sdb3eb069</code>, <code class="inline-code">cpe-se-course-2026</code>, <code class="inline-code">asia-southeast1</code>)</td></tr><tr><td><strong>Public Application URL</strong></td><td><code class="inline-code">https://sdb3eb069-4d7hbszvwq-as.a.run.app</code></td></tr><tr><td><strong>Accepted-for-Test Scope</strong></td><td><strong>Sprint 1 (<code class="inline-code">F-01</code> to <code class="inline-code">F-04</code>) ONLY:</strong> Authentication & Session (<code class="inline-code">F-01</code>), Event Creation/Publish/Capacity (<code class="inline-code">F-02</code>), Registration & Concurrency (<code class="inline-code">F-03</code>), Organizer Roster & Health/Ready (<code class="inline-code">F-04</code>).</td></tr><tr><td><strong>Out of Scope (Deferred)</strong></td><td>Sprint 2 (<code class="inline-code">F-05</code> cancellation, <code class="inline-code">F-06</code> deadline cutoff, <code class="inline-code">F-07</code> edit/filter) and Sprint 3 (<code class="inline-code">F-08</code> check-in, <code class="inline-code">F-09</code> analytics).</td></tr></tbody></table></div>
+
+<h2>2. Test Accounts & Roles (No Secrets in Repo/PDF)</h2>
+
+<p>Credentials are <strong>never</strong> stored in this document or Git; they are delivered privately to the UAT Team via the course-approved private channel.</p>
+
+<div class="table-container"><table><thead><tr><th>Account Label</th><th>Role</th><th>Email / Identifier</th><th>Notes</th></tr></thead><tbody><tr><td><code class="inline-code">ORG-A</code></td><td><code class="inline-code">ORGANIZER</code></td><td><code class="inline-code">organizer@kmutt.ac.th</code></td><td>Seeded by <code class="inline-code">prisma/seed.ts</code>; creates/publishes events & views own roster</td></tr><tr><td><code class="inline-code">PART-1</code></td><td><code class="inline-code">PARTICIPANT</code></td><td><code class="inline-code">participant@kmutt.ac.th</code></td><td>Seeded by <code class="inline-code">prisma/seed.ts</code>; browses & registers for events</td></tr><tr><td><code class="inline-code">ORG-B</code></td><td><code class="inline-code">ORGANIZER</code></td><td><code class="inline-code">[รอผู้ใช้กรอก — optional]</code></td><td>Only if a second organizer is provisioned; otherwise cross-organizer step in <code class="inline-code">UAT-04</code> is marked N/A</td></tr><tr><td><code class="inline-code">PART-2</code></td><td><code class="inline-code">PARTICIPANT</code></td><td><code class="inline-code">[รอผู้ใช้กรอก — optional]</code></td><td>Only if a second participant is provisioned; otherwise full-capacity test in <code class="inline-code">UAT-02</code> uses <code class="inline-code">capacity=1</code> filled by <code class="inline-code">PART-1</code> + capacity floor check by <code class="inline-code">ORG-A</code></td></tr></tbody></table></div>
+
+<h2>3. Setup, Execution Order & Reset Instructions</h2>
+
+<p>1. <strong>Seed Behavior & Secret Stability (Important):</strong> <code class="inline-code">server/prisma/seed.ts</code> uses <code class="inline-code">prisma.user.upsert</code> with <code class="inline-code">update: { passwordHash }</code>, which <strong>overwrites seeded account passwords every time <code class="inline-code">sdb3eb069-migrate</code> runs</strong>. Do <strong>not</strong> rotate Secret Manager secrets (<code class="inline-code">sdb3eb069-admin-password</code>, <code class="inline-code">sdb3eb069-demo-password</code>) while the UAT Team is testing without notifying them beforehand.<br/>2. <strong>Independence & Sequence:</strong> Cases <code class="inline-code">UAT-01</code> through <code class="inline-code">UAT-06</code> are self-contained when using unique synthetic event titles (e.g., append timestamp or tester initials). Recommended order: <code class="inline-code">UAT-06</code> → <code class="inline-code">UAT-01</code> → <code class="inline-code">UAT-02</code> → <code class="inline-code">UAT-03</code> → <code class="inline-code">UAT-04</code> → <code class="inline-code">UAT-05</code>.<br/>3. <strong>Pre-Test Check:</strong> Verify <code class="inline-code">GET https://sdb3eb069-4d7hbszvwq-as.a.run.app/api/health</code> and <code class="inline-code">GET https://sdb3eb069-4d7hbszvwq-as.a.run.app/api/ready</code> return <code class="inline-code">200 OK</code> before starting.<br/>4. <strong>Synthetic Data Only:</strong> Use synthetic event titles/locations (e.g., <code class="inline-code">UAT-Workshop-01</code>) and never enter real personal data or real passwords.<br/>5. <strong>Reset / Cleanup:</strong> Because Sprint 1 does not include <code class="inline-code">F-05</code> (registration cancellation) or event deletion, use fresh synthetic events (<code class="inline-code">capacity</code> sized per case) for each run rather than reusing a full event.</p>
+
+<hr/>
+
+<h2>4. Executable UAT Cases (Sprint 1: F-01 – F-04)</h2>
+
+<h3><code class="inline-code">UAT-01</code> — Normal Domain Journey: Organizer Publishes Event & Participant Registers</h3>
+<li><strong>Category:</strong> Normal Domain Journey</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F02-01</code>, <code class="inline-code">AC-F02-03</code>, <code class="inline-code">AC-F03-01</code>, <code class="inline-code">AC-F03-06</code>, <code class="inline-code">AC-F04-01</code> (<code class="inline-code">FR-02</code>, <code class="inline-code">FR-03</code>, <code class="inline-code">FR-04</code>, <code class="inline-code">FR-05</code>, <code class="inline-code">FR-06</code>)</li>
+<li><strong>Objective:</strong> Verify end-to-end Sprint 1 flow from event creation and publication by an organizer to registration and roster verification.</li>
+<li><strong>Roles:</strong> <code class="inline-code">ORG-A</code> (<code class="inline-code">ORGANIZER</code>), <code class="inline-code">PART-1</code> (<code class="inline-code">PARTICIPANT</code>)</li>
+<li><strong>Preconditions:</strong> Application is reachable; <code class="inline-code">ORG-A</code> and <code class="inline-code">PART-1</code> accounts exist.</li>
+<li><strong>Synthetic Inputs:</strong></li>
+<li>Title: <code class="inline-code">UAT-01 Cloud Seminar &lt;timestamp&gt;</code></li>
+<li>Category: <code class="inline-code">SEMINAR</code>, Location: <code class="inline-code">Room CB4-101</code>, Capacity: <code class="inline-code">5</code></li>
+<li><code class="inline-code">startAt</code>: 7 days in the future; <code class="inline-code">endAt</code>: <code class="inline-code">startAt</code> + 2 hours</li>
+<li><strong>Steps:</strong></li>
+  1. Sign in as <code class="inline-code">ORG-A</code> via the UI login form.
+  2. Open <strong>Organizer Studio</strong> and create a new event with the synthetic inputs above.
+  3. Verify the event appears with status <code class="inline-code">DRAFT</code>, then click <strong>Publish</strong>.
+  4. Sign out (<code class="inline-code">Logout</code>).
+  5. Sign in as <code class="inline-code">PART-1</code> and open <strong>Event Catalog</strong>.
+  6. Locate <code class="inline-code">UAT-01 Cloud Seminar &lt;timestamp&gt;</code> and click <strong>Register</strong>.
+  7. Open <strong>My Registrations</strong>.
+  8. Sign out, sign in as <code class="inline-code">ORG-A</code>, and open <strong>View Registrants</strong> on <code class="inline-code">UAT-01 Cloud Seminar &lt;timestamp&gt;</code>.
+<li><strong>Expected Results:</strong></li>
+<li>Step 2–3: Event is created as <code class="inline-code">DRAFT</code> (<code class="inline-code">201</code>), then transitions to <code class="inline-code">PUBLISHED</code> (<code class="inline-code">200</code>) with <code class="inline-code">remainingSeats = 5</code>.</li>
+<li>Step 6: Registration succeeds (<code class="inline-code">201</code>), <code class="inline-code">remainingSeats</code> decrements to <code class="inline-code">4</code>, and card shows <strong>Registered</strong>.</li>
+<li>Step 7: <code class="inline-code">UAT-01 Cloud Seminar &lt;timestamp&gt;</code> appears in <strong>My Registrations</strong> with status <code class="inline-code">ACTIVE</code>.</li>
+<li>Step 8: Roster lists <code class="inline-code">PART-1</code> (<code class="inline-code">name</code>, <code class="inline-code">email</code>, <code class="inline-code">ACTIVE</code>) and never exposes <code class="inline-code">passwordHash</code>.</li>
+
+<hr/>
+
+<h3><code class="inline-code">UAT-02</code> — Business Rule & Boundary: Full Capacity, Duplicate Registration & Capacity Floor</h3>
+<li><strong>Category:</strong> Business Rule / Boundary</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F03-02</code>, <code class="inline-code">AC-F03-03</code>, <code class="inline-code">AC-F02-06</code> (<code class="inline-code">BR-04</code>, <code class="inline-code">BR-05</code>)</li>
+<li><strong>Objective:</strong> Verify capacity limits and duplicate-registration prevention.</li>
+<li><strong>Roles:</strong> <code class="inline-code">ORG-A</code>, <code class="inline-code">PART-1</code>, <code class="inline-code">PART-2</code></li>
+<li><strong>Preconditions:</strong> <code class="inline-code">UAT-01</code> passed or accounts active.</li>
+<li><strong>Synthetic Inputs:</strong> Event <code class="inline-code">UAT-02 Cap-1 Workshop &lt;timestamp&gt;</code>, Capacity: <code class="inline-code">1</code>, future <code class="inline-code">startAt</code> / <code class="inline-code">endAt</code>.</li>
+<li><strong>Steps:</strong></li>
+  1. As <code class="inline-code">ORG-A</code>, create and publish <code class="inline-code">UAT-02 Cap-1 Workshop &lt;timestamp&gt;</code> with <code class="inline-code">capacity = 1</code>.
+  2. As <code class="inline-code">PART-1</code>, register for <code class="inline-code">UAT-02 Cap-1 Workshop &lt;timestamp&gt;</code>.
+  3. As <code class="inline-code">PART-1</code>, attempt to register for the same event a second time (via UI or <code class="inline-code">POST /api/events/:id/registrations</code>).
+  4. Sign out, sign in as <code class="inline-code">PART-2</code>, and attempt to register for <code class="inline-code">UAT-02 Cap-1 Workshop &lt;timestamp&gt;</code>.
+  5. Sign out, sign in as <code class="inline-code">ORG-A</code>, and attempt to update capacity of <code class="inline-code">UAT-02 Cap-1 Workshop &lt;timestamp&gt;</code> from <code class="inline-code">1</code> to <code class="inline-code">0</code> (or create a capacity-2 event with 2 active registrations and attempt <code class="inline-code">capacity = 1</code>).
+<li><strong>Expected Results:</strong></li>
+<li>Step 2: <code class="inline-code">201 Created</code>, <code class="inline-code">remainingSeats</code> becomes <code class="inline-code">0</code>.</li>
+<li>Step 3: Rejected with <code class="inline-code">409 Conflict</code> (duplicate registration); active count remains <code class="inline-code">1</code>.</li>
+<li>Step 4: Rejected with <code class="inline-code">409 Conflict</code> (event full); active count remains <code class="inline-code">1</code>.</li>
+<li>Step 5: Rejected with <code class="inline-code">409 Conflict</code> / <code class="inline-code">400 Bad Request</code> (<code class="inline-code">capacity</code> cannot be below active registrations or <code class="inline-code">&lt; 1</code>); event capacity remains unchanged.</li>
+
+<hr/>
+
+<h3><code class="inline-code">UAT-03</code> — Business Rule & Boundary: Past-Start Publish Rejection & Draft Visibility</h3>
+<li><strong>Category:</strong> Business Rule / Boundary</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F02-04</code>, <code class="inline-code">AC-F02-05</code>, <code class="inline-code">AC-F03-05</code> (<code class="inline-code">BR-02</code>, <code class="inline-code">BR-03</code>)</li>
+<li><strong>Objective:</strong> Verify that events with a past <code class="inline-code">startAt</code> cannot be published and <code class="inline-code">DRAFT</code> events are hidden from participants.</li>
+<li><strong>Roles:</strong> <code class="inline-code">ORG-A</code>, <code class="inline-code">PART-1</code></li>
+<li><strong>Preconditions:</strong> <code class="inline-code">ORG-A</code> and <code class="inline-code">PART-1</code> logged in sequentially.</li>
+<li><strong>Synthetic Inputs:</strong></li>
+<li>Event A: <code class="inline-code">UAT-03 Past Draft &lt;timestamp&gt;</code>, <code class="inline-code">startAt</code> = yesterday, <code class="inline-code">endAt</code> = yesterday + 2h, <code class="inline-code">capacity = 10</code></li>
+<li>Event B: <code class="inline-code">UAT-03 Future Draft &lt;timestamp&gt;</code>, <code class="inline-code">startAt</code> = +10 days, <code class="inline-code">endAt</code> = +10 days + 2h, <code class="inline-code">capacity = 10</code> (kept in <code class="inline-code">DRAFT</code>)</li>
+<li><strong>Steps:</strong></li>
+  1. As <code class="inline-code">ORG-A</code>, create Event A with past <code class="inline-code">startAt</code> and attempt to click <strong>Publish</strong>.
+  2. As <code class="inline-code">ORG-A</code>, create Event B (future <code class="inline-code">startAt</code>) and leave it in <code class="inline-code">DRAFT</code>.
+  3. Sign out, sign in as <code class="inline-code">PART-1</code>, and inspect <strong>Event Catalog</strong>.
+  4. As <code class="inline-code">PART-1</code>, attempt <code class="inline-code">GET /api/events/&lt;Event-B-ID&gt;</code> and <code class="inline-code">POST /api/events/&lt;Event-B-ID&gt;/registrations</code>.
+<li><strong>Expected Results:</strong></li>
+<li>Step 1: Publish is rejected (<code class="inline-code">400 Bad Request</code>); Event A stays <code class="inline-code">DRAFT</code>.</li>
+<li>Step 3: Neither Event A nor Event B appears in <code class="inline-code">PART-1</code>'s Event Catalog.</li>
+<li>Step 4: Both requests are rejected (<code class="inline-code">404 Not Found</code> / <code class="inline-code">409 Conflict</code>); zero registrations are created.</li>
+
+<hr/>
+
+<h3><code class="inline-code">UAT-04</code> — Forbidden Role, Ownership & Sensitive Data Protection</h3>
+<li><strong>Category:</strong> Forbidden Role / Ownership</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F01-01</code>, <code class="inline-code">AC-F02-07</code>, <code class="inline-code">AC-F02-08</code>, <code class="inline-code">AC-F03-07</code>, <code class="inline-code">AC-F04-03</code>, <code class="inline-code">AC-F04-04</code> (<code class="inline-code">BR-06</code>, <code class="inline-code">BR-07</code>, <code class="inline-code">NFR-01</code>, <code class="inline-code">NFR-02</code>)</li>
+<li><strong>Objective:</strong> Verify role separation, cross-organizer ownership enforcement, and omission of <code class="inline-code">passwordHash</code> from responses.</li>
+<li><strong>Roles:</strong> Unauthenticated client, <code class="inline-code">PART-1</code>, <code class="inline-code">ORG-A</code> (and <code class="inline-code">ORG-B</code> if provisioned)</li>
+<li><strong>Preconditions:</strong> An existing <code class="inline-code">PUBLISHED</code> event owned by <code class="inline-code">ORG-A</code> (e.g., from <code class="inline-code">UAT-01</code>).</li>
+<li><strong>Synthetic Inputs:</strong> None (read/attempt forbidden actions).</li>
+<li><strong>Steps:</strong></li>
+  1. Without logging in, call <code class="inline-code">GET /api/events</code> and <code class="inline-code">GET /api/events/&lt;ORG-A-Event-ID&gt;/registrations</code>.
+  2. Sign in as <code class="inline-code">PART-1</code> and inspect the <code class="inline-code">POST /api/auth/login</code> response / browser network tab.
+  3. As <code class="inline-code">PART-1</code>, confirm <strong>Organizer Studio</strong> actions are not permitted and attempt <code class="inline-code">POST /api/events</code> and <code class="inline-code">GET /api/events/&lt;ORG-A-Event-ID&gt;/registrations</code>.
+  4. Sign in as <code class="inline-code">ORG-A</code> and attempt <code class="inline-code">POST /api/events/&lt;ORG-A-Event-ID&gt;/registrations</code> and <code class="inline-code">GET /api/registrations/me</code>.
+  5. <em>(If <code class="inline-code">ORG-B</code> is provisioned)</em> As <code class="inline-code">ORG-B</code>, attempt <code class="inline-code">GET /api/events/&lt;ORG-A-Event-ID&gt;/registrations</code> and <code class="inline-code">PATCH /api/events/&lt;ORG-A-Event-ID&gt;/capacity</code>.
+<li><strong>Expected Results:</strong></li>
+<li>Step 1: Both return <code class="inline-code">401 Unauthorized</code>; no event or registrant data is returned.</li>
+<li>Step 2: Response contains <code class="inline-code">{ user: { id, email, name, role } }</code> and <strong>never</strong> includes <code class="inline-code">passwordHash</code>.</li>
+<li>Step 3: Both endpoints return <code class="inline-code">403 Forbidden</code>; no event is created and no roster data is disclosed.</li>
+<li>Step 4: Both endpoints return <code class="inline-code">403 Forbidden</code> (organizers cannot register as participants).</li>
+<li>Step 5: Both return <code class="inline-code">403 Forbidden</code>; <code class="inline-code">ORG-A</code>'s event and roster remain unchanged and undisclosed.</li>
+
+<hr/>
+
+<h3><code class="inline-code">UAT-05</code> — State, Session Lifecycle & Persistence Across Restart/Redeploy</h3>
+<li><strong>Category:</strong> State / History / Persistence</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F01-03</code>, <code class="inline-code">AC-F01-05</code>, <code class="inline-code">AC-F03-01</code> (<code class="inline-code">NFR-02</code>, <code class="inline-code">NFR-04</code>, <code class="inline-code">R-04</code>)</li>
+<li><strong>Objective:</strong> Verify session invalidation on logout and database persistence across Cloud Run container restart/redeploy.</li>
+<li><strong>Roles:</strong> <code class="inline-code">PART-1</code> (plus Product Team triggers restart/redeploy between Step 3 and Step 4)</li>
+<li><strong>Preconditions:</strong> <code class="inline-code">UAT-01</code> registration exists for <code class="inline-code">PART-1</code>.</li>
+<li><strong>Synthetic Inputs:</strong> Existing <code class="inline-code">UAT-01</code> registration.</li>
+<li><strong>Steps:</strong></li>
+  1. Sign in as <code class="inline-code">PART-1</code> and verify <code class="inline-code">GET /api/auth/me</code> returns <code class="inline-code">200 OK</code> (page reload keeps session).
+  2. Click <strong>Logout</strong> and verify <code class="inline-code">GET /api/auth/me</code> returns <code class="inline-code">401 Unauthorized</code>.
+  3. Sign back in as <code class="inline-code">PART-1</code>, record the visible registration in <strong>My Registrations</strong> (screenshot).
+  4. Wait for Product Team to restart/redeploy the Cloud Run service revision (announcing beforehand).
+  5. Reload the application URL, sign in as <code class="inline-code">PART-1</code>, and open <strong>My Registrations</strong>.
+<li><strong>Expected Results:</strong></li>
+<li>Step 1–2: Reload preserves active session; logout clears session so <code class="inline-code">/api/auth/me</code> returns <code class="inline-code">401</code>.</li>
+<li>Step 5: <code class="inline-code">UAT-01</code> event and <code class="inline-code">PART-1</code>'s <code class="inline-code">ACTIVE</code> registration remain intact in Cloud SQL after restart/redeploy.</li>
+
+<hr/>
+
+<h3><code class="inline-code">UAT-06</code> — Service Health & Database Readiness Probes</h3>
+<li><strong>Category:</strong> Operational Readiness</li>
+<li><strong>Contract / AC References:</strong> <code class="inline-code">AC-F04-05</code> (<code class="inline-code">NFR-05</code>)</li>
+<li><strong>Objective:</strong> Confirm live service and Cloud SQL connectivity.</li>
+<li><strong>Roles:</strong> Public / Unauthenticated</li>
+<li><strong>Steps:</strong></li>
+  1. Call <code class="inline-code">GET &lt;URL&gt;/api/health</code>.
+  2. Call <code class="inline-code">GET &lt;URL&gt;/api/ready</code>.
+<li><strong>Expected Results:</strong></li>
+<li><code class="inline-code">GET /api/health</code> returns <code class="inline-code">200 OK</code> with <code class="inline-code">{"status":"ok"}</code>.</li>
+<li><code class="inline-code">GET /api/ready</code> returns <code class="inline-code">200 OK</code> with <code class="inline-code">{"status":"ready","database":"connected",...}</code>.</li>
+
+<hr/>
+
+<h2>Appendix C — Baseline Test & Release Evidence</h2>
+
+<h3>Baseline Automated Test & Release Evidence (<code class="inline-code">e6aad26</code> / Run <code class="inline-code">45018492877</code>)</h3>
+<li><strong>Workflow & Commit:</strong> <code class="inline-code">.github/workflows/deploy.yml</code> (<code class="inline-code">Deploy demo</code>, run <a href="https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/45018492877" target="_blank" rel="noopener noreferrer"><code class="inline-code">45018492877</code></a>, commit <code class="inline-code">e6aad269e7b0f459126004e076f4fc432d1abdd0</code>, merged <a href="https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/40" target="_blank" rel="noopener noreferrer">PR #40</a>)</li>
+<li><strong>Server Suite (<code class="inline-code">cd server &amp;&amp; npm test</code>, <code class="inline-code">2026-11-22T11:41:07Z</code>, Duration <code class="inline-code">3.38s</code>):</strong> 5 files, <strong>33 passed</strong>, 0 failed, 0 skipped:</li>
+<li><code class="inline-code">tests/events.test.ts</code>: 6 tests (657ms)</li>
+<li><code class="inline-code">tests/registrations.test.ts</code>: 6 tests (666ms)</li>
+<li><code class="inline-code">tests/auth.test.ts</code>: 7 tests (1058ms)</li>
+<li><code class="inline-code">tests/roster-and-health.test.ts</code>: 5 tests (483ms)</li>
+<li><code class="inline-code">tests/seed-config.test.ts</code>: 9 tests (3ms)</li>
+<li><strong>Client Suite (<code class="inline-code">cd client &amp;&amp; npm test</code>, <code class="inline-code">2026-11-22T11:41:12Z</code>, Duration <code class="inline-code">330ms</code>):</strong> 2 files, <strong>5 passed</strong>, 0 failed, 0 skipped:</li>
+<li><code class="inline-code">src/demoLogin.test.ts</code>: 3 tests (3ms)</li>
+<li><code class="inline-code">src/App.test.tsx</code>: 2 tests (4ms)</li>
+<li><strong>Cloud Run Deployment (<code class="inline-code">2026-11-22T12:15:52Z</code>):</strong> Service <code class="inline-code">sdb3eb069</code>, Revision <code class="inline-code">sdb3eb069-00002-mct</code> (100% traffic), Public URL <code class="inline-code">https://sdb3eb069-4d7hbszvwq-as.a.run.app</code>, smoke test passed (<code class="inline-code">/api/health</code>, <code class="inline-code">/api/ready</code>, <code class="inline-code">/</code>, <code class="inline-code">/api/events</code>).</li>
+</body>
+</html>
