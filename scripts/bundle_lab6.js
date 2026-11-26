@@ -160,11 +160,11 @@ const fullHtml = `<!DOCTYPE html>
     pre.code-block { background: #0f172a; color: #f8fafc; padding: 10px 12px; border-radius: 6px; font-size: 8pt; overflow-x: auto; white-space: pre-wrap; }
     blockquote { border-left: 3px solid #94a3b8; margin: 8px 0; padding: 4px 12px; color: #475569; background: #f8fafc; }
     .table-container { margin: 10px 0 16px 0; }
-    table { width: 100%; border-collapse: collapse; font-size: 8pt; }
-    th, td { border: 1px solid #cbd5e1; padding: 5px 7px; text-align: left; vertical-align: top; overflow-wrap: break-word; }
-    th { background: #f1f5f9; font-weight: 600; white-space: nowrap; }
+    table { width: 100%; border-collapse: collapse; font-size: 7.5pt; table-layout: fixed; }
+    th, td { border: 1px solid #cbd5e1; padding: 4px 6px; text-align: left; vertical-align: top; overflow-wrap: break-word; word-break: break-word; }
+    th { background: #f1f5f9; font-weight: 600; white-space: normal; }
     tr { page-break-inside: avoid; }
-    table .inline-code { white-space: nowrap; }
+    table .inline-code { white-space: normal; }
     .figure-container { margin: 12px 0; text-align: center; page-break-inside: avoid; }
     .figure-container img { max-width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; }
     .caption { font-size: 8pt; color: #475569; margin-top: 4px; font-style: italic; text-align: left; }

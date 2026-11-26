@@ -18,14 +18,14 @@
 
 ### Contents Table (Parts A–D & Appendices)
 
-| Section | Title | Evidence IDs | Status |
-| :--- | :--- | :--- | :--- |
-| **Part A** | UAT Preparation & Safe Handoff (`F-01`–`F-04`, 6 cases) | `UAT-01` – `UAT-06` | Ready (`uat-plan.md` embedded in Appendix B) |
-| **Part B** | Independent Execution (Testing Partner's Inventory Borrowing App) | `EXEC-01` – `EXEC-06` | `[รอผู้ใช้กรอกจากผลทดสอบจริง]` |
-| **Part C** | Defect Reporting (Outgoing) & Findings Triage (Incoming) | `DEF-OUT-*`, `DEF-IN-*` | `[รอผู้ใช้กรอกจากผลทดสอบจริง]` |
-| **Part D** | Defect Resolution (RED/GREEN), Independent Retest & Acceptance | `FIX-*`, `RETEST-*` | `[รอผลหลัง Part C / ทีมคู่]` |
-| **End** | Version Table, Contributions, AI-Use & Known Limitations | — | Up to date with `e6aad26` |
-| **Appendices** | Appendix A (Sprint 1 Contract ACs), B (Full UAT Plan), C (Baseline Tests & Reviews) | `APP-A`, `APP-B`, `APP-C` | Embedded in this PDF |
+| Section | Title | Page | Evidence IDs | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Part A** | UAT Preparation & Safe Handoff (`F-01`–`F-04`, 6 cases) | p. 1 | `UAT-01` – `UAT-06` | Ready (`uat-plan.md` in Appendix B) |
+| **Part B** | Independent Execution (Testing Partner's Inventory Borrowing App) | p. 2 | `EXEC-01` – `EXEC-06` | `[รอผู้ใช้กรอกจากผลทดสอบจริง]` |
+| **Part C** | Defect Reporting (Outgoing) & Findings Triage (Incoming) | p. 2 | `DEF-OUT-*`, `DEF-IN-*` | `[รอผู้ใช้กรอกจากผลทดสอบจริง]` |
+| **Part D** | Defect Resolution (RED/GREEN), Independent Retest & Acceptance | p. 2–3 | `FIX-*`, `RETEST-*` | `[รอผลหลัง Part C / ทีมคู่]` |
+| **End** | Version Table, Contributions, AI-Use & Known Limitations | p. 3 | — | Up to date with `e6aad26` |
+| **Appendices** | Appendix A (Sprint 1 Contract ACs), B (Full UAT Plan), C (Baseline Tests & Reviews) | p. 3–7 | `APP-A`, `APP-B`, `APP-C` | Embedded in this PDF |
 
 ---
 
