@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build:lab6": "node scripts/bundle_lab6.js"
+  },
   "devDependencies": {
     "docx": "^9.15.3",
     "puppeteer-core": "^25.17.0"
