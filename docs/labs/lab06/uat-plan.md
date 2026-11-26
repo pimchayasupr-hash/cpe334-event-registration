@@ -7,7 +7,7 @@
 | Item | Value |
 | :--- | :--- |
 | **Product Team** | ยอดนักบิด (`sec131`) — Pimchaya Suprateravarnit (`@pimchayasupr-hash`), Suphattra Kongsiriphat (`@supa-gif173`) |
-| **UAT Team (Partner)** | `[รอผู้ใช้กรอก — H3]` |
+| **UAT Team (Partner)** | พวกพี่ชอบบิด (Team 2) — `[รอผู้ใช้กรอก: ชื่อสมาชิกทีมคู่]` |
 | **Repository** | `https://github.com/pimchayasupr-hash/cpe334-event-registration` |
 | **Tested Release Tag / Commit** | `e6aad269e7b0f459126004e076f4fc432d1abdd0` (`e6aad26`, merged [PR #40](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/40), `Deploy demo` run [`45018492877`](https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/45018492877)) |
 | **GCP Cloud Run Revision** | `sdb3eb069-00002-mct` (Service `sdb3eb069`, `cpe-se-course-2026`, `asia-southeast1`) |

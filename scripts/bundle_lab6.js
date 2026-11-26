@@ -93,9 +93,31 @@ function mdToHtml(md) {
   return html;
 }
 
+function extractAcSection(relPath, heading) {
+  const text = readDoc(relPath).replace(/\r\n/g, '\n');
+  const m = text.match(/## 3\. Acceptance Criteria[\s\S]*?(?=\n## 4\.)/);
+  if (!m) return `### ${heading}\n*(Contract section not found)*`;
+  return `### ${heading}\n\n${m[0].trim()}`;
+}
+
 const reportMd = readDoc('docs/labs/lab06/report.md');
 const uatPlanMd = readDoc('docs/labs/lab06/uat-plan.md');
-const combinedMd = `${reportMd}\n\n---\n\n## Appendix A — Complete Sprint 1 UAT Plan\n\n${uatPlanMd}`;
+const appendixA = [
+  extractAcSection('docs/sprints/sprint-1/f-01-auth-session.md', 'F-01: Authentication & Session Contract (`f-01-auth-session.md`)'),
+  extractAcSection('docs/sprints/sprint-1/f-02-event-management.md', 'F-02: Event Management Contract (`f-02-event-management.md`)'),
+  extractAcSection('docs/sprints/sprint-1/f-03-registration-concurrency.md', 'F-03: Registration & Concurrency Contract (`f-03-registration-concurrency.md`)'),
+  extractAcSection('docs/sprints/sprint-1/f-04-organizer-roster.md', 'F-04: Organizer Roster & Readiness Contract (`f-04-organizer-roster.md`)'),
+].join('\n\n');
+
+const appendixC = `### Baseline Automated Test & Release Evidence (\`e6aad26\` / Run \`45018492877\`)
+
+- **Workflow:** \`.github/workflows/deploy.yml\` (\`Deploy demo\`, run [\`45018492877\`](https://github.com/pimchayasupr-hash/cpe334-event-registration/actions/runs/45018492877), commit \`e6aad269e7b0f459126004e076f4fc432d1abdd0\`, merged [PR #40](https://github.com/pimchayasupr-hash/cpe334-event-registration/pull/40))
+- **Backend Tests (\`cd server && npm test\`):** 5 files, **33 passed**, 0 failed, 0 skipped (\`events.test.ts\` 6, \`registrations.test.ts\` 6, \`auth.test.ts\` 7, \`roster-and-health.test.ts\` 5, \`seed-config.test.ts\` 9)
+- **Frontend Tests (\`cd client && npm test\`):** 2 files, **5 passed**, 0 failed, 0 skipped (\`App.test.tsx\` 2, \`demoLogin.test.ts\` 3)
+- **Cloud Run Deployment:** Service \`sdb3eb069\`, Revision \`sdb3eb069-00002-mct\` (100% traffic), Public URL \`https://sdb3eb069-4d7hbszvwq-as.a.run.app\`, smoke test passed (\`/api/health\`, \`/api/ready\`, \`/\`, \`/api/events\`).
+- **PR Review Evidence (Lab 6 Defect/Fix PRs):** \`[รอข้อความรีวิวจริงจาก Part D หากมีการแก้ defect]\``;
+
+const combinedMd = `${reportMd}\n\n---\n\n## Appendix A — Sprint 1 Contract Acceptance Criteria (Verbatim Excerpts)\n\n${appendixA}\n\n---\n\n## Appendix B — Complete Sprint 1 UAT Plan (\`uat-plan.md\`)\n\n${uatPlanMd}\n\n---\n\n## Appendix C — Baseline Test & Release Evidence\n\n${appendixC}`;
 const reportHtml = mdToHtml(combinedMd);
 
 const fullHtml = `<!DOCTYPE html>
@@ -161,3 +183,4 @@ const fullHtml = `<!DOCTYPE html>
 const outputPath = path.join(repoRoot, 'docs/labs/lab06/lab6_full_submission.html');
 fs.writeFileSync(outputPath, fullHtml, 'utf8');
 console.log('Successfully generated Lab 6 HTML report:', outputPath);
+
